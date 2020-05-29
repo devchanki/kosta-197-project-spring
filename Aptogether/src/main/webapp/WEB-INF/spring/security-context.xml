@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	<bean id="customUserDetailService" class="org.aptogether.security.CustomUserDetailsService" />
 	<security:http>
 
 		<security:intercept-url pattern="/error/*" access="permitAll" />
@@ -19,8 +18,8 @@
 	</security:http>
 	
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="customUserDetailService">
+<!-- 		<security:authentication-provider user-service-ref="customUserDetailService">
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
-		</security:authentication-provider>
+		</security:authentication-provider> -->
 	</security:authentication-manager>
 </beans>
