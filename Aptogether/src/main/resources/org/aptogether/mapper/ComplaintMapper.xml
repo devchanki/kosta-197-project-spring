@@ -4,14 +4,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.aptogether.mapper.ComplaintMapper">
 
-<select id = "compList" resultType="org.aptogether.domain.ComplaintVO">
-<![CDATA[
+ <select id = "getCompList" resultType="org.aptogether.domain.ComplaintVO">
+ <![CDATA[
 select * from comp_board where seq > 0
 ]]>
 </select>
+<select id = "getListWithPaging" resultType = "org.aptogether.domain.ComplaintVO">
+	<![CDATA[
+	select
+	title, email, tel, content, fname, compdate, seq 
+	from 
+	(
+	select /*+INDEX_DESC(comp_board pk_board) */
+		rownum rn, title, email, tel, content, fname, compdate, seq
+		from
+		comp_board
+		whewre rownum <= #{pageNum} * #{amount}
+		)
+		where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
 
-<insert id = "insert">
+<!-- <insert id = "insert">
 		insert into COMP_BOARD values ( #{title},#{email}, #{tel}, #{content},
 		#{fname, jdbcType=VARCHAR}, sysdate, compboard_seq.nextval)
-	</insert>
+	</insert> -->
+	
+	<select id="read" resultType="org.aptogether.domain.ComplaintVO">
+		select * from comp_board where seq = #{seq}
+	</select>
+	<delete id = "delete">
+		delete from comp_board where seq = #{seq}
+	</delete>
+	<update id ="update">
+		update comp_board
+		set title= #{title},
+		content=#{content},
+		compdate=sysdate
+		where seq=#{seq}
+	</update>
+	
 </mapper>
