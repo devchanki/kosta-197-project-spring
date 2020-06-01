@@ -4,14 +4,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.aptogether.mapper.ComplaintMapper">
 
-<select id = "compList" resultType="org.aptogether.domain.ComplaintVO">
-<![CDATA[
-select * from comp_board where seq > 0
+<!--  <select id = "getCompList" resultType="org.aptogether.domain.ComplaintVO">
+ <![CDATA[
+select * from comp_board where compbno > 0
 ]]>
-</select>
+</select> -->
 
-<insert id = "insert">
-		insert into COMP_BOARD values ( #{title},#{email}, #{tel}, #{content},
-		#{fname, jdbcType=VARCHAR}, sysdate, compboard_seq.nextval)
-	</insert>
+<!--  <select id = "getListWithPaging" resultType = "org.aptogether.domain.ComplaintVO">
+	<![CDATA[
+	select
+	comptitle, compemail, comptel, compcontent, compdate, compbno
+	from 
+	(
+	select /*+INDEX_DESC(comp_board pk_board) */
+		rownum rn, comptitle, compemail, comptel, compcontent, compdate, compbno
+		from
+		comp_board
+		whewre rownum <= #{pageNum} * #{amount}
+		)
+		where rn > (#{pageNum} -1) * #{amount}
+	]]> 
+</select>-->
+
+<!--  <insert id = "insert">
+		insert into COMP_BOARD values (#{comptitle},#{compemail}, #{comptel}, #{compcontent},
+		 sysdate, compboard_seq.nextval)
+	</insert>   -->
+	
+	 <select id="read" resultType="org.aptogether.domain.ComplaintVO">
+		select * from comp_board where compbno = #{compbno}
+	</select> 
+	
+	<!-- <delete id = "delete">
+		delete from comp_board where compbno = #{compbno}
+	</delete>
+	<update id ="update">
+		update comp_board
+		set comptitle= #{comptitle},
+		compcontent=#{compcontent},
+		compcompdate=sysdate
+		where compbno=#{compbno}
+	</update>
+	<select id = "getComplaintTotal" resultType="int">
+		select count(*) from comp_board where compbno > 0
+	</select> -->
 </mapper>

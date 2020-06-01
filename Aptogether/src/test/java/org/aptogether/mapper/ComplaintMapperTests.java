@@ -19,9 +19,9 @@ private ComplaintMapper mapper;
 
 @Test
 public void testGetList(){
-	mapper.compList().forEach(board -> log.info(board));
+	mapper.getCompList().forEach(vo -> log.info(vo));
 }
-@Test 
+/*@Test 
 public void testInsert(){
 	ComplaintVO board = new ComplaintVO();
 	board.setTitle("테스팅 제목");
@@ -30,5 +30,5 @@ public void testInsert(){
 	mapper.insert(board);
 	
 	log.info(board);
-}
+}*/
 }
