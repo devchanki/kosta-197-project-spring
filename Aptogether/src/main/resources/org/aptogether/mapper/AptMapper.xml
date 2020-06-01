@@ -12,7 +12,7 @@
 	</insert>
 	
 	<select id="aptCount" parameterType="org.aptogether.domain.AptVO" resultType="int">
-		select nvl(0,count(*)) from apt_info where kaptCode = #{kaptCode} 
+		select nvl(count(*), 0) from apt_info where kapt_Code = #{kaptCode} 
 	</select>
 	
 <!-- 	<select id="showApt" parameterType="String" resultType="AptInfo">

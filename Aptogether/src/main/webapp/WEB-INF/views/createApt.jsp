@@ -106,18 +106,21 @@
 			$.ajax({
 				url : "/apt/aptInsert",
 				type : "POST",
-				dataType : "application/json",
+				dataType : "json",
 				contentType: "application/json",
 				data : tmpJson,
 				success : function(data) {
 					console.log(data);
-					if (data == "success") {
+					if (data.status == "true") {
 						alert("입력에 성공하셨습니다.");
-					} else {
+					} else if(data.status = "exist"){
+						alert("이미 등록 된 아파트입니다.");
+					} else{
 						alert("잠시후 다시 시도해주세요.");
 					}
 				},
 				error : function(request, status, error) {
+					console.log(request, status, error);
 					alert("요청에 실패하였습니다. 조금 있다 다시 요청해주세요.")
 				}
 			})

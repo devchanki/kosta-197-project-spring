@@ -3,7 +3,6 @@ package org.aptogether.controller;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -24,16 +23,14 @@ import org.aptogether.domain.AptVO;
 import org.aptogether.mapper.AptMapper;
 import org.aptogether.security.ApiKeys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.URLEditor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -214,17 +211,20 @@ public class AptRestController {
 		}
 	}
 
-	@PostMapping("/aptInsert")
+	@PostMapping(value = "/aptInsert", produces= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String insertApt(@RequestBody AptVO apt) {
 		int result = aptMapper.aptCount(apt);
+		Gson gson = new Gson();
+		JsonObject resultJson = new JsonObject();
 		System.out.println(result);
 		if (result == 0) {
 			aptMapper.insertApt(apt);
-			return "{\"status\" : \"true\"}";
+			resultJson.addProperty("status", "true");
 		} else if (result == 1) {
-			return "{\"status\" : \"exist\"}";
+			resultJson.addProperty("status", "exist");
 		} else {
-			return "{\"status\" : \"error\"}";
+			resultJson.addProperty("status", "error");
 		}
+		return gson.toJson(resultJson);
 	}
 }

@@ -14,6 +14,7 @@ import lombok.extern.log4j.Log4j;
 public class ErrorController {
 	@GetMapping("/401")
 	public String hasNoAuth(Authentication auth, Model model) {
-		return "/401";
+		return "401";
 	}
+	
 }
