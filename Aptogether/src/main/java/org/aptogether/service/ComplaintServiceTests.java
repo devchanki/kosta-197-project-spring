@@ -4,7 +4,10 @@ package org.aptogether.service;
 
 
 import org.aptogether.domain.ComplaintVO;
-import org.aptogether.domain.Criteria;
+
+import static org.junit.Assert.assertNotNull;
+
+import org.aptogether.domain.ComplaintCriteria;
 import org.aptogether.service.ComplaintService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,32 +25,42 @@ public class ComplaintServiceTests {
 
 	@Setter(onMethod_={@Autowired})
 	private ComplaintService service;
+
 	
+	@Test
+	public void testRegister(){
+		ComplaintVO vo = new ComplaintVO();
+		vo.setComptitle("제발 되줘");
+		vo.setCompcontent("응?");
+		service.registerComp(vo);
+		log.info("생성된 게시글 번호:" + vo.getCompbno());
+	}
 	/*@Test
 	public void testGetList() {
-		service.getCompList().forEach(Complaint -> log.info(Complaint));
-	}
+		service.getCompList().forEach(vo -> log.info(vo));
+	}*/
+	
 	@Test
 	public void testGetdetail() {
-		log.info(service.getComp(1L));
-	}*/
+		log.info(service.getComp(81L));
+	}
 	
-	/*@Test
+	@Test
 	public void testDelete(){
-		log.info("remove result:" + service.remove(67L));
+		log.info("remove result:" + service.removeComp(44L));
 	
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testUpdate(){
 		ComplaintVO vo = service.getComp(62L);
 		
 		if (vo == null) {
 			return;
 		}
-		vo.setTitle("수정된 제목");
+		vo.setComptitle("수정된 제목");
 		log.info("Modify result:" + service.modifyComp(vo));
-	}*/
+	}
 	
 	
 }

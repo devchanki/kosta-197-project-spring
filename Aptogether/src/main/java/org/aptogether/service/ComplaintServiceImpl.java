@@ -3,7 +3,7 @@ package org.aptogether.service;
 import java.util.List;
 
 import org.aptogether.domain.ComplaintVO;
-import org.aptogether.domain.Criteria;
+import org.aptogether.domain.ComplaintCriteria;
 import org.aptogether.mapper.ComplaintMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,9 +27,9 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
 	@Override
-	public ComplaintVO getComp(Long seq) {
+	public ComplaintVO getComp(Long compbno) {
 		log.info("get detailcomp.......");
-		return mapper.read(seq);
+		return mapper.read(compbno);
 	}
 
 	@Override
@@ -38,23 +38,25 @@ public class ComplaintServiceImpl implements ComplaintService{
 		return mapper.update(vo) ==1;
 	}
 
-	/*@Override
-	public List<ComplaintVO>getCompList() {
-		log.info("get List...........");
-		return mapper.getCompList();
-	}*/
-
 	@Override
-	public boolean remove(Long seq) {
-		log.info("remove...." + seq);
-		return mapper.delete(seq) == 1;
+	public boolean removeComp(Long compbno) {
+		log.info("remove...." + compbno);
+		return mapper.delete(compbno) == 1;
 	}
 
 	@Override
-	public List<ComplaintVO> getCompList(Criteria cri) {
+	public List<ComplaintVO> getCompList(ComplaintCriteria cri) {
 		log.info("get List with criteira: " + cri);
 		return mapper.getCompListWithPaging(cri);
 	}
+
+	@Override
+	public int getTotalComp(ComplaintCriteria cri) {
+		log.info("get total Complaint count");
+		return mapper.getComplaintTotal(cri);
+	}
+
+	
 	
 	
 

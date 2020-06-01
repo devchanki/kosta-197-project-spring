@@ -4,12 +4,11 @@ import lombok.Data;
 
 @Data
 public class ComplaintVO {
-	String title;
-	String email;
-	String tel;
-	String content;
-	String fname;
+	String comptitle;
+	String compemail;
+	String comptel;
+	String compcontent;
 	String compdate;
-	int seq;	
+	int compbno;	
 	
 }

@@ -4,7 +4,7 @@ package org.aptogether.mapper;
 import java.util.List;
 
 import org.aptogether.domain.ComplaintVO;
-import org.aptogether.domain.Criteria;
+import org.aptogether.domain.ComplaintCriteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testPaging() {
-		Criteria cri = new Criteria();
+		ComplaintCriteria cri = new ComplaintCriteria();
 		cri.setPageNum(3);
 		cri.setAmount(10);
 		List<ComplaintVO> complist = mapper.getCompListWithPaging(cri);
-		complist.forEach(vo -> log.info(vo.getSeq()));
+		complist.forEach(vo -> log.info(vo.getCompbno()));
 	}
 
 }

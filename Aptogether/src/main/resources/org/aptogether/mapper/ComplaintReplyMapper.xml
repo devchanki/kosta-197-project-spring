@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.aptogether.mapper.ComplaintReplyMapper">
+
+	<insert id="insert">
+		insert into comp_reply(comprno, compbno, compreply, compreplyer)
+		values (compreply_seq.nextval, #{compbno}, #{compreply}, #{compreplyer})
+	</insert>
+	<delete id="delete">
+		delete from comp_reply where comprno = #{comprno}
+	</delete>
+	<select id ="read" resultType="org.aptogether.domain.ComplaintReplyVO">
+		select * from comp_reply where comprno = #{comprno}
+	</select>
+	
+
+</mapper>
