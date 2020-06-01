@@ -33,6 +33,6 @@
 	</bean>			
 	
 	<mybatis-spring:scan base-package="org.aptogether.mapper"/>
-	
+
 	<context:component-scan base-package="org.aptogether.service"/>	
 </beans>
