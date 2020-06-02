@@ -24,40 +24,53 @@ public class ComplaintController {
 
 	private ComplaintService service;
 
-	@GetMapping("/list")
-	public void compList(ComplaintCriteria cri, Model model) {
+
+	/*@GetMapping("/list")
+	public void getcompList(ComplaintCriteria cri, Model model) {
 		log.info("list: " + cri);
-		model.addAttribute("list", service.getCompList(cri));
+		model.addAttribute("list", service.getComplaintList(cri));
 		// model.addAttribute("pageMaker", new ComplaintPageDTO(cri, 123));
 		int total = service.getTotalComp(cri);
 		log.info("total: " + total);
 		model.addAttribute("pageMaker", new ComplaintPageDTO(cri, total));
-	}
+	}*/
 
-	@PostMapping("/register")
+	@PostMapping("/write")
 	public String register(ComplaintVO vo, RedirectAttributes rttr) {
 		log.info("register:" + vo);
-		service.registerComp(vo);
-		rttr.addFlashAttribute("result", vo.getCompbno());
-		return "redirect:/tenant/complist";
+		service.registerComplaint(vo);
+		//rttr.addFlashAttribute("result", vo.getCompbno());
+		return "redirect:/complaint_board";
 	}
 
 	@GetMapping("/get")
 	public void get(@RequestParam("compbno") Long compbno, Model model) {
 		log.info("/compget");
-		model.addAttribute("vo", service.getComp(compbno));
+		model.addAttribute("vo", service.getComplaint(compbno));
 	}
 
-	@PostMapping("/remove")
-	public String remove(@RequestParam("compbno") Long compbno, @ModelAttribute("cri") ComplaintCriteria cri,
+	@GetMapping("/select")
+	public String complaintMainPage(){
+		log.info("select");
+		return "complaint_select";
+	}
+
+	@GetMapping("/getlist")
+	public String complaintList(Model model) {
+		log.info("list");
+		model.addAttribute("list", service.getComplaintList());
+		return "complaint_board";
+	}
+
+	@GetMapping("/remove")
+	public String remove(@RequestParam("compbno") Long compbno,
 			RedirectAttributes rttr) {
 		log.info("remove...." + compbno);
-		if (service.removeComp(compbno)) {
+		System.out.println("여기까지 들어옴");
+		if (service.removeComplaint(compbno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getPageNum());
-		return "redirect:/tenant/complist";
+	
+		return "redirect:/tenant/complaint/getlist";
 	}
-
 }

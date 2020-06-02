@@ -6,11 +6,11 @@ import org.aptogether.domain.ComplaintVO;
 import org.aptogether.domain.ComplaintCriteria;
 
 public interface ComplaintService {
-	public void registerComp(ComplaintVO vo);
-	public ComplaintVO getComp(Long seq);
-	public boolean modifyComp(ComplaintVO vo);
-	public boolean removeComp(Long seq);
-	//public List<ComplaintVO>getCompList();
-	public List<ComplaintVO> getCompList(ComplaintCriteria cri);
+	public void registerComplaint(ComplaintVO vo);
+	public ComplaintVO getComplaint(Long seq);
+	public boolean modifyComplaint(ComplaintVO vo);
+	public boolean removeComplaint(Long seq);
+	public List<ComplaintVO>getComplaintList();
+	//public List<ComplaintVO> getComplaintList(ComplaintCriteria cri);
 	public int getTotalComp(ComplaintCriteria cri);
 }

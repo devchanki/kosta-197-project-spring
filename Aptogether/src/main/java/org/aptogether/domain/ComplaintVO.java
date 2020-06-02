@@ -9,6 +9,6 @@ public class ComplaintVO {
 	String comptel;
 	String compcontent;
 	String compdate;
-	int compbno;	
+	long compbno;	
 	
 }

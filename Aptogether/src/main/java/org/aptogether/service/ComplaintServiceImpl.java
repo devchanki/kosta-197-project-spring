@@ -20,34 +20,34 @@ public class ComplaintServiceImpl implements ComplaintService{
 	private ComplaintMapper mapper;
 
 	@Override
-	public void registerComp(ComplaintVO vo) {
+	public void registerComplaint(ComplaintVO vo) {
 		log.info("register......" + vo);
 		mapper.insert(vo);
 		
 	}
 
 	@Override
-	public ComplaintVO getComp(Long compbno) {
+	public ComplaintVO getComplaint(Long compbno) {
 		log.info("get detailcomp.......");
 		return mapper.read(compbno);
 	}
 
 	@Override
-	public boolean modifyComp(ComplaintVO vo) {
+	public boolean modifyComplaint(ComplaintVO vo) {
 		log.info("modify......" + vo);
 		return mapper.update(vo) ==1;
 	}
 
 	@Override
-	public boolean removeComp(Long compbno) {
-		log.info("remove...." + compbno);
+	public boolean removeComplaint(Long compbno) {
+		log.info("remove......." + compbno);
 		return mapper.delete(compbno) == 1;
 	}
 
 	@Override
-	public List<ComplaintVO> getCompList(ComplaintCriteria cri) {
-		log.info("get List with criteira: " + cri);
-		return mapper.getCompListWithPaging(cri);
+	public List<ComplaintVO> getComplaintList() {
+		log.info("get List");
+		return mapper.getComplaintList();
 	}
 
 	@Override

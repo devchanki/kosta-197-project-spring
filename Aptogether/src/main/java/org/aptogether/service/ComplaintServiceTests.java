@@ -32,7 +32,7 @@ public class ComplaintServiceTests {
 		ComplaintVO vo = new ComplaintVO();
 		vo.setComptitle("제발 되줘");
 		vo.setCompcontent("응?");
-		service.registerComp(vo);
+		service.registerComplaint(vo);
 		log.info("생성된 게시글 번호:" + vo.getCompbno());
 	}
 	/*@Test
@@ -42,24 +42,24 @@ public class ComplaintServiceTests {
 	
 	@Test
 	public void testGetdetail() {
-		log.info(service.getComp(81L));
+		log.info(service.getComplaint(81L));
 	}
 	
 	@Test
 	public void testDelete(){
-		log.info("remove result:" + service.removeComp(44L));
+		log.info("remove result:" + service.removeComplaint(44L));
 	
 	}
 	
 	@Test
 	public void testUpdate(){
-		ComplaintVO vo = service.getComp(62L);
+		ComplaintVO vo = service.getComplaint(62L);
 		
 		if (vo == null) {
 			return;
 		}
 		vo.setComptitle("수정된 제목");
-		log.info("Modify result:" + service.modifyComp(vo));
+		log.info("Modify result:" + service.modifyComplaint(vo));
 	}
 	
 	

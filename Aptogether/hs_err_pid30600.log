@@ -1,0 +1,167 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes for AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (memory/allocation.inline.hpp:61), pid=30600, tid=0x000000000000519c
+#
+# JRE version:  (8.0_241-b07) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.241-b07 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002713800):  JavaThread "Unknown thread" [_thread_in_vm, id=20892, stack(0x0000000002610000,0x0000000002710000)]
+
+Stack: [0x0000000002610000,0x0000000002710000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0000000002713800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=20892, stack(0x0000000002610000,0x0000000002710000)]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000006c0c00000, size: 4084 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 76288K, used 1310K [0x000000076af00000, 0x0000000770400000, 0x00000007c0000000)
+  eden space 65536K, 2% used [0x000000076af00000,0x000000076b047af0,0x000000076ef00000)
+  from space 10752K, 0% used [0x000000076f980000,0x000000076f980000,0x0000000770400000)
+  to   space 10752K, 0% used [0x000000076ef00000,0x000000076ef00000,0x000000076f980000)
+ ParOldGen       total 175104K, used 0K [0x00000006c0c00000, 0x00000006cb700000, 0x000000076af00000)
+  object space 175104K, 0% used [0x00000006c0c00000,0x00000006c0c00000,0x00000006cb700000)
+ Metaspace       used 752K, capacity 4480K, committed 4480K, reserved 1056768K
+  class space    used 76K, capacity 384K, committed 384K, reserved 1048576K
+
+Card table byte_map: [0x0000000011bd0000,0x00000000123d0000] byte_map_base: 0x000000000e5ca000
+
+Marking Bits: (ParMarkBitMap*) 0x000000005bd6be30
+ Begin Bits: [0x0000000013330000, 0x0000000017300000)
+ End Bits:   [0x0000000017300000, 0x000000001b2d0000)
+
+Polling page: 0x0000000000790000
+
+CodeCache: size=245760Kb used=327Kb max_used=327Kb free=245432Kb
+ bounds [0x0000000002810000, 0x0000000002a80000, 0x0000000011810000]
+ total_blobs=57 nmethods=0 adapters=38
+ compilation: enabled
+
+Compilation events (0 events):
+No events
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.037 loading class java/lang/Short
+Event: 0.038 loading class java/lang/Short done
+Event: 0.038 loading class java/lang/Integer
+Event: 0.038 loading class java/lang/Integer done
+Event: 0.038 loading class java/lang/Long
+Event: 0.038 loading class java/lang/Long done
+Event: 0.038 loading class java/lang/NullPointerException
+Event: 0.038 loading class java/lang/NullPointerException done
+Event: 0.038 loading class java/lang/ArithmeticException
+Event: 0.038 loading class java/lang/ArithmeticException done
+
+
+Dynamic libraries:
+0x00007ff710250000 - 0x00007ff710287000 	C:\Program Files\Java\jre1.8.0_241\bin\javaw.exe
+0x00007ff8fc620000 - 0x00007ff8fc810000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff8d04d0000 - 0x00007ff8d04e3000 	C:\Program Files\AVAST Software\Avast\aswhook.dll
+0x00007ff8fa7a0000 - 0x00007ff8fa852000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff8f9880000 - 0x00007ff8f9b24000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff8fadb0000 - 0x00007ff8fae53000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff8fa700000 - 0x00007ff8fa79e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff8fa9c0000 - 0x00007ff8faa57000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff8fb5c0000 - 0x00007ff8fb6e0000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff8fbfd0000 - 0x00007ff8fc164000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff8f9b30000 - 0x00007ff8f9b51000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff8fa6d0000 - 0x00007ff8fa6f6000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff8f9d30000 - 0x00007ff8f9ec4000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff8f9780000 - 0x00007ff8f981e000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff8f9660000 - 0x00007ff8f975a000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff8ec450000 - 0x00007ff8ec6d4000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.836_none_e6c4b943130f18ed\COMCTL32.dll
+0x00007ff8fbaf0000 - 0x00007ff8fbe26000 	C:\WINDOWS\System32\combase.dll
+0x00007ff8fa650000 - 0x00007ff8fa6d0000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ff8fb920000 - 0x00007ff8fb94e000 	C:\WINDOWS\System32\IMM32.DLL
+0x000000005a9f0000 - 0x000000005aac2000 	C:\Program Files\Java\jre1.8.0_241\bin\msvcr100.dll
+0x000000005b540000 - 0x000000005bdec000 	C:\Program Files\Java\jre1.8.0_241\bin\server\jvm.dll
+0x00007ff8fb960000 - 0x00007ff8fb968000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ff8eb1a0000 - 0x00007ff8eb1a9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ff8fb830000 - 0x00007ff8fb89f000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff8f6c80000 - 0x00007ff8f6ca4000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff8f8000000 - 0x00007ff8f800a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff8f6c50000 - 0x00007ff8f6c7d000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ff8f9ce0000 - 0x00007ff8f9d2a000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00007ff8ed8a0000 - 0x00007ff8ed8af000 	C:\Program Files\Java\jre1.8.0_241\bin\verify.dll
+0x00007ff8d3a30000 - 0x00007ff8d3a59000 	C:\Program Files\Java\jre1.8.0_241\bin\java.dll
+0x00007ff8dca10000 - 0x00007ff8dca26000 	C:\Program Files\Java\jre1.8.0_241\bin\zip.dll
+
+VM Arguments:
+jvm_args: -ea -Dfile.encoding=MS949 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 12516 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -classNames org.aptogether.mapper.ComplaintMapperTests
+java_class_path (initial): H:\Projects\spring_work\kosta-197-project-spring\Aptogether\target\test-classes;H:\Projects\spring_work\kosta-197-project-spring\Aptogether\target\classes;H:\lib\ojdbc6.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-context\5.0.7.RELEASE\spring-context-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-aop\5.0.7.RELEASE\spring-aop-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-beans\5.0.7.RELEASE\spring-beans-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-core\5.0.7.RELEASE\spring-core-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-jcl\5.0.7.RELEASE\spring-jcl-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-expression\5.0.7.RELEASE\spring-expression-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-webmvc\5.0.7.RELEASE\spring-webmvc-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-web\5.0.7.RELEASE\spring-web-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\net\coobird\thumbnailator\0.4.8\thumbnailator-0.4.8.jar;C:\Users\lemur\.m2\repository\com\zaxxer\HikariCP\2.7.4\HikariCP-2.7.4.jar;C:\Users\lemur\.m2\repository\org\mybatis\mybatis\3.4.6\mybatis-3.4.6.jar;C:\Users\lemur\.m2\repository\org\mybatis\mybatis-spring\1.3.2\mybatis-spring-1.3.2.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-tx\5.0.7.RELEASE\spring-tx-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\springframework\spring-jdbc\5.0.7.RELEASE\spring-jdbc-5.0.7.RELEASE.jar;C:\Users\lemur\.m2\repository\org\bgee\log4jdbc-log4j2\log4jdbc-log4j2-jdbc4\1.16\log4jdbc-log4j2-jdbc4-1.16.jar;C:\Users\lemur\.m2\repository\org\aspectj\aspectjrt\1.6.10\aspectjrt-1.6.10.jar;C:\Users\lemur\.m2\repository\org\slf4j\slf4j-api\1.6.6\slf4j-api-1.6.6.jar;C:\Users\lemur\.m2\repository\org\slf4j\jcl-over-slf4j\1.6.6\jcl-over-slf4j-1.6.6.jar;C:\Users\lemur\.m2\repository\org\slf4j\slf4j-
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_241
+CLASSPATH=%JAVA_HOME%\lib.;
+PATH=C:/Program Files/Java/jre1.8.0_241/bin/server;C:/Program Files/Java/jre1.8.0_241/bin;C:/Program Files/Java/jre1.8.0_241/lib/amd64;H:\app\lemur\product\11.2.0\dbhome_1\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;H:\app\JSK\product\11.2.0\dbhome_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Graphviz2.38\bin;H:\Bracket\command;H:\nodejs\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\SourceGear\Common\DiffMerge\;C:\Users\lemur\AppData\Local\Microsoft\WindowsApps;C:\Users\lemur\AppData\Roaming\npm;H:\JetBrains\IntelliJ IDEA Community Edition 2019.2.3\bin;H:\JetBrains\IntelliJ IDEA 2019.2.3\bin;C:\Users\lemur\AppData\Local\atom\bin;C:\Users\lemur\AppData\Local\GitHubDesktop\bin;H:\spring-toolsuit\sts-bundle\sts-3.8.2.RELEASE;
+USERNAME=lemur
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 8 Stepping 2, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 18362 (10.0.18362.778)
+
+CPU:total 12 (initial active 12) (12 cores per cpu, 1 threads per core) family 23 model 8 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, mmxext, 3dnowpref, lzcnt, sse4a, tsc, tscinvbit, tscinv, bmi1
+
+Memory: 4k page, physical 16726524k(5416744k free), swap 16726524k(5284k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.241-b07) for windows-amd64 JRE (1.8.0_241-b07), built on Dec 11 2019 10:21:40 by "rejava" with MS VC++ 10.0 (VS2010)
+
+time: Sat May 30 17:13:35 2020
+timezone: 대한민국 표준시
+elapsed time: 0 seconds (0d 0h 0m 0s)
+
