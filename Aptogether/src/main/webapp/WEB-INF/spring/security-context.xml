@@ -9,6 +9,7 @@
 	<security:http>
 
 		<security:intercept-url pattern="/error/*" access="permitAll" />
+		<security:intercept-url pattern="/apt/*" access="permitAll"/>
 		<security:intercept-url pattern="/keeper/*" access="hasRole('ROLE_KEEPER')"/> 
 		<security:intercept-url pattern="/tenant/*" access="hasRole('ROLE_TENANT')"/> 
 		

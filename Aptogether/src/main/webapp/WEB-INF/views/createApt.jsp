@@ -12,9 +12,6 @@
 <title>Aptogether</title>
 <link href="/resources/css/styles.css" rel="stylesheet" />
 <link href="/resources/css/createApt.css" rel="stylesheet" />
-<link
-	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
-	rel="stylesheet" crossorigin="anonymous" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
 	crossorigin="anonymous"></script>
@@ -98,25 +95,32 @@
 		let y = "";
 		let aptLocation = "";
 		function doAction() {
+			var tmpJson = {
+				"kaptCode" : kaptCode,
+				"aptName" : aptName,
+				"location" : aptLocation,
+				"x" : x,
+				"y" : y
+			};
+			tmpJson = JSON.stringify(tmpJson);
 			$.ajax({
-				url : "/Aptogether/apt/insertAptInfo",
-				type : "GET",
-				dataType : "text",
-				data : {
-					"kaptCode" : kaptCode,
-					"aptName" : aptName,
-					"location" : aptLocation,
-					"x" : x,
-					"y" : y
-				},
+				url : "/apt/aptInsert",
+				type : "POST",
+				dataType : "json",
+				contentType: "application/json",
+				data : tmpJson,
 				success : function(data) {
-					if (data == "success") {
+					console.log(data);
+					if (data.status == "true") {
 						alert("입력에 성공하셨습니다.");
-					} else {
+					} else if(data.status = "exist"){
+						alert("이미 등록 된 아파트입니다.");
+					} else{
 						alert("잠시후 다시 시도해주세요.");
 					}
 				},
 				error : function(request, status, error) {
+					console.log(request, status, error);
 					alert("요청에 실패하였습니다. 조금 있다 다시 요청해주세요.")
 				}
 			})
@@ -129,28 +133,22 @@
 			aptLocation = "";
 			$('.modal').toggle();
 			$.ajax({
-				url : "/Aptogether/apt/aptDetail",
+				url : "/apt/aptdetail/" + aptCode,
 				type : "GET",
 				dataType : "text",
-				data : {
-					"kaptCode" : aptCode
-				},
 				success : function(data) {
 					console.log(data);
 					let json = JSON.parse(data);
 					kaptCode = aptCode;
-					aptName = json.aptDetailInfo[0].kaptName;
-					aptLocation = json.aptDetailInfo[0].kaptAddr;
+					aptName = json.aptDetailInfo.aptName;
+					aptLocation = json.aptDetailInfo.doroJuso;
 
-					$('.apt-name').html(json.aptDetailInfo[0].kaptName);
-					$('.apt-address').html(json.aptDetailInfo[0].kaptAddr);
+					$('.apt-name').html(json.aptDetailInfo.aptName);
+					$('.apt-address').html(json.aptDetailInfo.doroJuso);
 					$.ajax({
-						url : '/Aptogether/apt/getLocation',
+						url : '/apt/location/' + aptLocation,
 						type : "GET",
 						dataType : "text",
-						data : {
-							"location" : json.aptDetailInfo[0].doroJuso
-						},
 						success : function(data) {
 							console.log(data);
 							let locationJson = JSON.parse(data);
@@ -182,15 +180,6 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 		crossorigin="anonymous"></script>
-	<script src="assets/demo/chart-area-demo.js"></script>
-	<script src="assets/demo/chart-bar-demo.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-		crossorigin="anonymous"></script>
-	<script src="assets/demo/datatables-demo.js"></script>
 	<script
 		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
@@ -219,30 +208,27 @@
 									data.bname2);
 							bjdCode = data.bcode;
 							console.log(bjdCode);
-							$
-									.ajax({
-										url : "/Aptogether/apt/aptList",
+							$.ajax({
+										url : "/apt/showAptList/" + bjdCode,
 										type : "GET",
-										dataType : "text",
-										data : {
-											"bjdCode" : bjdCode
-										},
 										success : function(bjd) {
 											console.log(bjd);
-											let json = JSON.parse(bjd);
+											let json = bjd;
+											console.log(json);
+											
 											$('.apt-list').html("");
 											for ( var prop in json.aptInfo) {
 												console.log(json.aptInfo[prop]);
 												$('.apt-list')
 														.append(
 																'<div class="apt-list-detail">'
-																		+ json.aptInfo[prop].kaptName
+																		+ json.aptInfo[prop].aptName
 																		+ '('
-																		+ json.aptInfo[prop].kaptCode
+																		+ json.aptInfo[prop].kaptcode
 																		+ ')'
 																		+ '<input type="button" id="button1" onclick="apt_select_click('
 																		+ "'"
-																		+ json.aptInfo[prop].kaptCode
+																		+ json.aptInfo[prop].kaptcode
 																		+ "'"
 																		+ ')" value="선택" />'
 																		+ '<div>')
@@ -252,6 +238,7 @@
 
 										error : function(request, status, error) {
 											console.log(error);
+											alert("에러가 발생했습니다. 다시한번 시도해주세요.");
 											console.log(status);
 											console.log("error");
 										}

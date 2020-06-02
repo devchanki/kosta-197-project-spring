@@ -13,14 +13,14 @@
 <meta name="author" content="">
 <title></title>
 <!-- Custom fonts for this template-->
-<link href="/Aptogether/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+<link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="/Aptogether/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -58,7 +58,7 @@
 											<label for="member_seq" class="col-sm-2 col-form-label">입주민번호</label>
 											<div class="col-sm-10">
 												<input type="text" readonly class="form-control-plaintext"
-													id="member_seq">
+													id="member_seq" value="${memberSeq}">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -173,29 +173,29 @@
 
 
 	<!-- Bootstrap core JavaScript-->
-	<script src="/Aptogether/vendor/jquery/jquery.min.js"></script>
-	<script src="/Aptogether/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script src="/Aptogether/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
-	<script src="/Aptogether/js/sb-admin-2.min.js"></script>
+	<script src="/resources/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
-	<script src="/Aptogether/vendor/chart.js/Chart.min.js"></script>
+	<script src="/resources/vendor/chart.js/Chart.min.js"></script>
 
 	<!-- Page level custom scripts -->
     <script type="text/javascript">
-	   var member_seq_init = <%= request.getParameter("member_seq") %>;
+<%-- 	   var member_seq_init = <%= request.getParameter("member_seq") %>;
 	   	$(function() {
 	   		$('#member_seq').val( <%= request.getParameter("member_seq") %>);
-	   	});
+	   	}); --%>
    </script>
-	<script src="/Aptogether/dist/js/manageFeeReg.js"></script>   
-	<script src="/Aptogether/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="/Aptogether/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="/Aptogether/js/demo/datatables-demo.js"></script>
+	<script src="/resources/js/feeRegister.js"></script>   
+	<script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="/resources/js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 </body>

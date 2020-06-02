@@ -348,31 +348,30 @@
 	</a>
 	
 	<!-- 입주민번호 찾기 모달폼1 -->
-	<div class="modal" id="findMQ-modal" tabindex="-1" role="dialog">
+	<div class="modal" id="feeModal1" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">[AparTogether] 입주민번호 등록</h5>
+					<h5 class="modal-title">[Aptogether] 입주민번호 등록</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="">
 				<div class="modal-body">
 					<div class="form-group row">
 						<label for="dong" class="col-sm-2 col-form-label">동</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="dong" name="dong" placeholder="101">
+							<input type="text" class="form-control" id="dong" name="dong">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="ho" class="col-sm-2 col-form-label">호</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="ho" name="ho" placeholder="1101">
+							<input type="text" class="form-control" id="ho" name="ho">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" id="find_MQ" class="btn btn-primary">찾기</button>
+						<button type="button" id="findMember" class="btn btn-primary">찾기</button>
 						<button type="button" id="cancle_MQ" class="btn btn-secondary" data-dismiss="modal">취소</button>
 					</div>
 				</div>
@@ -382,16 +381,16 @@
 	</div>
 	
 	<!-- 입주민번호 찾기 모달폼2 -->
-	<div class="modal" id="findMQ-modal2" tabindex="-1" role="dialog">
+	<div class="modal" id="FeeModal2" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">[AparTogether] 입주민번호 등록</h5>
+					<h5 class="modal-title">[Aptogether] 입주민번호 등록</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="" method="post">
+				 <!-- <form action="/feeRegister/{memberSeq}" method="get">  -->
 			     <div class="modal-body">
 			          <div class="form-group">
 			            <label for="MQinfo" class="col-form-label">입력하신 정보가 맞습니까?</label>
@@ -399,10 +398,10 @@
 			          </div>
 			      </div>
 					<div class="modal-footer">
-						<button type="button" id="find_MQ2" class="btn btn-primary"><a id="moveMFR"  style="color: #f8f9fc; text-decoration: none;">이동</a></button>
+						<button type="submit" id="findMember2" class="btn btn-primary">이동</button>
 						<button type="button" id="cancle_MQ2" class="btn btn-secondary" data-dismiss="modal">취소</button>
 					</div>
-				</form>
+				 <!-- </form> --> 
 				</div>
 			</div>
 		</div>
@@ -440,11 +439,59 @@
 	<script src="/resources/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level custom scripts -->
-	<script src="/resources/js/findMemberSeq.js"></script>
+	<script src="/resources/js/findMember.js"></script>
 	<script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script src="/resources/js/demo/datatables-demo.js"></script>
 	<script type="text/javascript">
+	$(function() {
+		
+		//모달창 뜨기
+		$("#checkMQ").click(function() {
+			$("#feeModal1").modal('show');
+			return false;
+		});
+		
+		var feeModal1 = $("#feeModal1");
+		var feeModalInputDong = feeModal1.find("input[name='dong']");
+		var feeModalInputHo = feeModal1.find("input[name='ho']");
+		var feeModal2 = $('#FeeModal2');
+		
+		$("#findMember").on("click", function(e) {
+			
+			var member = {
+					aptSeq : 6,
+					dong : feeModalInputDong.val(),
+					ho : feeModalInputHo.val()
+			};
+			
+			FeeServcie.findMember(member, function(result) {
+					/* 	response = JSON.parse(result); */
+					console.log(result);
+					feeModal2.modal('show');
+					$("#MQinfo").val("입주민번호 " + result.memberSeq + "　"+result.dong +"동  "+ result.ho+"호");
+					
+					$("#findMember2").on("click", function() {
+						self.location = "/keeper1/feeRegister/"+ result.memberSeq;
+					
+					});
+			feeModal1.find("input").val("");
+			feeModal1.modal("hide");
+		});
+		
+		
+		});
+		
+		
+		
+	});
+
+	
+
+	
+	
+	
+	
 		function admitUser(num) {
 			console.log(num);
 			$.ajax({
