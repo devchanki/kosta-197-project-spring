@@ -110,7 +110,7 @@ public class AptRestController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "{\"status\": \"false\" ";
+		return "{\"status\": \"false\" }";
 
 	}
 
@@ -211,7 +211,7 @@ public class AptRestController {
 		}
 	}
 
-	@PostMapping(value = "/aptInsert", produces= MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/aptInsert", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String insertApt(@RequestBody AptVO apt) {
 		int result = aptMapper.aptCount(apt);
 		Gson gson = new Gson();

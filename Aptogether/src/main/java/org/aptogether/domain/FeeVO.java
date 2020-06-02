@@ -16,4 +16,10 @@ public class FeeVO {
 	private int waterFee;
 	private int heatingFee;
 	private String payDate;
+	
+	
+	public int getTotalValue() {
+		return generalFee + securityFee + cleaningFee + fumigationFee
+					+ liftMaintenanceFee + electricityFee + waterFee + heatingFee;
+	}
 }
