@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -53,7 +54,7 @@
 									<h6 class="m-0 font-weight-bold text-primary">관리비 청구내역</h6>
 								</div>
 								<div class="card-body">
-									<form>
+									 <form action="" commandName="feeVO" method="post">
 										<div class="form-group row">
 											<label for="member_seq" class="col-sm-2 col-form-label">입주민번호</label>
 											<div class="col-sm-10">
@@ -117,7 +118,7 @@
 												<input type="text" class="form-control" id="heating_fee">
 											</div>
 										</div>
-									</form>
+									 </form> 
 									<button class="btn btn-primary" id="manage_fee_register">관리비 등록</button>
 									<hr>
 									<div>
@@ -186,17 +187,86 @@
 	<script src="/resources/vendor/chart.js/Chart.min.js"></script>
 
 	<!-- Page level custom scripts -->
-    <script type="text/javascript">
-<%-- 	   var member_seq_init = <%= request.getParameter("member_seq") %>;
-	   	$(function() {
-	   		$('#member_seq').val( <%= request.getParameter("member_seq") %>);
-	   	}); --%>
-   </script>
-	<script src="/resources/js/feeRegister.js"></script>   
+
+	<script src="/resources/js/fee.js"></script>   
 	<script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script src="/resources/js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script>
+	
+	var member_seq = $('#member_seq');
+	var general_fee = $('#general_fee');
+	var security_fee = $('#security_fee');
+	var cleaning_fee = $('#cleaning_fee');
+	var fumigation_fee = $('#fumigation_fee');
+	var lift_maintenance_fee = $('#lift_maintenance_fee');
+	var electricity_fee = $('#electricity_fee');
+	var water_fee = $('#water_fee');
+	var heating_fee = $('#heating_fee');
+	var pay_date = $('#pay_date');
+
+	$(function() {
+		//숫자 세자리 수 마다 콤마 붙는 정규표현식 함수
+		function AmountCommas(val){
+		    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		}
+		
+		createTable();
+		function createTable() {
+			$.ajax({
+				url : "/keeper1/listFee/"+ member_seq.val(),
+				type : "get",
+				dataType : "json",
+				success : function(result) {
+					console.log(result);
+					 $('.fee-table').html('<tr><td></td><td>일반관리비</td><td>경비비</td><td>청소비</td><td>소독비</td><td>승강기유지비</td><td>전기세</td><td>수도세</td><td>난방비</td><td>합계</td></tr>');
+					for (var i = 0; i < result.length; i++) {
+						$('.fee-table').append(
+										'<tr>'
+											+'<td>'+ moment(result[i].payDate).format('YYYY년 MM월 관리비')+'<br>'+'<small>'+moment(result[i].payDate).format('납부기한 : YYYY년 MM월 DD일 까지') + '</small>'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].generalFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].securityFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].cleaningFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].fumigationFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].liftMaintenanceFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].electricityFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].waterFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].heatingFee) + '원'+ '</td>'
+											+'<td>'+ AmountCommas(result[i].generalFee + result[i].securityFee + result[i].cleaningFee + 
+																					   result[i].fumigationFee + result[i].liftMaintenanceFee + result[i].electricityFee+
+																					   result[i].waterFee + result[i].heatingFee) + '원'
+										    + '</td>'
+									+ '</tr>');
+									}
+								}
+							});
+					}
+		
+		
+		$("#manage_fee_register").on("click", function(e) {
+			
+			var fee = {
+					memberSeq : member_seq.val(),
+					generalFee : general_fee.val(),
+					securityFee : security_fee.val(),
+					cleaningFee : cleaning_fee.val(),
+					fumigationFee : fumigation_fee.val(),
+					liftMaintenanceFee : lift_maintenance_fee.val(),
+					electricityFee : electricity_fee.val(),
+					waterFee : water_fee.val(),
+					heatingFee : heating_fee.val(),
+					payDate : pay_date.val()
+			};
+			
+			feeServcie.insertFee(fee, function(result) {
+				console.log(result);
+			});
+		});
+		
+	});
+	
+	</script>
 
 </body>
 

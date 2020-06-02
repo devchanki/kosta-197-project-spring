@@ -439,7 +439,7 @@
 	<script src="/resources/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level custom scripts -->
-	<script src="/resources/js/findMember.js"></script>
+	<script src="/resources/js/fee.js"></script>
 	<script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script src="/resources/js/demo/datatables-demo.js"></script>
@@ -465,7 +465,7 @@
 					ho : feeModalInputHo.val()
 			};
 			
-			FeeServcie.findMember(member, function(result) {
+			feeServcie.findMember(member, function(result) {
 					/* 	response = JSON.parse(result); */
 					console.log(result);
 					feeModal2.modal('show');

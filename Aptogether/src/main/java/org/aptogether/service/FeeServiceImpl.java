@@ -28,11 +28,11 @@ public class FeeServiceImpl implements FeeService {
 	}
 
 	@Override
-	public void insertFee(FeeVO fee) {
+	public int insertFee(FeeVO fee) {
 		
 		log.info("insertFee....." + fee);
 		
-		mapper.insertFee(fee);
+		return mapper.insertFee(fee);
 	}
 
 	@Override

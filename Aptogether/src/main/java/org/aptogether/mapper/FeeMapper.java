@@ -10,7 +10,7 @@ public interface FeeMapper {
 	
 	public UserVO findMember(UserVO user);
 	
-	public void insertFee(FeeVO fee);
+	public int insertFee(FeeVO fee);
 	
 	public List<FeeVO> listFee(UserVO user);
 	
