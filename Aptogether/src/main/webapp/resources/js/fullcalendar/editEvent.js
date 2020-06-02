@@ -95,10 +95,10 @@ var editEvent = function (event, element, view) {
  				"title": editTitle.val(),
  				"dong" : editDong.val(),
  				"contents":  editDesc.val(),
- 				"start_Date": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
- 				"end_Date": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
+ 				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
+ 				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
  				"backgroundColor": editColor.val(),
- 				"apt_Seq": editAptSeq.val()
+ 				"aptSeq": editAptSeq.val()
  			},
             success: function (response) {
                 alert('수정되었습니다.');
@@ -123,7 +123,7 @@ $('#deleteEvent').on('click', function () {
         url: "/Aptogether/schedule/deleteSchedule",
         data: {
         		"id": editId.val(),
-        		"apt_Seq": editAptSeq.val()
+        		"aptSeq": editAptSeq.val()
         },
         success: function (response) {
             alert('삭제되었습니다.');

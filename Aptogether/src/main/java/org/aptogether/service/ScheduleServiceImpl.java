@@ -36,8 +36,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public int insertSchedule(ScheduleVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.info("register......." + vo);
+		return mapper.insertSchedule(vo);
 	}
 
 	@Override

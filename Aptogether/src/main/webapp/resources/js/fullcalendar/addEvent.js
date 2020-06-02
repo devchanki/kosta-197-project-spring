@@ -43,6 +43,7 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').on('click', function () {
     	console.log(editStart.val());
     	console.log( editEnd.val());
+    	console.log(editDong.val());
         var eventData = {
                 title : editTitle.val(),
             	contents : editDesc.val(),
@@ -52,7 +53,6 @@ var newEvent = function (start, end, eventType) {
             	aptSeq : editAptSeq.val(),
             	type: editType.val(),
                 backgroundColor: editColor.val(),
-            	allDay: false
         };
         
         
@@ -80,17 +80,17 @@ var newEvent = function (start, end, eventType) {
             eventData.allDay = true;
         }
 		 $.ajax({
- 			url: "/Aptogether/schedule/insertSchedule",
- 			type: "get",
- 			dataType: "text",
+ 			url: "/schedule/insertSchedule",
+ 			type: "post",
+ 			contentType: "application/json; charset=utf-8",
  			data: {
  				"title": editTitle.val(),
  				"dong" : editDong.val(),
  				"contents":  editDesc.val(),
- 				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
- 				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
- 				"aptSeq": editAptSeq.val(),
- 				"backgroundColor": editColor.val()
+ 				"start_Date": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
+ 				"end_Date": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
+ 				"apt_Seq":1,
+ 				"background_Color": editColor.val()
  			},
  			  
  			success: function(data){      

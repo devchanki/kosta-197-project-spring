@@ -164,15 +164,6 @@ var calendar = $('#calendar').fullCalendar({
       success: function (response) {
     	  console.log("start.....");
     	  console.log(response);
-//        var fixedDate = response.map(function (array) {
-//        	console.log(array);
-//        	console.log(array.end);
-//          if (array.allDay && array.start !== array.end) {
-//     	  console.log(array.end)
-//            array.end = moment(array.end).format('YYYY-MM-DD HH:mm');
-//          }
-//          return array;
-//        })
         callback(response);
       }
     });
@@ -195,7 +186,7 @@ var calendar = $('#calendar').fullCalendar({
     //리사이즈한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "/Aptogether/schedule/updateSchedule",
+      url: "/schedule/updateSchedule",
       data: {
         id: event._id,
         title: event.title,
@@ -203,8 +194,8 @@ var calendar = $('#calendar').fullCalendar({
 		contents:  event.contents,
 		startDate: moment(event.start._d).format('YYYY-MM-DD HH:mm'),
 		endDate: moment(event.end._d).format('YYYY-MM-DD HH:mm'),
-		aptSeq: event.apt_seq,
-		backgroundColor: event.background_Color
+		aptSeq: event.aptseq,
+		backgroundColor: event.backgroundColor
       },
       
       success: function (response) {
@@ -236,11 +227,11 @@ var calendar = $('#calendar').fullCalendar({
 
     //드롭한 일정 업데이트
     $.ajax({
-    	url: "/Aptogether/schedule/updateSchedule",
+    	url: "/schedule/updateSchedule",
 			type: "get",
 			dataType: "text",
 			data: {
-				  id: event._id,
+					id: event._id,
 			        title: event.title,
 			        dong: event.dong,
 					contents:  event.contents,
@@ -338,10 +329,7 @@ var calendar = $('#calendar').fullCalendar({
   
   eventLimitClick: 'week', //popover
   navLinks: true,
-/*<<<<<<< HEAD*/
-  defaultDate: moment('2020-05'), //실제 사용시 삭제
-/*=======
->>>>>>> refs/remotes/origin/chanki*/
+  defaultDate: moment('2020-06'), //실제 사용시 삭제
   timeFormat: 'HH:mm',
   defaultTimedEventDuration: '01:00:00',
   editable: true,

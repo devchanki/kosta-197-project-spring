@@ -60,7 +60,6 @@
 <!-- <script> 
  	var sessionDong = ${member.dong};
  </script> -->
-<c:forEach items="${list }" var="schedule"></c:forEach>
 
 </head>
 
@@ -612,10 +611,11 @@
 	<script
 		src="/Aptogether/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script src="/Aptogether/js/demo/datatables-demo.js"></script> -->
+		<script src="/resources/js/moment.min.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 
 	<script src="/resources/js/scripts.js"></script>
-	<script src="/resources/js/fullcalendar/bootstrap/js/moment.min.js"></script>
+
 	<script src="/resources/js/fullcalendar/bootstrap/js/fullcalendar.min.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/ko.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/select2.min.js"></script>
@@ -625,6 +625,7 @@
 	<script src="/resources/js/fullcalendar/etcSetting.js"></script>
 	<script>
 	$(document).ready(function() {
+		
 	    $(window).resize(function() {
 	        $('#calendar').fullCalendar('option', 'height', get_calendar_height());
 	    });
@@ -635,6 +636,9 @@
 	            //options
 	            height: get_calendar_height
 	    });
+	    
+
+
 	});
 	</script>
 	<link
