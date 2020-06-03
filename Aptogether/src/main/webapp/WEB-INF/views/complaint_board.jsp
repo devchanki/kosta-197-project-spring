@@ -16,15 +16,15 @@
 <title>안녕하세요. 아파투게더입니다.</title>
 
 <!-- Custom fonts for this template-->
-<link href="/resources/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="/resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -54,11 +54,10 @@
 									</div>
 
 									<div id="buttonArea">
-										 <button class="button">
-											<a href="/tenant/complaint/remove?compbno=${ aaa.compbno }">문의 취소</a>
-										</button> 
-										
-										
+										<button class="button">
+											<a href="/tenant/complaint/remove?compbno=${ aaa.compbno }">문의
+												취소</a>
+										</button>
 									</div>
 								</div>
 							</c:forEach>
@@ -66,39 +65,46 @@
 					</div>
 
 
-					<div id="pageArea" style="text-align: center;">
-						<c:if test="${listModel.startPage>5}">
-							<a href="Compboard.do?pageNum=${listModel.startPage-1}">[이전]</a>
-						</c:if>
 
-						<c:forEach var="pageNo" begin="${listModel.startPage }"
-							end="${listModel.endPage }">
-							<c:choose>
-								<c:when test="${listModel.requestPage== pageNo}">
-									<a href="Compboard.do?pageNum=${pageNo}">[<b>${pageNo}</b>]
-									</a>
-								</c:when>
-								<c:otherwise>
-									<a href="Compboard.do?pageNum=${pageNo}">[${pageNo}]</a>
-								</c:otherwise>
-							</c:choose>
 
-						</c:forEach>
+					<div class='pull-right'>
+						<ul class="pagination">
 
-						<c:if test="${listModel.endPage<listModel.totalPageCount }">
-							<a href="Compboard.do?pageNum=${listModel.endPage+1}">[이후]</a>
-						</c:if>
+							<c:if test="${pageMaker.prev}">
+								<li class="paginate_button previous"><a
+									href="${pageMaker.startPage -1}">Previous</a></li>
+							</c:if>
 
-						<button type="button" id="compwrite">
-							<a href="/Aptogether/apto/compWrite.do">민원작성</a>
-						</button>
+							<c:forEach var="num" begin="${pageMaker.startPage}"
+								end="${pageMaker.endPage}">
+								<li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} ">
+								<a href="${num }">${num}</a>
+								</li>
+							</c:forEach>
+
+							<c:if test="${pageMaker.next}">
+								<li class="paginate_button next"><a
+									href="${pageMaker.endPage + 1 }">Next</a></li>
+							</c:if>
+						</ul>
 					</div>
 				</div>
+
+				
+
+
+
+
+				<button type="button" id="compwrite">
+					<a href="/Aptogether/apto/compWrite.do">민원작성</a>
+				</button>
 			</div>
 		</div>
-		<!-- End of Main Content -->
+	</div>
+	</div>
+	<!-- End of Main Content -->
 
-		<!-- End of Footer -->
+	<!-- End of Footer -->
 
 	</div>
 	<!-- End of Content Wrapper -->
@@ -148,7 +154,64 @@
 			$("#accordion").accordion();
 		});
 	</script>
+	
+	<form id='actionForm' action="/tenant/complaint/getlist"
+					method='get'>
+					<input type='hidden' name='pageNum'
+						value='${pageMaker.cri.pageNum }'> <input type='hidden'
+						name='amount' value='${pageMaker.cri.amount }'>
+				</form>
+				
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							var result = '<c:out value="${result}"/>';
 
+							checkModal(result);
+
+							history.replaceState({}, null, null);
+
+							function checkModal(result) {
+
+								if (result === '' || history.state) {
+									return;
+								}
+
+								if (parseInt(result) > 0) {
+									$(".modal-body").html(
+											"게시글 " + parseInt(result)
+													+ " 번이 등록되었습니다.");
+								}
+
+								$("#myModal").modal("show");
+							}
+							$("#regBtn").on("click", function() {
+								self.location = "/tenant/complaint/write";
+							});
+							var ationForm = $("#actionForm");
+
+							$(".paginate_button a").on(
+									"click",
+									function(e) {
+										e.preventDefault();
+
+										console.log('click');
+
+										actionForm
+												.find("input[name='pageNum']")
+												.val($(this).attr("href"));
+									});
+						});
+	</script>
+	<script>
+		$(".paginate_button a").on("click", function(e) {
+			e.preventDefault();
+			console.log('click');
+
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
 	</script>
 </body>
 

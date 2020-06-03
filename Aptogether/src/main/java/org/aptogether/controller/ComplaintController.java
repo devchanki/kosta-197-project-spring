@@ -1,9 +1,13 @@
 package org.aptogether.controller;
 
 import org.aptogether.domain.ComplaintVO;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.aptogether.domain.ComplaintCriteria;
 import org.aptogether.domain.ComplaintPageDTO;
 import org.aptogether.service.ComplaintService;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -36,11 +41,17 @@ public class ComplaintController {
 	}*/
 
 	@PostMapping("/write")
-	public String register(ComplaintVO vo, RedirectAttributes rttr) {
+	public String register(ComplaintVO vo, RedirectAttributes rttr, HttpServletRequest request) {
+		String test = request.getParameter("comptitle");
+		String comptel = request.getParameter("comptel");
+		System.out.println(test);
+		System.out.println(comptel);
 		log.info("register:" + vo);
+		System.out.println(vo);
 		service.registerComplaint(vo);
-		//rttr.addFlashAttribute("result", vo.getCompbno());
-		return "redirect:/complaint_board";
+		rttr.addFlashAttribute("result", vo.getCompbno());
+		System.out.println("¿©±â±îÁö µÊ");
+		return "redirect:/tenant/complaint/getlist";
 	}
 
 	@GetMapping("/get")
@@ -55,10 +66,11 @@ public class ComplaintController {
 		return "complaint_select";
 	}
 
-	@GetMapping("/getlist")
-	public String complaintList(Model model) {
-		log.info("list");
-		model.addAttribute("list", service.getComplaintList());
+	@GetMapping("/getlist")	
+	public String complaintList(ComplaintCriteria cri, Model model) {
+		log.info("list: " + cri);
+		model.addAttribute("list", service.getComplaintList(cri));
+		model.addAttribute("pageMaker", new ComplaintPageDTO(cri, 123));
 		return "complaint_board";
 	}
 

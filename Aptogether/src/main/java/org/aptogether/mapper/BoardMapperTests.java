@@ -1,4 +1,4 @@
-package org.aptogether.mapper;
+/*package org.aptogether.mapper;
 
 
 import java.util.List;
@@ -34,3 +34,4 @@ public class BoardMapperTests {
 	}
 
 }
+*/

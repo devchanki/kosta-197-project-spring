@@ -16,8 +16,7 @@
 <title>안녕하세요. 아파투게더입니다.</title>
 
 <!-- Custom fonts for this template-->
-<link href="/resources/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="/resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
@@ -48,43 +47,44 @@
 						<div class="row">
 							<div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12">
 								<form class="card w-100 card-block bg-faded"
-									action="/Aptogether/apto/insertAction.do" method="post"
-									class="form-horizontal" enctype="multipart/form-data">
+									action="/tenant/complaint/write" method="post"
+									class="form-horizontal">
+									
+					
+									
+									
 									<legend class="m-b-1 text-center text-info">
 										<strong> Contact us </strong>
 									</legend>
 									<div class="form-group input-group">
-										<span class="has-float-label"> <input id="Title"
-											name="Title" type="text" placeholder="*제목"
-											class="form-control"> <label for="first">제목</label>
+										<span class="has-float-label"><label for="first">제목</label>
+											<input id="Title" name="comptitle" type="text"
+											placeholder="*제목" class="form-control"> </span>
+									</div>
+									<div class="form-group input-group">
+										<span class="has-float-label"> <label for="email">이메일</label>
+											<input id="Email" name="compemail" type="text"
+											placeholder="이메일" class="form-control">
 										</span>
 									</div>
 									<div class="form-group input-group">
-										<span class="has-float-label"> <input id="Email"
-											name="Email" type="text" placeholder="이메일"
-											class="form-control"> <label for="email">이메일</label>
-										</span>
+										<span class="has-float-label"><label for="contact">연락처</label>
+											<input id="Tel" name="comptel" type="text" placeholder="연락처"
+											class="form-control"> </span>
 									</div>
 									<div class="form-group input-group">
-										<span class="has-float-label"> <input id="Tel"
-											name="Tel" type="text" placeholder="연락처" class="form-control">
-											<label for="contact">연락처</label>
+										<span class="has-float-label"> <label for="message">내용</label>
+										<textarea class="form-control" id="Content" name="compcontent"
+												placeholder="*상세 내용을 작성해주세요." rows="7"></textarea>
 										</span>
 									</div>
-									<div class="form-group input-group">
-										<span class="has-float-label"> <textarea
-												class="form-control" id="Content" name="Content"
-												placeholder="*상세 내용을 작성해주세요." rows="7"></textarea> <label
-											for="message">내용</label>
-										</span>
-									</div>
-									<div class="form-group input-group">
+									<!-- <div class="form-group input-group">
 										<span class="has-float-label"> <input id="Fname"
 											name="Fname" type="file" placeholder="파일"
 											class="form-control"> <label for="contact">파일
 												첨부</label>
 										</span>
-									</div>
+									</div> -->
 									<div class="form-content">
 										<div class="col-md-12 text-center">
 											<input type="button" class="btn btn-primary btn-lg"

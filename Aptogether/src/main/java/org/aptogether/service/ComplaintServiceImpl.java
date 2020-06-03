@@ -45,9 +45,9 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
 	@Override
-	public List<ComplaintVO> getComplaintList() {
-		log.info("get List");
-		return mapper.getComplaintList();
+	public List<ComplaintVO> getComplaintList(ComplaintCriteria cri) {
+		log.info("get List with criteria:" + cri);
+		return mapper.getComplaintListWithPaging(cri);
 	}
 
 	@Override
