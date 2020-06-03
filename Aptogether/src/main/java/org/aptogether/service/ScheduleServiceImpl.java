@@ -42,14 +42,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public int deleteSchedule(int scheduleSeq) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.info("delete : " + scheduleSeq);
+
+		return mapper.deleteSchedule(scheduleSeq);
 	}
 
 	@Override
 	public int updateSchedule(ScheduleVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.info("update : " + vo);
+		return mapper.updateSchedule(vo);
 	}
 
 }

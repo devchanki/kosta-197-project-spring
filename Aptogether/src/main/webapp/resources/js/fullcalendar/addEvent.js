@@ -32,6 +32,7 @@ var newEvent = function (start, end, eventType) {
     editEnd.val(end);
     editDesc.val('');
     editAptSeq.val();
+    editId.val();
     
     addBtnContainer.show();
     modifyBtnContainer.hide();
@@ -44,6 +45,8 @@ var newEvent = function (start, end, eventType) {
     	console.log(editStart.val());
     	console.log( editEnd.val());
     	console.log(editDong.val());
+    	
+    	
         var eventData = {
                 title : editTitle.val(),
             	contents : editDesc.val(),
@@ -79,25 +82,28 @@ var newEvent = function (start, end, eventType) {
 
             eventData.allDay = true;
         }
-		 $.ajax({
- 			url: "/schedule/insertSchedule",
- 			type: "post",
- 			contentType: "application/json; charset=utf-8",
- 			data: {
+        var tmp = {
  				"title": editTitle.val(),
  				"dong" : editDong.val(),
  				"contents":  editDesc.val(),
- 				"start_Date": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
- 				"end_Date": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
- 				"apt_Seq":1,
- 				"background_Color": editColor.val()
- 			},
+ 				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
+ 				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
+ 				"aptSeq":1,
+ 				"backgroundColor": editColor.val()
+ 			};
+        
+		 $.ajax({
+ 			url: "/schedule/tenant/insertSchedule",
+ 			type: "post",
+ 			dataType: "json",
+ 			contentType: "application/json; charset=utf-8",
+ 			data: JSON.stringify(tmp),
  			  
  			success: function(data){      
  					 $('#calendar').fullCalendar('removeEvents');
  	                $('#calendar').fullCalendar('refetchEvents');
- 	                
- 				if(data == "success"){
+ 	                console.log(data);
+ 				if(data.status == "true"){
  					
  					alert("입력에 성공하셨습니다.");
  				}else {
@@ -105,6 +111,7 @@ var newEvent = function (start, end, eventType) {
  				}
  			},
  			error: function(request, status, error) {
+ 				console.log(request, status, error);
  				alert("요청에 실패하였습니다. 조금 있다 다시 요청해주세요.")
  			}
  		}); 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/schedule/*")
 public class ExController {
 	
-	@GetMapping("/scheduleApt")
+	@GetMapping("/tenant/scheduleApt")
 	public String schedule(){
 		
 		return "schedule";

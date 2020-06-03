@@ -159,7 +159,7 @@ var calendar = $('#calendar').fullCalendar({
   events: function (start, end, timezone, callback) {
     $.ajax({
       type: "get",
-      url: "/schedule/listSchedule/1",
+      url: "/schedule/tenant/listSchedule/1",
       dataType: "json",
       success: function (response) {
     	  console.log("start.....");
@@ -186,7 +186,7 @@ var calendar = $('#calendar').fullCalendar({
     //리사이즈한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "/schedule/updateSchedule",
+      url: "/schedule/tenant/updateSchedule",
       data: {
         id: event._id,
         title: event.title,
@@ -227,7 +227,7 @@ var calendar = $('#calendar').fullCalendar({
 
     //드롭한 일정 업데이트
     $.ajax({
-    	url: "/schedule/updateSchedule",
+    	url: "/schedule/tenant/updateSchedule",
 			type: "get",
 			dataType: "text",
 			data: {
