@@ -87,6 +87,8 @@ var calendar = $('#calendar').fullCalendar({
 	            return 1000
 	        }
 	      },
+	      eventLimit: true,
+	      
   eventRender: function (event, element, view) {
 
     //일정에 hover시 요약
@@ -150,7 +152,8 @@ var calendar = $('#calendar').fullCalendar({
     },
     listWeek: {
       columnFormat: ''
-    }
+    },
+
   },
 
   /* ****************
@@ -332,12 +335,12 @@ var calendar = $('#calendar').fullCalendar({
   weekNumberCalculation: "ISO",
   eventLimit: true,
   views: {
-    month: {
-      eventLimit: 12
+    timeGrid: {
+      eventLimit: 4
     }
   },
   
-  eventLimitClick: 'week', //popover
+  eventLimitClick: 'popover', //popover
   navLinks: true,
   defaultDate: moment('2020-06'), //실제 사용시 삭제
   timeFormat: 'HH:mm',
