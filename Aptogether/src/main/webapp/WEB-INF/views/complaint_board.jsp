@@ -25,6 +25,13 @@
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/css/complaint_board.css">
+	<style>
+		.active a{
+			color: red;
+		}
+	</style>
+	</head>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -49,16 +56,19 @@
 								<div class="accocontent">
 									<div id="contenttext">
 										<p>
-											제목: ${aaa.comptitle }<br> 내용: ${aaa.compcontent } <br>
+											제목: ${aaa.comptitle }<br> 
+											내용: ${aaa.compcontent } <br>
 										</p>
 									</div>
+									
 
-									<div id="buttonArea">
-										<button class="button">
-											<a href="/tenant/complaint/remove?compbno=${ aaa.compbno }">문의
-												취소</a>
-										</button>
-									</div>
+
+
+
+									  <div id="buttonArea">
+											<a class ="example_c" href="/tenant/complaint/remove?compbno=${ aaa.compbno }">문의
+												취소</a> 
+									</div> 
 								</div>
 							</c:forEach>
 						</div>
@@ -74,11 +84,11 @@
 								<li class="paginate_button previous"><a
 									href="${pageMaker.startPage -1}">Previous</a></li>
 							</c:if>
-
+							
 							<c:forEach var="num" begin="${pageMaker.startPage}"
 								end="${pageMaker.endPage}">
 								<li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} ">
-								<a href="${num }">${num}</a>
+									<a href="${num }">${num}</a>
 								</li>
 							</c:forEach>
 
@@ -93,23 +103,20 @@
 				
 
 
-
-
-				<button type="button" id="compwrite">
-					<a href="/Aptogether/apto/compWrite.do">민원작성</a>
-				</button>
+	<a class="example_f" href="/tenant/complaint/select"
+	rel="nofollow"><span>민원 작성</a>
+				
+				
 			</div>
 		</div>
-	</div>
 	</div>
 	<!-- End of Main Content -->
 
 	<!-- End of Footer -->
 
-	</div>
 	<!-- End of Content Wrapper -->
 	<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
-	</div>
+	
 	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -189,7 +196,7 @@
 							$("#regBtn").on("click", function() {
 								self.location = "/tenant/complaint/write";
 							});
-							var ationForm = $("#actionForm");
+							var actionForm = $("#actionForm");
 
 							$(".paginate_button a").on(
 									"click",
@@ -201,19 +208,15 @@
 										actionForm
 												.find("input[name='pageNum']")
 												.val($(this).attr("href"));
+										actionForm.submit();
 									});
 						});
+		
+	
 	</script>
-	<script>
-		$(".paginate_button a").on("click", function(e) {
-			e.preventDefault();
-			console.log('click');
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			actionForm.submit();
-		});
-	</script>
+	
 </body>
+
 
 
 </html>

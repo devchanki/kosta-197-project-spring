@@ -189,8 +189,10 @@
 		for (var i = 0; i < matches.length; i++) {
 			matches[i].onclick = function() {
 				$("#modal").toggle();
-			}
+			}	
 		}
+		$('#modal').hide();
+
 	</script>
 </body>
 

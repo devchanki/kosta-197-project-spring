@@ -15,4 +15,5 @@ public ComplaintVO read(Long compbno);
 public int delete(Long compbno);
 public int update(ComplaintVO vo);
 public int getComplaintTotal(ComplaintCriteria cri);
+public int getTotalCount(ComplaintCriteria cri);
 }

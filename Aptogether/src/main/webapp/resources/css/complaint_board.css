@@ -1,17 +1,23 @@
 @charset "EUC-KR";
 
+
 #pageArea {
 	
 }
+.button_cont{
+	padding: 0px;
+}
 #maintitle{
+	text-align:center;
+	margin-left: 0 auto;
 	font-size: 44px;
-	text-align: center;
 	height:70px;
 	font-weight:bold;
 	color: #C0C0C0;
 	margin-top: 40px;
 }
-.button{
+
+ /* .button{
 	width:120px;
 	height:55px;
     background-color: #f8585b;
@@ -29,8 +35,61 @@
      display: inline-block;
     margin-top: 32px;
 
+}  */
+
+.example_c {
+color: #494949 !important;
+text-decoration:none;
+text-transform: uppercase;
+background: #ffffff;
+padding: 20px;
+border: 4px solid #494949 !important;
+display: inline-block;
+transition: all 0.4s ease 0s;
+
 }
-#compwrite{
+.example_c:hover {
+color: #ffffff !important;
+background: #f6b93b;
+border-color: #f6b93b !important;
+transition: all 0.4s ease 0s;
+}
+.example_f {
+   border-radius: 4px;
+   background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%); !important; 
+   border: none;
+   color: #FFFFFF;	
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 22px;
+   padding: 20px;
+   width: 200px;
+   transition: all 0.4s;
+   cursor: pointer;
+   margin: 5px;
+ }
+ .example_f span {
+   cursor: pointer;
+   display: inline-block;
+   position: relative;
+   transition: 0.4s;
+ }
+ .example_f span:after {
+   content: '\00bb';
+   position: absolute;
+   opacity: 0;
+   top: 0;
+   right: -20px;
+   transition: 0.5s;
+ }
+ .example_f:hover span {
+   padding-right: 25px;
+ }
+ .example_f:hover span:after {
+   opacity: 1;
+   right: 0;
+ }
+/*  #compwrite{
 	position: absolute;
     right:480px;
     width:100px;
@@ -44,12 +103,9 @@
     font-size: 15px;
     margin: 4px;
     cursor: pointer;
-}
-.button a {
-	text-decoration: none;
-}
+}  */
+
 #buttonArea{
-	
 	left: 85%;
 	margin-left: 85%;
 }

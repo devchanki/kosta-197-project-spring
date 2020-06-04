@@ -70,18 +70,22 @@ public class ComplaintController {
 	public String complaintList(ComplaintCriteria cri, Model model) {
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getComplaintList(cri));
-		model.addAttribute("pageMaker", new ComplaintPageDTO(cri, 123));
+		int total = service.getTotalComp(cri);
+		log.info("total:" + total);
+		model.addAttribute("pageMaker", new ComplaintPageDTO(cri, total));
 		return "complaint_board";
 	}
 
 	@GetMapping("/remove")
-	public String remove(@RequestParam("compbno") Long compbno,
-			RedirectAttributes rttr) {
+	public String remove(@RequestParam("compbno") Long compbno, @ModelAttribute("cri") ComplaintCriteria
+			cri, RedirectAttributes rttr) {
 		log.info("remove...." + compbno);
 		System.out.println("여기까지 들어옴");
 		if (service.removeComplaint(compbno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 	
 		return "redirect:/tenant/complaint/getlist";
 	}

@@ -39,14 +39,14 @@ select * from complaint_board where compbno > 0
 		delete from complaint_board where compbno = #{compbno}
 	</delete>
 	
-	<!-- <update id ="update">
+	 <!-- <update id ="update">
 		update comp_board
 		set comptitle= #{comptitle},
 		compcontent=#{compcontent},
 		compcompdate=sysdate
 		where compbno=#{compbno}
-	</update>
+	</update> -->
 	<select id = "getComplaintTotal" resultType="int">
-		select count(*) from comp_board where compbno > 0
-	</select> - -->
+		select count(*) from complaint_board where compbno > 0
+	</select> 
 </mapper>
