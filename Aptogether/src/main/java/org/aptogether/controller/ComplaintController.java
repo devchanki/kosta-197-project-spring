@@ -42,22 +42,22 @@ public class ComplaintController {
 
 	@PostMapping("/write")
 	public String register(ComplaintVO vo, RedirectAttributes rttr, HttpServletRequest request) {
-		String test = request.getParameter("comptitle");
-		String comptel = request.getParameter("comptel");
+		String test = request.getParameter("title");
+		String tel = request.getParameter("tel");
 		System.out.println(test);
-		System.out.println(comptel);
+		System.out.println(tel);
 		log.info("register:" + vo);
 		System.out.println(vo);
 		service.registerComplaint(vo);
-		rttr.addFlashAttribute("result", vo.getCompbno());
+		rttr.addFlashAttribute("result", vo.getBno());
 		System.out.println("여기까지 됨");
 		return "redirect:/tenant/complaint/getlist";
 	}
 
 	@GetMapping("/get")
-	public void get(@RequestParam("compbno") Long compbno, Model model) {
-		log.info("/compget");
-		model.addAttribute("vo", service.getComplaint(compbno));
+	public void get(@RequestParam("bno") Long bno, Model model) {
+		log.info("/get");
+		model.addAttribute("vo", service.getComplaint(bno));
 	}
 
 	@GetMapping("/select")
@@ -75,13 +75,13 @@ public class ComplaintController {
 		model.addAttribute("pageMaker", new ComplaintPageDTO(cri, total));
 		return "complaint_board";
 	}
-
+	
 	@GetMapping("/remove")
-	public String remove(@RequestParam("compbno") Long compbno, @ModelAttribute("cri") ComplaintCriteria
+	public String remove(@RequestParam("bno") Long bno, @ModelAttribute("cri") ComplaintCriteria
 			cri, RedirectAttributes rttr) {
-		log.info("remove...." + compbno);
+		log.info("remove...." + bno);
 		System.out.println("여기까지 들어옴");
-		if (service.removeComplaint(compbno)) {
+		if (service.removeComplaint(bno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());

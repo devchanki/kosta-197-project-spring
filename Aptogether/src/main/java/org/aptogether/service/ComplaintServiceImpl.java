@@ -27,9 +27,9 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
 	@Override
-	public ComplaintVO getComplaint(Long compbno) {
+	public ComplaintVO getComplaint(Long bno) {
 		log.info("get detailcomp.......");
-		return mapper.read(compbno);
+		return mapper.read(bno);
 	}
 
 	@Override
@@ -39,9 +39,9 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
 	@Override
-	public boolean removeComplaint(Long compbno) {
-		log.info("remove......." + compbno);
-		return mapper.delete(compbno) == 1;
+	public boolean removeComplaint(Long bno) {
+		log.info("remove......." + bno);
+		return mapper.delete(bno) == 1;
 	}
 
 	@Override

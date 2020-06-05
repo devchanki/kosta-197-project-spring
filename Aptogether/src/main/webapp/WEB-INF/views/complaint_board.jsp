@@ -25,13 +25,13 @@
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="/resources/css/complaint_board.css">
-	<style>
-		.active a{
-			color: red;
-		}
-	</style>
-	</head>
+<link rel="stylesheet" href="/resources/css/complaint_board.css">
+<style>
+.active a {
+	color: red;
+}
+</style>
+</head>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -52,23 +52,24 @@
 					<div id="comptable ">
 						<div id="accordion">
 							<c:forEach var="aaa" items="${list}">
-								<div id="accotitle">${aaa.comptitle }</div>
+								<div id="accotitle">${aaa.title }</div>
 								<div class="accocontent">
 									<div id="contenttext">
 										<p>
-											제목: ${aaa.comptitle }<br> 
-											내용: ${aaa.compcontent } <br>
+											제목: ${aaa.title }<br> 내용: ${aaa.content } <br>
 										</p>
 									</div>
-									
 
 
 
 
-									  <div id="buttonArea">
-											<a class ="example_c" href="/tenant/complaint/remove?compbno=${ aaa.compbno }">문의
-												취소</a> 
-									</div> 
+
+									<div id="buttonArea">
+										<button class="btn-1"
+											href="/tenant/complaint/remove?bno=${ aaa.bno }">
+											진행중</button>
+									</div>
+
 								</div>
 							</c:forEach>
 						</div>
@@ -84,7 +85,7 @@
 								<li class="paginate_button previous"><a
 									href="${pageMaker.startPage -1}">Previous</a></li>
 							</c:if>
-							
+
 							<c:forEach var="num" begin="${pageMaker.startPage}"
 								end="${pageMaker.endPage}">
 								<li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} ">
@@ -100,13 +101,13 @@
 					</div>
 				</div>
 
-				
 
 
-	<a class="example_f" href="/tenant/complaint/select"
-	rel="nofollow"><span>민원 작성</a>
-				
-				
+
+				<a class="example_f" href="/tenant/complaint/select" rel="nofollow"><span>민원
+						작성</a>
+
+
 			</div>
 		</div>
 	</div>
@@ -116,7 +117,7 @@
 
 	<!-- End of Content Wrapper -->
 	<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
-	
+
 	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -161,14 +162,12 @@
 			$("#accordion").accordion();
 		});
 	</script>
-	
-	<form id='actionForm' action="/tenant/complaint/getlist"
-					method='get'>
-					<input type='hidden' name='pageNum'
-						value='${pageMaker.cri.pageNum }'> <input type='hidden'
-						name='amount' value='${pageMaker.cri.amount }'>
-				</form>
-				
+
+	<form id='actionForm' action="/tenant/complaint/getlist" method='get'>
+		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
+		<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
+	</form>
+
 	<script type="text/javascript">
 		$(document)
 				.ready(
@@ -211,10 +210,8 @@
 										actionForm.submit();
 									});
 						});
-		
-	
 	</script>
-	
+
 </body>
 
 

@@ -6,18 +6,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <select id = "getComplaintList" resultType="org.aptogether.domain.ComplaintVO">
  <![CDATA[
-select * from complaint_board where compbno > 0
+select * from complaint_board where bno > 0
 ]]>
 </select> 
 
    <select id = "getComplaintListWithPaging" resultType = "org.aptogether.domain.ComplaintVO">
 	<![CDATA[
 	select
-	comptitle, compemail, comptel, compcontent, compdate, compbno
+	title, email, tel, content, updatedate, bno, userno, process
 	from 
 	(
 	select /*+INDEX_DESC(complaint_board pk_complaint) */
-		rownum rn, comptitle, compemail, comptel, compcontent, compdate, compbno
+		rownum rn, title, email, tel, content, updatedate, bno, userno, process
 		from
 		complaint_board
 		where rownum <= #{pageNum} * #{amount}
@@ -27,8 +27,9 @@ select * from complaint_board where compbno > 0
 </select> 
 
 	  <insert id = "insert" parameterType="org.aptogether.domain.ComplaintVO">
-		insert into COMPLAINT_BOARD values (#{comptitle},#{compemail},#{comptel},#{compcontent},
-		 sysdate, compboard_seq.nextval)
+		insert into COMPLAINT_BOARD values
+		 (#{title},#{email},#{tel},#{content},
+		 sysdate, compboard_seq.nextval, #{userno}, '진행중')
 	</insert>   
 	
 	 <!-- <select id="read" resultType="org.aptogether.domain.ComplaintVO">
@@ -36,7 +37,7 @@ select * from complaint_board where compbno > 0
 	</select>  -->
 	
 	 <delete id = "delete">
-		delete from complaint_board where compbno = #{compbno}
+		delete from complaint_board where bno = #{bno}
 	</delete>
 	
 	 <!-- <update id ="update">
@@ -47,6 +48,6 @@ select * from complaint_board where compbno > 0
 		where compbno=#{compbno}
 	</update> -->
 	<select id = "getComplaintTotal" resultType="int">
-		select count(*) from complaint_board where compbno > 0
+		select count(*) from complaint_board where bno > 0
 	</select> 
 </mapper>

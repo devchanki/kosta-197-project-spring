@@ -58,23 +58,23 @@
 									</legend>
 									<div class="form-group input-group">
 										<span class="has-float-label"><label for="first">제목</label>
-											<input id="Title" name="comptitle" type="text"
+											<input id="Title" name="title" type="text"
 											placeholder="*제목" class="form-control"> </span>
 									</div>
 									<div class="form-group input-group">
 										<span class="has-float-label"> <label for="email">이메일</label>
-											<input id="Email" name="compemail" type="text"
+											<input id="Email" name="email" type="text"
 											placeholder="이메일" class="form-control">
 										</span>
 									</div>
 									<div class="form-group input-group">
 										<span class="has-float-label"><label for="contact">연락처</label>
-											<input id="Tel" name="comptel" type="text" placeholder="연락처"
+											<input id="Tel" name="tel" type="text" placeholder="연락처"
 											class="form-control"> </span>
 									</div>
 									<div class="form-group input-group">
 										<span class="has-float-label"> <label for="message">내용</label>
-										<textarea class="form-control" id="Content" name="compcontent"
+										<textarea class="form-control" id="Content" name="content"
 												placeholder="*상세 내용을 작성해주세요." rows="7"></textarea>
 										</span>
 									</div>
