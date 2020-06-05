@@ -4,23 +4,35 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<!-- <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" 
+		/> -->
 	<security:http>
 
-		<security:intercept-url pattern="/error/*" access="permitAll" />
-		<security:intercept-url pattern="/apt/*" access="permitAll"/>
-		<security:intercept-url pattern="/keeper/*" access="hasRole('ROLE_KEEPER')"/> 
-		<security:intercept-url pattern="/tenant/*" access="hasRole('ROLE_TENANT')"/> 
-		
+		<security:intercept-url pattern="/error/*"
+			access="permitAll" />
+		<security:intercept-url pattern="/apt/*"
+			access="permitAll" />
+		<security:intercept-url pattern="/keeper/*"
+			access="hasRole('ROLE_KEEPER')" />
+		<security:intercept-url pattern="/tenant/*"
+			access="hasRole('ROLE_TENANT')" />
+
 		<security:form-login login-page="/signin" />
-		
-		<security:access-denied-handler error-page="/401"/>
+
+		<security:access-denied-handler
+			error-page="/error/401" />
 	</security:http>
-	
+
 	<security:authentication-manager>
-<!-- 		<security:authentication-provider user-service-ref="customUserDetailService">
-			<security:password-encoder ref="bcryptPasswordEncoder"/>
-		</security:authentication-provider> -->
+		<security:authentication-provider
+			user-service-ref="customUserDetailService">
+			<security:password-encoder
+				ref="bcryptPasswordEncoder" />
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select id username, password, enabled from member where id = ?"
+				authorities-by-username-query="select id username, type authority from member where id = ?" />
+		</security:authentication-provider>
 	</security:authentication-manager>
+
 </beans>

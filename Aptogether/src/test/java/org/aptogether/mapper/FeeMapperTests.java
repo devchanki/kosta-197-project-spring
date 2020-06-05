@@ -3,7 +3,7 @@ package org.aptogether.mapper;
 import static org.junit.Assert.*;
 
 import org.aptogether.domain.FeeVO;
-import org.aptogether.domain.UserVO;
+import org.aptogether.domain.MemberVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,7 @@ public class FeeMapperTests {
 	@Test
 	public void testListFeeRowNum(){
 		
-		UserVO user = new UserVO();
+		MemberVO user = new MemberVO();
 		user.setAptSeq(6);
 		user.setMemberSeq(30);
 		

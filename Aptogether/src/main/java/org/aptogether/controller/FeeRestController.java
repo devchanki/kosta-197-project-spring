@@ -3,7 +3,7 @@ package org.aptogether.controller;
 import java.util.List;
 
 import org.aptogether.domain.FeeVO;
-import org.aptogether.domain.UserVO;
+import org.aptogether.domain.MemberVO;
 import org.aptogether.service.FeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,22 +27,10 @@ public class FeeRestController {
 	
 	private FeeService service;
 
-	@GetMapping(value = "/{aptSeq}/{dong}/{ho}",
-						   produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<UserVO> findMember(@PathVariable("aptSeq") int aptSeq,
-																			 @PathVariable("dong") String dong,
-																			 @PathVariable("ho") String ho){
+	@GetMapping(value = "/findMember", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public void findMember(Model model, MemberVO user){
 		
-	UserVO user = new UserVO();
-		
-	user.setAptSeq(aptSeq);
-	user.setDong(dong);
-	user.setHo(ho);
-	
-	
-	log.info("user : " + user);
-	
-	return new ResponseEntity<>(service.findMember(user), HttpStatus.OK);
+		model.addAttribute("member", service.findMember(user));
 	}
 	
 	
@@ -50,7 +38,7 @@ public class FeeRestController {
 						   produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<FeeVO>> listFee(@PathVariable("memberSeq") int memberSeq){
 		
-		UserVO user = new UserVO();
+		MemberVO user = new MemberVO();
 		
 		user.setMemberSeq(memberSeq);
 		user.setAptSeq(6);

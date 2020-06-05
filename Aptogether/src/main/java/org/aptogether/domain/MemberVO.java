@@ -3,7 +3,7 @@ package org.aptogether.domain;
 import lombok.Data;
 
 @Data
-public class UserVO {
+public class MemberVO {
 	int memberSeq;
 	String id;
 	String password;
@@ -11,6 +11,6 @@ public class UserVO {
 	String dong;
 	String ho;
 	boolean admit;
-	int type;
+	String type;
 	String name;
 }
