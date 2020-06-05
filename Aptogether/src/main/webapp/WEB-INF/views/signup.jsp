@@ -233,7 +233,7 @@
     <script src="/Aptogether/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="/js/sb-admin-2.min.js"></script>
     <script type="text/javascript">
       function selectApt(seq, name) {
         $("#aptName").val(name);
@@ -277,6 +277,9 @@
         $(".modal-mine").toggle();
       }
       $(function () {
+    	$('input:radio').click(function () {
+    		console.log('hello')
+    	});
         console.log("conssole.");
         $("#modal-toggle-button").on("click", function () {
           $(".modal-mine").toggle();

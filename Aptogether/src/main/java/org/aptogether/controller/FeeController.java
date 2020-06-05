@@ -1,6 +1,6 @@
 package org.aptogether.controller;
 
-import org.aptogether.domain.UserVO;
+import org.aptogether.domain.MemberVO;
 import org.aptogether.service.FeeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,6 +1,6 @@
 package org.aptogether.controller;
 
-import org.aptogether.domain.UserVO;
+import org.aptogether.domain.MemberVO;
 import org.aptogether.service.FeeService;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class FeeRestController {
 	private FeeService service;
 
 	@GetMapping(value = "/findMember", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public void findMember(Model model, UserVO user){
+	public void findMember(Model model, MemberVO user){
 		
 		model.addAttribute("member", service.findMember(user));
 	}

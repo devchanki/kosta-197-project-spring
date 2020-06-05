@@ -3,7 +3,7 @@ package org.aptogether.service;
 import static org.junit.Assert.assertNotNull;
 
 import org.aptogether.domain.FeeVO;
-import org.aptogether.domain.UserVO;
+import org.aptogether.domain.MemberVO;
 import org.aptogether.mapper.FeeMapperTests;
 import org.junit.Test;
 import org.junit.runner.RunWith;
