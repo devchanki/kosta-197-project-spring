@@ -40,7 +40,7 @@ public class ScheduleRestController {
 	private ScheduleService service;
 
 	@GetMapping(value = "/tenant/listSchedule/{aptSeq}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public String showSchedule(@PathVariable("aptSeq") int aptSeq) {
+	public String tenant_ShowSchedule(@PathVariable("aptSeq") int aptSeq) {
 		List<ScheduleVO> list = service.listSchedule(1); 
 		
 		Gson gson = new Gson();
@@ -61,7 +61,7 @@ public class ScheduleRestController {
 	}
 
 	@PostMapping(value="/tenant/insertSchedule", consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String createSchedule(@RequestBody ScheduleVO vo){
+	public String tenant_CreateSchedule(@RequestBody ScheduleVO vo){
 		log.info("scheduleVO: " + vo);
 		int insertCount = service.insertSchedule(vo);
 		JsonObject obj = new JsonObject();	//status -> 하기위해 Jsonobj를 만들어줌
@@ -77,7 +77,7 @@ public class ScheduleRestController {
 	
 	@DeleteMapping(value="/tenant/{scheduleSeq}", 
 									produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String deleteSchedule(@PathVariable("scheduleSeq")int scheduleSeq){
+	public String tenant_DeleteSchedule(@PathVariable("scheduleSeq")int scheduleSeq){
 		log.info("schedule delete: "+ scheduleSeq);
 		int seq = service.deleteSchedule(scheduleSeq);
 		JsonObject obj = new JsonObject();
@@ -94,7 +94,79 @@ public class ScheduleRestController {
 	
 	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
 			value="/tenant/{scheduleSeq}",  consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String updateSchedule( @RequestBody ScheduleVO vo, @PathVariable("scheduleSeq")int scheduleSeq){
+	public String tenant_UpdateSchedule( @RequestBody ScheduleVO vo, @PathVariable("scheduleSeq")int scheduleSeq){
+		log.info("schedule update seq :" + scheduleSeq);
+		
+		vo.setScheduleSeq(scheduleSeq);
+		log.info("schedule update : "+ vo);
+		int modify = service.updateSchedule(vo);
+		
+		JsonObject obj = new JsonObject();
+		Gson gson = new Gson(); 
+
+		if(modify == 1 )
+				obj.addProperty("status", "true");
+		else
+				obj.addProperty("status", "false");
+		return gson.toJson(obj);	
+	}
+	
+	@GetMapping(value = "/keeper/listSchedule/{aptSeq}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public String keeper_ShowSchedule(@PathVariable("aptSeq") int aptSeq) {
+		List<ScheduleVO> sc = service.listSchedule(2); 
+		
+		Gson gson = new Gson();
+		JsonArray array = new JsonArray();
+		for(ScheduleVO schedule: sc){
+			JsonObject tmp = new JsonObject();
+			tmp.addProperty("_id", schedule.getScheduleSeq());
+			tmp.addProperty("title", schedule.getTitle());
+			tmp.addProperty("contents", schedule.getContents());
+			tmp.addProperty("start", schedule.getStartDate());
+			tmp.addProperty("end", schedule.getEndDate());
+			tmp.addProperty("allDay", "false");
+			tmp.addProperty("dong", schedule.getDong());
+			tmp.addProperty("backgroundColor", schedule.getBackgroundColor());
+			array.add(tmp);
+		}
+		return gson.toJson(array);
+	}
+	
+	@PostMapping(value="/keeper/insertSchedule", consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String keeper_CreateSchedule(@RequestBody ScheduleVO vo){
+		log.info("scheduleVO: " + vo);
+		int insertCount = service.insertSchedule(vo);
+		JsonObject obj = new JsonObject();	//status -> 하기위해 Jsonobj를 만들어줌
+		Gson gson = new Gson(); //Json 형태로 뿌려줘야해 왜냐면 text라서 json을 못 가져와! 
+
+		if(insertCount == 1 )
+				obj.addProperty("status", "true");
+		else
+				obj.addProperty("status", "false");
+		return gson.toJson(obj);
+	}
+	
+	
+	@DeleteMapping(value="/keeper/{scheduleSeq}", 
+									produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String keeper_DeleteSchedule(@PathVariable("scheduleSeq")int scheduleSeq){
+		log.info("schedule delete: "+ scheduleSeq);
+		int seq = service.deleteSchedule(scheduleSeq);
+		JsonObject obj = new JsonObject();
+		Gson gson = new Gson(); 
+		
+		if (seq ==1)
+			obj.addProperty("status", "true");
+		else
+			obj.addProperty("status", "false");
+		
+		return gson.toJson(obj);
+				
+	}
+	
+	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
+			value="/keeper/{scheduleSeq}",  consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String keeper_UpdateSchedule( @RequestBody ScheduleVO vo, @PathVariable("scheduleSeq")int scheduleSeq){
 		log.info("schedule update seq :" + scheduleSeq);
 		
 		vo.setScheduleSeq(scheduleSeq);

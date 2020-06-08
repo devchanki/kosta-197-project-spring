@@ -536,7 +536,39 @@
 						</div>
 					</div>
 
+					<!-- table -->
+					<div class="container" id="auth_tb"> 
+						<div id="wrapper">
+							<table id="auth_table" class="display">
+								<thead>
+									<tr>
+										<th>제목</th>
+										<th>상세내역</th>
+										<th>동</th>
+										<th>호수</th>
+										<th>Start date</th>
+										<th>end date</th>
+										<th>비고</th>
+									</tr>
+								</thead>
+								<tbody>
+								 <tbody>
+						            <tr>
+						                <td>이사</td>
+						                <td>이사갑니다.</td>
+						                <td>301동</td>
+						                <td>611호</td>
+						                <td>2020/06/17</td>
+						                <td>2020/06/19</td>
+						                <td><button type="button" class="btn btn-outline-success btn-sm">1</button>
+						                <button type="button" class="btn btn-outline-danger btn-sm">2</button></td>
+						            </tr>
+								</tbody>
+							</table>
+						</div>
 
+
+					</div>
 				</div>
 			</div>
 			<!-- End of Main Content -->
@@ -625,10 +657,10 @@
 		src="/resources/js/fullcalendar/bootstrap/js/fullcalendar.min.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/ko.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/select2.min.js"></script>
-	<script src="/resources/js/fullcalendar/main.js"></script>
-	<script src="/resources/js/fullcalendar/addEvent.js"></script>
-	<script src="/resources/js/fullcalendar/editEvent.js"></script>
-	<script src="/resources/js/fullcalendar/etcSetting.js"></script>
+	<script src="/resources/js/fullcalendar/mainKeeper.js"></script>
+	<script src="/resources/js/fullcalendar/addEventKeeper.js"></script>
+	<script src="/resources/js/fullcalendar/editEventKeeper.js"></script>
+	<script src="/resources/js/fullcalendar/etcSettingKeeper.js"></script>
 	<script>
 		$(document).ready(
 				function() {
@@ -648,6 +680,48 @@
 				});
 	</script>
 
+	<script
+		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+	
+		var dataSet = [
+
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ],
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ],
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ],
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ],
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ],
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ],
+				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
+						"2020/06/18", "등록" ], 		
+				];
+
+		$(document).ready(function() {
+			
+			$('#auth_table').DataTable({
+				"scrollY" : "200px",
+				"scrollCollapse" : true,
+				"paging" : false,
+
+				data : dataSet,
+				columns : [ 
+					{title : "이름"}, 
+					{title : "상세보기"},
+					{title : "동"}, 
+					{title : "호수"}, 
+					{title : "start date"},
+					{title : "end date"},
+					{title : "비고"} ]
+			});
+		});
+		
+	</script>
 
 	<link
 		href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css"

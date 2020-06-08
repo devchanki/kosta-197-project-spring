@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ExController {
 	
 	@GetMapping("/tenant/scheduleApt")
-	public String schedule(){
-		
+	public String tenant_Schedule(){
 		return "schedule";
 	}
+	
+	@GetMapping("/keeper/scheduleApt")
+	public String keeper_Schedule(){
+		
+		return "scheduleKeeper";
+	}
+	
 
 }

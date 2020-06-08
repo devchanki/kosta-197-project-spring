@@ -160,12 +160,12 @@ var calendar = $('#calendar').fullCalendar({
    *  일정 받아옴 
    * ************** */
 	  
-	  //입주민 ajax
+	  //관리자 ajax
 
 	  events: function (start, end, timezone, callback) {
 	    $.ajax({
 	      type: "get",
-	      url: "/schedule/tenant/listSchedule/1",
+	      url: "/schedule/keeper/listSchedule/2",
 	      dataType: "json",
 	      success: function (response) {
 	    	  console.log("start.....");
@@ -204,7 +204,7 @@ var calendar = $('#calendar').fullCalendar({
 	
     //리사이즈한 일정 업데이트
     $.ajax({
-    	url : "/schedule/tenant/" + scheduleSeq,
+    	url : "/schedule/keeper/" + scheduleSeq,
 		type : "put",
 		dataType : "json",
 		contentType: "application/json; charset=utf-8",
@@ -253,7 +253,7 @@ var calendar = $('#calendar').fullCalendar({
     
     //드롭한 일정 업데이트
     $.ajax({
-    	url:  "/schedule/tenant/" + scheduleSeq,
+    	url:  "/schedule/keeper/" + scheduleSeq,
 			type: "put",
 			dataType : "json",
 			contentType: "application/json; charset=utf-8",

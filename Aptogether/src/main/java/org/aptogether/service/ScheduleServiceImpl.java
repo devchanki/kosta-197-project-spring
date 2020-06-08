@@ -30,7 +30,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public List<ScheduleVO> listSchedule(int aptSeq) {
 		log.info("get list....");
-		aptSeq = 1;
 		return mapper.listSchedule(aptSeq);
 	}
 

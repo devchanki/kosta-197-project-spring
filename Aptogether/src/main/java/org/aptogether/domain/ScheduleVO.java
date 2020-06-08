@@ -14,4 +14,5 @@ public class ScheduleVO {
 	private int aptSeq;
 	private String backgroundColor;
 	private String dong;
+	private String authority; 
 }

@@ -16,7 +16,7 @@
 		insert into schedule
 		values(schedule_Seq.nextval, #{contents}, to_date(#{startDate}, 'YYYY-MM-DD HH24:MI'),
 		to_date(#{endDate}, 'YYYY-MM-DD HH24:MI'), #{aptSeq}, #{title},
-		#{backgroundColor}, #{dong})
+		#{backgroundColor}, #{dong}, 0)
 	</insert>
 
 	<delete id="deleteSchedule" parameterType="org.aptogether.domain.ScheduleVO">

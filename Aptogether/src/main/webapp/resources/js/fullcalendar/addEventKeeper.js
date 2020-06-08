@@ -88,12 +88,12 @@ var newEvent = function (start, end, eventType) {
  				"contents":  editDesc.val(),
  				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
  				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
- 				"aptSeq":1,
+ 				"aptSeq":2,
  				"backgroundColor": editColor.val()
  			};
         
 		 $.ajax({
- 			url: "/schedule/tenant/insertSchedule",
+ 			url: "/schedule/keeper/insertSchedule",
  			type: "post",
  			dataType: "json",
  			contentType: "application/json; charset=utf-8",
