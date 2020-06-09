@@ -74,8 +74,8 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-success text-uppercase mb-1">관리비 청구하기</div>
-											<button class="btn btn-success" id="checkMQ">입주민 조회</button>
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">관리비 부과하기</div>
+											<button class="btn btn-success" id="levyJob">관리비 부과기초작업</button>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -447,42 +447,10 @@
 	<script type="text/javascript">
 	$(function() {
 		
-		//모달창 뜨기
-		$("#checkMQ").click(function() {
-			$("#feeModal1").modal('show');
-			return false;
+		//관리비 부과기초작업 페이지 이동
+		$("#levyJob").on("click", function() {
+			self.location = "/keeper1/levyRegister/"+ 1;
 		});
-		
-		var feeModal1 = $("#feeModal1");
-		var feeModalInputDong = feeModal1.find("input[name='dong']");
-		var feeModalInputHo = feeModal1.find("input[name='ho']");
-		var feeModal2 = $('#FeeModal2');
-		
-		$("#findMember").on("click", function(e) {
-			
-			var member = {
-					aptSeq : 6,
-					dong : feeModalInputDong.val(),
-					ho : feeModalInputHo.val()
-			};
-			
-			feeServcie.findMember(member, function(result) {
-					/* 	response = JSON.parse(result); */
-					console.log(result);
-					feeModal2.modal('show');
-					$("#MQinfo").val("입주민번호 " + result.memberSeq + "　"+result.dong +"동  "+ result.ho+"호");
-					
-					$("#findMember2").on("click", function() {
-						self.location = "/keeper1/feeRegister/"+ result.memberSeq;
-					
-					});
-			feeModal1.find("input").val("");
-			feeModal1.modal("hide");
-		});
-		
-		
-		});
-		
 		
 		
 	});
@@ -490,11 +458,6 @@
 	
 
 	
-	
-	
-	
-=======
->>>>>>> refs/remotes/origin/KC/Login
 		function admitUser(num) {
 			console.log(num);
 			$.ajax({

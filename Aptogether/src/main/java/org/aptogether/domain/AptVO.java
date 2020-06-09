@@ -7,10 +7,9 @@ import lombok.Data;
 public class AptVO {
 	
 	private int aptSeq;
-	private String kaptCode; 
+	private String aptCode; 
 	private String aptName;
 	private String location;
 	private String x;
 	private String y;
-
 }

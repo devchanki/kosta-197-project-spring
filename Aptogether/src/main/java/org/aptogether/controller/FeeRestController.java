@@ -3,6 +3,7 @@ package org.aptogether.controller;
 import java.util.List;
 
 import org.aptogether.domain.FeeVO;
+import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MemberVO;
 import org.aptogether.service.FeeService;
 import org.springframework.http.HttpStatus;
@@ -26,25 +27,26 @@ import lombok.extern.log4j.Log4j;
 public class FeeRestController {
 	
 	private FeeService service;
+	
 
-	@GetMapping(value = "/findMember", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
+/*	@GetMapping(value = "/findMember", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public void findMember(Model model, MemberVO user){
 		
 		model.addAttribute("member", service.findMember(user));
-	}
+	}*/
 	
 	
-	@GetMapping(value = "/listFee/{memberSeq}",
-						   produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<FeeVO>> listFee(@PathVariable("memberSeq") int memberSeq){
-		
-		MemberVO user = new MemberVO();
-		
-		user.setMemberSeq(memberSeq);
-		user.setAptSeq(6);
-		
-		return new ResponseEntity<>(service.listFee(user), HttpStatus.OK);
-	}
+//	@GetMapping(value = "/listFee/{memberSeq}",
+//						   produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+//	public ResponseEntity<List<FeeVO>> listFee(@PathVariable("memberSeq") int memberSeq){
+//		
+//		MemberVO user = new MemberVO();
+//		
+//		user.setMemberSeq(memberSeq);
+//		user.setAptSeq(6);
+//		
+//		return new ResponseEntity<>(service.listFee(user), HttpStatus.OK);
+//	}
 	
 	
 	@PostMapping(value = "/insertFee", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE} )
@@ -59,5 +61,6 @@ public class FeeRestController {
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 	
 }

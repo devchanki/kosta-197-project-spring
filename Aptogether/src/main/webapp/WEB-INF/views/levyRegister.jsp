@@ -32,7 +32,17 @@
 		vertical-align: middle;
 		color: black;
 	}
-		
+	
+	.levyModalL{
+		margin-left: 20px;
+		float: left;
+	}
+	
+	.levyModalI{
+		width: 37%;
+		margin-left: 150px;
+	}
+	
 	
 </style>
 </head>
@@ -68,17 +78,17 @@
 									<table class="table table-bordered table-hover">
 									  <thead class="table-primary">
 									    <tr>
-									      <th scope="col" rowspan="2">zzz</th>
-									      <th scope="col" rowspan="2">zzz</th>
-									      <th scope="col" colspan="2">zzz</th>
-									      <th scope="col" rowspan="2">zzz</th>
+									      <th scope="col" rowspan="2">상태</th>
+									      <th scope="col" rowspan="2">부과년월</th>
+									      <th scope="col" colspan="2">산출기간</th>
+									      <th scope="col" rowspan="2">납부마감일</th>
 									    </tr>
 									    <tr>
-									    <th scope="col">zzz</th>
-									    <th scope="col">zzz</th>
+									    <th scope="col">시작일</th>
+									    <th scope="col">종료일</th>
 									    </tr>
 									  </thead>
-									  <tbody id="">
+									  <tbody id="levyTable">
 									  </tbody>
 									</table>
 									<%--  <form action="" commandName="feeVO" method="post">
@@ -154,7 +164,7 @@
 					</div>
 					
 					<!-- 관리비 부과 추가 모달창 -->
-					<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="levyModalLabel" aria-hidden="true">
+					<div class="modal fade" id="levyModal" tabindex="-1" role="dialog" aria-labelledby="levyModalLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
 					      <div class="modal-header">
@@ -246,6 +256,71 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script>
 	$(function() {
+		
+		var levyDate = $("#levyDate");
+		var deadlineDate = $("#deadlineDate");		
+
+		
+		feeServcie.listLevy({aptSeq : 1}, function(list) {
+			
+			for(var i = 0, len = list.length||0; i <len; i++){
+				console.log(list[i]);
+				$("#levyTable").append('<tr>'
+														+'<td>'+ list[i].status+'</td>'
+													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>'
+														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
+														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
+														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
+												    +'</tr>');
+				
+			} 
+			
+		}); 
+
+		
+		
+		
+		$("#addLevy").on("click", function() {
+			$(".levyModalI").val("");
+			$("#levyModal").modal('show');
+		});
+		
+		
+		$("#levyReg").on("click", function(e) {
+			
+			var year = levyDate.val().replace(/-\d{2}/g,'');
+			var month = levyDate.val().replace(/^\d{4}-/g,'');
+			var date = new Date(year, month);
+			var startDate =moment(new Date(year, month - 1)).format('YYYY.MM.DD');
+		   	var endDate = moment(new Date(date - 1)).format('YYYY.MM.DD');
+			
+			if(levyDate.val() && deadlineDate.val() !=""){
+				
+					var levy = {
+						/*aptSeq : 1,*/ 
+						levyDate : levyDate.val(),
+						startCalDate : startDate,
+						endCalDate : endDate,
+						deadlineDate : deadlineDate.val()
+					};
+				
+					feeServcie.addLevy(levy, function(result) {
+						alert("관리비 부과정보 등록완료");
+						$("#levyModal").modal('hide');
+						 location.reload();
+				});
+			
+			}else if(levyDate.val() == "", deadlineDate.val() != ""){
+				alert("부과년월을 선택해주세요.");
+			}else if(deadlineDate.val() == "", levyDate.val() != ""){
+				alert("납부마감일을 선택해주세요.");
+			}else{
+				alert("부과정보를 입력해주세요.");
+			}
+			
+			
+			
+		});
 		
 		
 		 

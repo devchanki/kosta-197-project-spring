@@ -4,13 +4,10 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	int memberSeq;
-	String id;
-	String password;
-	int aptSeq;
-	String dong;
-	String ho;
-	boolean admit;
-	String type;
-	String name;
+	
+	private int memberSeq;
+	private int householdSeq;
+	private String name;
+	private String id;
+	private String password;
 }
