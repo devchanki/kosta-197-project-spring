@@ -2,6 +2,7 @@ package org.aptogether.mapper;
 
 import java.util.List;
 
+import org.aptogether.domain.Criteria;
 import org.aptogether.domain.MarketBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,8 +90,15 @@ public class MarketBoardMapperTests {
 		List<MarketBoardVO> list=mapper.listMarketProduct();
 		log.info(list);
 	}*/
+	@Test
+	public void testpaging(){
+	Criteria cri=new Criteria();
+	cri.setPageNum(2);
+	cri.setAmount(10);
+	List<MarketBoardVO> list=mapper.getListWithPaging(cri);
+	list.forEach(board->log.info(board.getSeq()));
 	
-	
+	}
 	
 	
 	

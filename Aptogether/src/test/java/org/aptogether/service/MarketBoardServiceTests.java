@@ -2,12 +2,14 @@ package org.aptogether.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.aptogether.domain.Criteria;
 import org.aptogether.domain.MarketBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ui.Model;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -43,12 +45,12 @@ public class MarketBoardServiceTests {
 //		log.info("생성된 게시물의 번호:"+market.getSeq());
 //	}
 //	
-	@Test
+/*	@Test
 	public void testGetList(){
 		service.getlist().forEach(market->log.info(market));
 	}
-	
-	@Test
+	*/
+	/*@Test
 	public void testGet(){
 	log.info(service.get(1));
 	}
@@ -66,7 +68,11 @@ public class MarketBoardServiceTests {
 		market.setContents("내용수정했당");
 		log.info(service.modify(market));
 	}
-	
+	*/
+	/*@Test
+	public void testlist() throws Exception{
+		service.getlist(new Criteria(2,10).forEach(board->log.info(board)));
+	}*/
 	
 	
 }

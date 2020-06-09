@@ -1,6 +1,8 @@
 package org.aptogether.controller;
 
+import org.aptogether.domain.Criteria;
 import org.aptogether.domain.MarketBoardVO;
+import org.aptogether.domain.PageDTO;
 import org.aptogether.service.MarketBoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +28,19 @@ public class MarketBoardController {
 		log.info("insertform실행");
 		return "marketinsertform";
 	}
+//	@RequestMapping("/list")
+//	public String list(Model model){
+//		log.info("list실행");
+//		model.addAttribute("list",service.getlist());
+//		return "marketlist";
+//	}
 	@RequestMapping("/list")
-	public String list(Model model){
-		log.info("list실행");
-		model.addAttribute("list",service.getlist());
+	public String list(Criteria cri,Model model){
+		log.info("list실행"+cri);
+		model.addAttribute("list",service.getlist(cri));
+		int total=service.getTotal(cri);
+		log.info("controller의 토탈"+total);
+		model.addAttribute("pageMarker", new PageDTO(cri,total));
 		return "marketlist";
 	}
 	@PostMapping("/register")

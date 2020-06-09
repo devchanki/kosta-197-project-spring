@@ -29,59 +29,53 @@
 		* from board where seq = #{seq} </select> -->
 
 	<select id="listMarketProduct" resultType="org.aptogether.domain.MarketBoardVO">
-		select * from Market_Product
+		select * from
+		Market_Product
 		order by seq desc
 	</select>
-	
-	<select id="detailMarketProduct" parameterType="int" resultType="org.aptogether.domain.MarketBoardVO">
+
+	<select id="detailMarketProduct" parameterType="int"
+		resultType="org.aptogether.domain.MarketBoardVO">
 		select * from Market_Product where seq=#{seq}
 	</select>
-	
+
 	<delete id="deleteMarketProduct" parameterType="int">
-		delete from Market_Product where seq=#{seq}
+		delete from
+		Market_Product where seq=#{seq}
 	</delete>
-	
+
 	<update id="updateMarketProduct" parameterType="org.aptogether.domain.MarketBoardVO">
-		update Market_Product set writer=#{writer}, product_name=#{productName},
+		update
+		Market_Product set writer=#{writer}, product_name=#{productName},
 		price=#{price}, fname=#{fname}, contents=#{contents},
-		isSale=#{isSale} where seq=#{seq}
+		isSale=#{isSale}
+		where seq=#{seq}
 	</update>
-<!-- 
-	<select id="countmarketproduct" resultType="int">
-		select count(*) from
-		Market_Product order by seq desc
+	<!-- <select id="countmarketproduct" resultType="int"> select count(*) from 
+		Market_Product order by seq desc </select> <insert id="insertReply" parameterType="Reply"> 
+		insert into reply values(reply_seq.nextval,#{r_title},#{r_writer},#{r_contents} 
+		,sysdate,#{seq}) </insert> <select id="listReply" parameterType="int" resultType="Reply"> 
+		select * from reply where seq=#{seq} </select> <update id="updateBoard" parameterType="Board"> 
+		update board set title=#{title}, contents=#{contents} where seq=#{seq} </update> -->
+
+
+	<!-- <insert id="MarketOption" parameterType="java.util.List"> insert into 
+		files select files_fseq.nextval, A.* , Market_Product_seq.nextval.currval 
+		From( <foreach collection="list" item="item" index="index" separator="UNION 
+		ALL "> select #{item.filename} From dual </foreach> ) A </insert> -->
+		
+	<select id="getListWithPaging" resultType="org.aptogether.domain.MarketBoardVO"> 
+		<![CDATA[ select * from ( 
+		select /*+INDEX_DESC(market_product pk_market) */ rownum rn, seq, writer, product_name, 
+		price, fname, contents, regdate,issale from Market_product where rownum <= #{pageNum} * #{amount} 
+		) where rn > (#{pageNum} -1) * #{amount} ]]>
 	</select>
-
 	
-
-	<insert id="insertReply" parameterType="Reply"> insert
-		into reply values(reply_seq.nextval,#{r_title},#{r_writer},#{r_contents}
-		,sysdate,#{seq})
-	</insert>
-	<select id="listReply" parameterType="int" resultType="Reply">
-		select * from reply where seq=#{seq}
+	<select id="getTotalCount" resultType="int">
+		select count(*) from market_product where seq > 0
+		
 	</select>
-	<update id="updateBoard" parameterType="Board">
-		update board set title=#{title}, contents=#{contents} where seq=#{seq}
-	</update>
-
--->
-
 	
-<!-- 
-
-	<insert id="MarketOption" parameterType="java.util.List">
-		insert into files select files_fseq.nextval, A.* ,
-		Market_Product_seq.nextval.currval From(
-		<foreach collection="list" item="item" index="index"
-			separator="UNION ALL ">
-			select #{item.filename} From dual
-		</foreach>
-		) A
-	</insert>
-
-	
-	-->
 </mapper>
 
 

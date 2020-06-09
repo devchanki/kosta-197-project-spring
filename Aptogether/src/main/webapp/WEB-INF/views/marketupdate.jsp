@@ -29,7 +29,7 @@ font-size:10px;
 <title>SB Admin 2 - Dashboard</title>
 
 <!-- Custom fonts for this template-->
-<link href="/Aptogether/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+<link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -37,7 +37,7 @@ font-size:10px;
 
 <!-- Custom styles for this template-->
 
-<link href="/Aptogether/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -376,7 +376,7 @@ font-size:10px;
 	</div>
 	<div class="card-body">
 	내용 <br>
-	<textarea rows="6" cols="70" name="contents">${product.getContents()}</textarea>
+	<textarea rows="6" cols="70" name="contents" style="width:100%;height:100;border:1;overflow:visible;text-overflow:ellipsis;">${product.getContents()}</textarea>
 	<br>
 	판매중:<input type="text" name="isSale" value="${product.isSale}">
 	<input type="submit" value="등록">
@@ -431,21 +431,21 @@ font-size:10px;
 	</div>
 
  <!-- Bootstrap core JavaScript-->
-  <script src="/Aptogether/vendor/jquery/jquery.min.js"></script>
-  <script src="/Aptogether/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="/Aptogether/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="/Aptogether/js/sb-admin-2.min.js"></script>
+  <script src="/resources/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="/Aptogether/vendor/chart.js/Chart.min.js"></script>
+  <script src="/resources/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="/Aptogether/js/demo/chart-area-demo.js"></script>
-  <script src="/Aptogether/js/demo/chart-pie-demo.js"></script>
+  <script src="/resources/js/demo/chart-area-demo.js"></script>
+  <script src="/resources/js/demo/chart-pie-demo.js"></script>
 
 </div>
 </body>

@@ -2,6 +2,7 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.aptogether.domain.Criteria;
 import org.aptogether.domain.MarketBoardVO;
 
 public interface MarketBoardService {
@@ -14,6 +15,9 @@ public interface MarketBoardService {
 	
 	public boolean remove(int seq);
 	
-	public List<MarketBoardVO> getlist();
+	public List<MarketBoardVO> getlist(Criteria cri);
+	
+	public int getTotal(Criteria cri);
+	
 	
 }

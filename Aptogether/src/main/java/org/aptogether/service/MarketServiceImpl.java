@@ -2,6 +2,7 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.aptogether.domain.Criteria;
 import org.aptogether.domain.MarketBoardVO;
 import org.aptogether.mapper.MarketBoardMapper;
 import org.springframework.stereotype.Service;
@@ -46,10 +47,18 @@ public class MarketServiceImpl implements MarketBoardService{
 	}
 
 	@Override
-	public List<MarketBoardVO> getlist() {
+	public List<MarketBoardVO> getlist(Criteria cri) {
 		// TODO Auto-generated method stub
 		log.info("목록가져오기");
-		return mapper.listMarketProduct();
+		//return mapper.listMarketProduct();
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		log.info("get total count");
+		return mapper.getTotalCount(cri);
 	}
 	
 

@@ -3,6 +3,7 @@ package org.aptogether.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
+import org.aptogether.domain.Criteria;
 import org.aptogether.domain.MarketBoardVO;
 
 public interface MarketBoardMapper {
@@ -19,4 +20,8 @@ public interface MarketBoardMapper {
 	public int deleteMarketProduct(int seq);
 	
 	public int updateMarketProduct(MarketBoardVO market);
+	
+	public List<MarketBoardVO> getListWithPaging(Criteria cri);
+	
+	public int getTotalCount(Criteria cri);
 }	
