@@ -11,13 +11,20 @@
 			values(APT_INFO_SEQ.nextval, #{kaptCode}, #{aptName}, #{location}, #{x}, #{y})
 	</insert> -->
 	
-	<select id="memberCount" parameterType="org.aptogether.domain.MemberVO" resultType="int">
+	<select id="memberCount" parameterType="org.aptogether.domain.JoinVO" resultType="int">
 		select nvl(count(*), 0) from member where id = #{id} 
 	</select>
 	
-	<insert id="joinMember" parameterType="org.aptogether.domain.MemberVO">
-		insert 
+	<insert id="joinMember" parameterType="org.aptogether.domain.JoinVO">
+		<selectKey resultType="int" keyProperty="householdSeq" order="BEFORE">
+			select household_seq from household where dong = #{dong} and ho = #{ho} and apt_seq = #{aptSeq}
+		</selectKey>
+		insert into member values(member_seq.nextval, #{id}, #{password}, 0, #{type}, #{name}, #{householdSeq})
 	</insert>
+	
+	<select id="memberInfo" parameterType="String" resultType="org.aptogether.domain.MemberVO">
+		select * from member inner join household on household.household_seq = member.household_seq where id = #{id}
+	</select>
 	
 <!-- 	<select id="showApt" parameterType="String" resultType="AptInfo">
 		select * from APT_INFO where aptname like #{keyword}

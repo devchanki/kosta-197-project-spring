@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Document;
@@ -37,6 +38,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import lombok.extern.log4j.Log4j;
@@ -226,5 +228,38 @@ public class AptRestController {
 			resultJson.addProperty("status", "error");
 		}
 		return gson.toJson(resultJson);
+	}
+
+	@PostMapping(value = "/showAptList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody String aptSearchWithName(@RequestBody Map<String, Object> aptNameMap) {
+		Gson gson = new Gson();
+
+		JsonArray array = new JsonArray();
+		if (aptNameMap == null) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("status", "invaild_input");
+			return gson.toJson(obj);
+		} else {
+			String aptName = (String) aptNameMap.get("aptName");
+			System.out.println("%" + aptName + "%");
+			List<AptVO> aptList = (List<AptVO>) aptMapper.searchWithKeyword("%" + aptName + "%");
+			System.out.println(aptList.size());
+			JsonObject jsonObj = new JsonObject();
+			if(aptList.size() == 0) {
+				jsonObj.addProperty("status", "no_value");
+			}else {
+				jsonObj.addProperty("status", "success");
+			}
+			
+			for (AptVO apt : aptList) {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("aptName", apt.getAptName());
+				obj.addProperty("aptSeq", apt.getAptSeq());
+				obj.addProperty("aptLocation", apt.getLocation());
+				array.add(obj);
+			}
+			jsonObj.add("aptList", array);
+			return gson.toJson(jsonObj);
+		}
 	}
 }

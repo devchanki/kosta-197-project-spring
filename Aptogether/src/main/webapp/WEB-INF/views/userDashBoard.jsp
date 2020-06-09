@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
+<%-- <%
    List<FeeVO> list = (List<FeeVO>) request.getAttribute("list");
    List<FeeVO> listReverse = new ArrayList<FeeVO>();
    if (list != null) {
@@ -13,7 +13,7 @@
    	}
    	request.setAttribute("reverseFee", listReverse);
    }
-   %>
+   %> --%>
 <!DOCTYPE html>
 <html lang="ko">
    <head>

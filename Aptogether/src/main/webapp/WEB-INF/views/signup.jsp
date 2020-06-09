@@ -35,9 +35,8 @@
         display: none;
         position: fixed;
         width: 100%;
-        height: 100%;
         z-index: 9999;
-        margin-top: 100px;
+        margin-top: 60px;
         left: 0;
       }
 
@@ -45,9 +44,23 @@
         margin: auto;
         padding: 30px 20px;
         box-sizing: border-box;
+        overflow: scroll;
+        height: 800px;
       }
       .margin-bottom {
         margin-bottom: 10px;
+      }
+      .margin-bottom-10 {
+      	margin-bottom: 10px;
+      }
+      .margin-top-15px {
+      	margin-top: 15px;
+      	height:40px;
+      	font-size: 22px;
+      }
+      .warning{
+      	font-size: 22px;
+      	color: red;
       }
     </style>
   </head>
@@ -78,8 +91,8 @@
           <div class="apt-list-box">
             <div class="list-group"></div>
           </div>
-          <input type="button" onclick="doAction()" value="선택하기" />
-          <input type="button" onclick="closeModal()" value="닫기 " />
+          <input type="button" class="margin-top-15px" onclick="doAction()" value="선택하기" />
+          <input type="button" class="margin-top-15px" onclick="closeModal()" value="닫기 " />
         </div>
       </div>
 
@@ -108,7 +121,7 @@
                       <input
                         type="text"
                         class="form-control form-control-user"
-                        name=""
+                        name="aptName"
                         id="aptName"
                         placeholder="아파트 이름"
                         readonly
@@ -134,7 +147,7 @@
                       type="email"
                       class="form-control form-control-user"
                       id="email"
-                      name="email"
+                      name="id"
                       placeholder="이메일 주소를 입력하세요"
                     />
                   </div>
@@ -157,7 +170,7 @@
                       />
                     </div>
                   </div>
-                  <div class="form-group row">
+                  <div class="form-group row resident">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="number"
@@ -184,9 +197,10 @@
                       <input
                         type="radio"
                         name="type"
-                        value="1"
+                        value="ROLE_TENANT"
                         class="custom-control-input"
                         id="customCheck1"
+                        checked="checked"
                       />
                       <label class="custom-control-label" for="customCheck1"
                         >입주민</label
@@ -196,7 +210,7 @@
                       <input
                         type="radio"
                         name="type"
-                        value="0"
+                        value="ROLE_KEEPER"
                         class="custom-control-input"
                         id="customCheck"
                       />
@@ -210,6 +224,7 @@
                     class="btn btn-primary btn-user btn-block"
                     value="회원 가입하기"
                   />
+                  <div class="warning">${status } </div>
                 </form>
                 <hr />
                 <!--               <div class="text-center">
@@ -226,8 +241,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/Aptogether/vendor/jquery/jquery.min.js"></script>
-    <script src="/Aptogether/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="/Aptogether/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -242,34 +257,46 @@
       }
 
       function searchApt() {
+    	  console.log(JSON.stringify({aptName: $("#modalAptName").val()}));
         $.ajax({
-          url: "/Aptogether/apt/showAptList",
-          type: "GET",
-          dataType: "text",
-          data: {
-            keyword: $("#modalAptName").val(),
-          },
+          url: "/apt/showAptList",
+          type: "POST",
+          dataType: "json",
+          contentType: "application/json;charset=utf-8",
+          data: JSON.stringify({aptName: $("#modalAptName").val()}),
           success: function (data) {
-            data = JSON.parse(data);
-            console.log(data);
+        	  console.log(data);
             $(".apt-list-box .list-group").html("");
-            for (var i = 0; i < data.length; i++) {
-              $(".apt-list-box .list-group").append(
-                '<button type="button" class="list-group-item list-group-item-action" onclick="selectApt(' +
-                  data[i].apt_seq +
-                  "," +
-                  "'" +
-                  data[i].apt_name +
-                  "'" +
-                  ')"' +
-                  ">" +
-                  data[i].apt_name +
-                  "(" +
-                  data[i].apt_location +
-                  ")" +
-                  "</button>"
-              );
+            if(data.status == 'success') {
+                for (var i = 0; i < data.aptList.length; i++) {
+                    $(".apt-list-box .list-group").append(
+                      '<button type="button" class="list-group-item list-group-item-action margin-bottom-10" onclick="selectApt(' +
+                        data.aptList[i].aptSeq +
+                        "," +
+                        "'" +
+                        data.aptList[i].aptName +
+                        "'" +
+                        ')"' +
+                        ">" +
+                        data.aptList[i].aptName +
+                        "(" +
+                        data.aptList[i].aptLocation +
+                        ")" +
+                        "</button>"
+                    );
+                  }
+            } else if(data.status == 'no_value') {
+            	$(".apt-list-box .list-group").html(
+                        '<button type="button" class="list-group-item list-group-item-action margin-bottom-10" disabled>' +
+						"아파트 목록이 없습니다 등록 부탁드립니다"
+                          + "</button>")
+            } else{
+            	$(".apt-list-box .list-group").html(
+                        '<button type="button" class="list-group-item list-group-item-action margin-bottom-10" disabled>' +
+						"잘못된 값을 입력하셨거나 에러가 발생했습니다"
+                          + "</button>")
             }
+
           },
         });
       }
@@ -278,7 +305,12 @@
       }
       $(function () {
     	$('input:radio').click(function () {
-    		console.log('hello')
+    		console.log($(this).val());
+    		if($(this).val() == 'ROLE_KEEPER'){
+    			$('.resident').hide();
+    		}else {
+    			$('.resident').show();
+    		}
     	});
         console.log("conssole.");
         $("#modal-toggle-button").on("click", function () {
