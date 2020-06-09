@@ -7,9 +7,10 @@ import lombok.Data;
 
 @Data
 public class MarketReplyVO implements Serializable{
-	private int reply_no;
-	private String reply_writer;
-	private String reply_contents;
-	private Date reply_regdate;
+	private int replyNo;
+	private String replyWriter;
+	private String replyContents;
+	private Date replyRegdate;
+	private Date replyUpdatedate;
 	private int seq;
 }

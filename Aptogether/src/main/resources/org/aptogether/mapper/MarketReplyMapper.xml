@@ -6,8 +6,25 @@
 <!-- (reply_no,reply_writer,reply_contents) -->
 <mapper namespace="org.aptogether.mapper.MarketReplyMapper">
 	<insert id="marketReplyInsert">
-	insert into MarketReply values(market_reply_seq.nextval,#{reply_writer},#{reply_contents},sysdate,#{seq})
+	insert into MarketReply(reply_no,reply_writer,reply_contents,reply_regdate,seq) values(market_reply_seq.nextval,#{replyWriter},#{replyContents},sysdate,#{seq})
 	</insert>
+	
+	<select id="marketReplyRead" resultType="org.aptogether.domain.MarketReplyVO">
+	select * from MarketReply where reply_no=#{replyNo}
+	</select>
+	
+	<delete id="marketReplyDelete">
+	delete from MarketReply where reply_no=#{replyNo}
+	</delete>
+	
+	<update id="marketReplyUpdate">
+	update marketReply set reply_contents=#{replyContents}, reply_updatedate=sysdate where reply_no=#{replyNo}
+	</update>
+	
+	<select id="getListWithPaging" resultType="org.aptogether.domain.MarketReplyVO">
+	select * from marketReply where seq=#{seq} order by seq asc
+	</select>
+	
 	<cache />
 </mapper>
 
