@@ -27,7 +27,7 @@ public class ScheduleMapperTests {
 	@Test
 	public void testGetList() {
 		int targetSeq = 1;
-		mapper.listSchedule(targetSeq).forEach(schedule -> log.info(schedule));
+		mapper.listSchedule(targetSeq, "1").forEach(schedule -> log.info(schedule));
 	}
 	
 //	@Test

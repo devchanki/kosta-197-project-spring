@@ -88,7 +88,16 @@
      	margin-top: 5px;
         
         }
+.scheduleRefresh{
 
+        vertical-align: middle;
+        background: url( "/resources/img/refresh-24px.svg" ) no-repeat;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+     	margin-top: 5px;
+}
 
 </style>
 
@@ -572,12 +581,15 @@
 					</div>
 
 					<!-- table -->
+				
 					<div class="container" id="auth_tb"> 
+					<button type="button" class="scheduleRefresh" ></button>
+					
 						<div id="wrapper">
 							<table id="auth_table" class="display">
 								<thead>
 									<tr>
-										<th>글번호</th>
+<!-- 									<th>글번호</th> -->
 										<th>제목</th>
 										<th>상세내역</th>
 										<th>동</th>
@@ -589,7 +601,7 @@
 								</thead>
 								<c:forEach items="${list }" var="schedule">
 									<tr>
-										 <td><c:out value="${schedule.scheduleSeq }"/></td>
+<%-- 										 <td><c:out value="${schedule.scheduleSeq }"/></td> --%>
 						                <td><c:out value="${schedule.title }"/></td>
 						                <td><c:out value="${schedule.contents }"/></td>
 						                <td><c:out value="${schedule.dong }"/></td>
@@ -732,20 +744,13 @@
 		});
 	
 	</script>
-	
-
-
-						
+							
 		<!-- 버튼 onclick script-->
 	<script type="text/javascript">
 	
 
 	$(document).ready(function(){
-		
-		
-		$('.scheduleAccept').on('click',function(){
-			alert( $(this).val());
-			
+		$('.scheduleAccept').on('click',function(){	
 			$.ajax({
 					url : "/schedule/keeper/admit/" + $(this).val(),
 					type : "put",
@@ -759,11 +764,7 @@
 			
 		});
 		
-		
-		
-		$('.scheduleReject').on('click',function(){
-			alert( $(this).val());
-			
+		$('.scheduleReject').on('click',function(){	
 			$.ajax({
 				type : "delete",
 				url : "/schedule/keeper/" + $(this).val(),
@@ -777,7 +778,9 @@
 			
 		});
 		
-		
+		$('.scheduleRefresh').on('click',function(){	
+			location.reload();
+		});
 	});
 	
 	</script>
