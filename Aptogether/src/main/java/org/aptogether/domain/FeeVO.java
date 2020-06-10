@@ -6,20 +6,19 @@ import lombok.Data;
 public class FeeVO {
 
 	private int feeSeq;
-	private int memberSeq;
-	private int generalFee;
-	private int securityFee;
-	private int cleaningFee;
-	private int fumigationFee;
-	private int liftMaintenanceFee;
-	private int electricityFee;
-	private int waterFee;
-	private int heatingFee;
-	private String payDate;
+	private int levySeq;
+	private int householdSeq;
+	private int generalBill;
+	private int securityBill;
+	private int cleaningBill;
+	private int fumigationBill;
+	private int elevatorBill;
+	private int electricityBill;
+	private int waterBill;
 	
 	
 	public int getTotalValue() {
-		return generalFee + securityFee + cleaningFee + fumigationFee
-					+ liftMaintenanceFee + electricityFee + waterFee + heatingFee;
+		return generalBill + securityBill + cleaningBill + fumigationBill
+					+ elevatorBill + electricityBill + waterBill;
 	}
 }

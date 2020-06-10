@@ -20,8 +20,14 @@ public class FeeController {
 		return "managerDashBoard";
 	}
 	
-	@GetMapping("/feeRegister/{memberSeq}")
-	public String feeRegister(@PathVariable("memberSeq") int memberSeq){
+	@GetMapping("/levyRegister/{aptSeq}")
+	public String levyRegister(@PathVariable("aptSeq") int aptSeq){
+		
+		return "levyRegister";
+	}
+	
+	@GetMapping("/feeRegister/{levyDateNum}")
+	public String feeRegister(@PathVariable("levyDateNum") String levyDateNum){
 		
 		return "feeRegister";
 	}

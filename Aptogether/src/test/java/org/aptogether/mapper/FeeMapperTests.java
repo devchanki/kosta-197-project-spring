@@ -64,14 +64,14 @@ public class FeeMapperTests {
 //		mapper.listFee(user).forEach(fee -> log.info(fee));
 //	}
 	
-	@Test
-	public void testListFeeRowNum(){
-		
-		MemberVO user = new MemberVO();
-		user.setAptSeq(6);
-		user.setMemberSeq(30);
-		
-		mapper.listFeeRowNum(user).forEach(feeRowNum -> log.info(feeRowNum));
-	}
+//	@Test
+//	public void testListFeeRowNum(){
+//		
+//		MemberVO user = new MemberVO();
+//		user.setAptSeq(6);
+//		user.setMemberSeq(30);
+//		
+//		mapper.listFeeRowNum(user).forEach(feeRowNum -> log.info(feeRowNum));
+//	}
 
 }
