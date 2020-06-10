@@ -3,6 +3,7 @@ package org.aptogether.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.aptogether.domain.ScheduleVO;
 import org.aptogether.mapper.ScheduleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 	// return mapper.listSchedule(1);
 	// }
 
-	@Override
+/*	@Override
 	public List<ScheduleVO> listSchedule(int aptSeq) {
 		log.info("get list....");
-		return mapper.listSchedule(1);
-	}
+		return mapper.listSchedule(aptSeq);
+	}*/
 
 	@Override
 	public int insertSchedule(ScheduleVO vo) {
@@ -52,5 +53,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 		log.info("update : " + vo);
 		return mapper.updateSchedule(vo);
 	}
+
+	@Override
+	public List<ScheduleVO> listSchedule(@Param("aptSeq") int aptSeq, @Param("authority") String authority) {
+		log.info("admit");
+		return mapper.listSchedule(aptSeq, authority);
+	}
+
+	@Override
+	public int admitSchedule(int scheduleSeq) {
+		log.info("admit update");
+		return mapper.admitSchedule(scheduleSeq);
+	}
+
+
+	
 
 }

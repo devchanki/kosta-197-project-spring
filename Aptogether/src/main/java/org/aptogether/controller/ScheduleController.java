@@ -25,8 +25,8 @@ public class ScheduleController {
 	@GetMapping("/keeper/scheduleKeeper")
 	public String keeper_Schedule(Model model){
 	
-		log.info("list");
-		model.addAttribute("list", service.listSchedule(1));
+		log.info("admit list");
+		model.addAttribute("list", service.listSchedule(1, "0"));
 		return "scheduleKeeper";
 	}
 

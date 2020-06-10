@@ -12,6 +12,8 @@ var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 var editAptSeq = $('#edit-Apt-Seq');
 
+var editAuth = $('#edit-auth');
+
 var realURL =document.location.href;
 console.log(realURL);
 
@@ -35,6 +37,7 @@ var newEvent = function (start, end, eventType) {
     editDesc.val('');
     editAptSeq.val();
     editId.val();
+    editAuth.val();
     
     addBtnContainer.show();
     modifyBtnContainer.hide();
@@ -47,6 +50,8 @@ var newEvent = function (start, end, eventType) {
     	console.log(editStart.val());
     	console.log( editEnd.val());
     	console.log(editDong.val());
+
+
     	
     	
         var eventData = {
@@ -90,9 +95,8 @@ var newEvent = function (start, end, eventType) {
  				"contents":  editDesc.val(),
  				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
  				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
- 				"aptSeq":2,
+ 				"aptSeq":1,
  				"backgroundColor": editColor.val(),
-                "authority" :  1
 
  			};
         

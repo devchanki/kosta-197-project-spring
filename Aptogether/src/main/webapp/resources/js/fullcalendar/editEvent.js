@@ -36,6 +36,7 @@ var editEvent = function(event, element, view) {
 	editDesc.val(event.contents);
 	editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 	editAptSeq.val(event.apt_seq);
+	editAuth.val(event.authority);
 
 	addBtnContainer.hide();
 	modifyBtnContainer.show();
@@ -43,10 +44,7 @@ var editEvent = function(event, element, view) {
 
 	// 업데이트 버튼 클릭시
 	$('#updateEvent').unbind();
-	$('#updateEvent')
-			.on(
-					'click',
-					function() {
+	$('#updateEvent').on('click',function() {
 
 						if (editStart.val() > editEnd.val()) {
 							alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -65,18 +63,13 @@ var editEvent = function(event, element, view) {
 
 						if (editAllDay.is(':checked')) {
 							statusAllDay = true;
-							startDate = moment(editStart.val()).format(
-									'YYYY-MM-DD');
-							endDate = moment(editEnd.val())
-									.format('YYYY-MM-DD');
-							displayDate = moment(editEnd.val()).add(1, 'days')
-									.format('YYYY-MM-DD');
+							startDate = moment(editStart.val()).format('YYYY-MM-DD');
+							endDate = moment(editEnd.val()).format('YYYY-MM-DD');
+							displayDate = moment(editEnd.val()).add(1, 'days').format('YYYY-MM-DD');
 						} else {
 							statusAllDay = false;
-							startDate = moment(editStart.val()).format(
-									'YYYY-MM-DD');
-							endDate = moment(editEnd.val())
-									.format('YYYY-MM-DD');
+							startDate = moment(editStart.val()).format('YYYY-MM-DD');
+							endDate = moment(editEnd.val()).format('YYYY-MM-DD');
 							displayDate = endDate;
 						}
 
@@ -95,19 +88,19 @@ var editEvent = function(event, element, view) {
 						$("#calendar").fullCalendar('updateEvent', event);
 
 						var scheduleSeq = editId.val();
+						var authority = editAuth.val();
+
 						var updateData = {
 							"title" : editTitle.val(),
 							"dong" : editDong.val(),
 							"contents" : editDesc.val(),
-							"startDate" : moment(editStart.val()).format(
-									'YYYY-MM-DD HH:mm'),
-							"endDate" : moment(editEnd.val()).format(
-									'YYYY-MM-DD HH:mm'),
-							"backgroundColor" : editColor.val(),
+							"startDate" : moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
+							"endDate" : moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
+							"backgroundColor" : editColor.val()
 						};
 
 						// 일정 업데이트
-						if (realURL == "http://localhost:8081/schedule/keeper/scheduelKeeper") {
+						if (realURL == "http://localhost:8081/schedule/keeper/scheduleKeeper") {
 							$.ajax({
 										url : "/schedule/keeper/" + scheduleSeq,
 										type : "put",

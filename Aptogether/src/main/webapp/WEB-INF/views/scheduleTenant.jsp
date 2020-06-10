@@ -455,6 +455,13 @@
 
 											<div class="container-fluid">
 												<div class="col-12">
+													<input class="AuthNewEvent" id="edit-auth" type="text">
+												</div>
+											</div>
+
+
+											<div class="container-fluid">
+												<div class="col-12">
 													<label class="col-4" for="edit-title">일정명</label> <input
 														class="inputModal" type="text" name="edit-title"
 														id="edit-title" required="required">

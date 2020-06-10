@@ -63,11 +63,35 @@
 	crossorigin="anonymous">
 
 
+<style type="text/css">
+
+.scheduleAccept {
+
+	    vertical-align: middle;
+        background: url( "/resources/img/check_circle_outline.svg" ) no-repeat;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        margin-top: 5px;
+        margin-left: 7px;
+        }
+        
+.scheduleReject {
+
+        vertical-align: middle;
+        background: url( "/resources/img/highlight_off.svg" ) no-repeat;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+     	margin-top: 5px;
+        
+        }
 
 
-<!-- <script> 
- 	var sessionDong = ${member.dong};
- </script> -->
+</style>
+
 
 </head>
 
@@ -449,17 +473,20 @@
 													<input class="IdNewEvent" id="edit-Id" type="hidden">
 												</div>
 											</div>
-
+											
 											<div class="container-fluid">
 												<div class="col-12">
 													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden">
 												</div>
 											</div>
-											<div class="container-fluid">
+											
+										<div class="container-fluid">
 												<div class="col-12">
-													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden">
+													<input class="AuthNewEvent" id="edit-auth" type="hidden">
 												</div>
 											</div>
+											
+											
 											
 											<div class="container-fluid">
 												<div class="col-12">
@@ -550,23 +577,29 @@
 							<table id="auth_table" class="display">
 								<thead>
 									<tr>
+										<th>글번호</th>
 										<th>제목</th>
 										<th>상세내역</th>
 										<th>동</th>
 										<th>Start date</th>
 										<th>end date</th>
+										<th>구분</th>
 										<th>비고</th>
 									</tr>
 								</thead>
 								<c:forEach items="${list }" var="schedule">
 									<tr>
+										 <td><c:out value="${schedule.scheduleSeq }"/></td>
 						                <td><c:out value="${schedule.title }"/></td>
 						                <td><c:out value="${schedule.contents }"/></td>
 						                <td><c:out value="${schedule.dong }"/></td>
 						                <td><c:out value="${schedule.startDate }"/></td>
 						                <td><c:out value="${schedule.endDate }"/></td>
-						                <td><button type="button" class="btn btn-outline-success btn-sm">  </button>
-						                <button type="button" class="btn btn-outline-danger btn-sm">  </button></td>
+						                <td><c:out value="${schedule.backgroundColor }"/></td>
+						                <td>
+						                <button type="button" class="scheduleAccept"  value="${schedule.scheduleSeq }"> </button>
+						                <button type="button" class="scheduleReject"  value="${schedule.scheduleSeq }"></button>
+						                </td>
 						            </tr>
 								</c:forEach>
 								 <tbody>
@@ -669,14 +702,13 @@
 	<script src="/resources/js/fullcalendar/addEvent.js"></script>
 	<script src="/resources/js/fullcalendar/editEvent.js"></script>
 	<script src="/resources/js/fullcalendar/etcSetting.js"></script>
+	
+	<!-- 캘린더 크기 조정 -->
 	<script>
 		$(document).ready(
 				function() {
-
-					$(window).resize(
-							function() {
-								$('#calendar').fullCalendar('option', 'height',
-										get_calendar_height());
+					$(window).resize(function() {
+								$('#calendar').fullCalendar('option', 'height', get_calendar_height());
 							});
 
 					//set fullcalendar height property
@@ -687,29 +719,71 @@
 
 				});
 	</script>
-
-	<script
-		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript">
 	
-
-
+	<!-- 승인 테이블 script -->
+	<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#auth_table').DataTable({
 				"scrollY" : "200px",
 				"scrollCollapse" : true,
-				"paging" : false,
-		
+				"paging" : false
 			});
 		});
 	
 	</script>
+	
 
-	<link
-		href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css"
-		rel="stylesheet">
-	<script
-		src="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+
+						
+		<!-- 버튼 onclick script-->
+	<script type="text/javascript">
+	
+
+	$(document).ready(function(){
+		
+		
+		$('.scheduleAccept').on('click',function(){
+			alert( $(this).val());
+			
+			$.ajax({
+					url : "/schedule/keeper/admit/" + $(this).val(),
+					type : "put",
+					dataType : "json",
+					contentType : "application/json; charset=utf-8",
+					success : function(response) {
+						alert('요청이 등록되었습니다.');
+						location.reload();
+					}
+				});
+			
+		});
+		
+		
+		
+		$('.scheduleReject').on('click',function(){
+			alert( $(this).val());
+			
+			$.ajax({
+				type : "delete",
+				url : "/schedule/keeper/" + $(this).val(),
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(response) {
+					alert('요청이 삭제되었습니다.');
+					location.reload();
+				}
+			});
+			
+		});
+		
+		
+	});
+	
+	</script>
+
+	<link href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+	<script src="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
 
 
 
