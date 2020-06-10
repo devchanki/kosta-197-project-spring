@@ -155,24 +155,23 @@ var calendar = $('#calendar').fullCalendar({
     },
 
   },
-
   /* ****************
-   *  일정 받아옴 
+   *      일정 받아옴       *
    * ************** */
 	  
 	  //입주민 ajax
 
 	  events: function (start, end, timezone, callback) {
-	    $.ajax({
-	      type: "get",
-	      url: "/schedule/tenant/listSchedule/1",
-	      dataType: "json",
-	      success: function (response) {
-	    	  console.log("start.....");
-	    	  console.log(response);
-	        callback(response);
-	      }
-	    });
+			    $.ajax({
+				      type: "get",
+				      url: "/schedule/tenant/listSchedule/1",
+				      dataType: "json",
+				      success: function (response) {
+				    	  console.log("start.....");
+				    	  console.log(response);
+				        callback(response);
+				      }
+				    });
 	  },
 	  
   eventAfterAllRender: function (view) {
@@ -181,92 +180,6 @@ var calendar = $('#calendar').fullCalendar({
     }
   },
   
-
-
-  //일정 리사이즈
-  eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
-    $('.popover.fade.top').remove();
-
-    /** 리사이즈시 수정된 날짜반영
-     * 하루를 빼야 정상적으로 반영됨. */
-    var newDates = calDateWhenResize(event);
-	var scheduleSeq = event._id;
-	var resizeData =   {
-	        scheduleSeq: event._id,
-	        title: event.title,
-	        dong: event.dong,
-			contents:  event.contents,
-			startDate: moment(event.start._d).format('YYYY-MM-DD HH:mm'),
-			endDate: moment(event.end._d).format('YYYY-MM-DD HH:mm'),
-			aptSeq: event.aptseq,
-			backgroundColor: event.backgroundColor
-	      };
-	
-    //리사이즈한 일정 업데이트
-    $.ajax({
-    	url : "/schedule/tenant/" + scheduleSeq,
-		type : "put",
-		dataType : "json",
-		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(resizeData),
-      success: function (response) {
-        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
-      }
-    });
-
-  },
-
-  eventDragStart: function (event, jsEvent, ui, view) {
-    draggedEventIsAllDay = event.allDay;
-  },
-
-  //일정 드래그앤드롭
-  eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-    $('.popover.fade.top').remove();
-
-    //주,일 view일때 종일 <-> 시간 변경불가
-    if (view.type === 'agendaWeek' || view.type === 'agendaDay') {
-      if (draggedEventIsAllDay !== event.allDay) {
-        alert('드래그앤드롭으로 종일<->시간 변경은 불가합니다.');
-        location.reload();
-        return false;
-      }
-    }
-
-    // 드랍시 수정된 날짜반영
-    var newDates = calDateWhenDragnDrop(event);
-
-	var scheduleSeq = event._id;
-	console.log(event._id);
-	console.log(event.backgroundColor);
-	
-    var updateData ={
-			scheduleSeq: event._id,
-	        title: event.title,
-	        dong: event.dong,
-			contents:  event.contents,
-			startDate: moment(event.start._d).format('YYYY-MM-DD HH:mm'),
-			endDate: moment(event.end._d).format('YYYY-MM-DD HH:mm'),
-			aptSeq: event.aptseq,
-			backgroundColor: event.backgroundColor
-	};
-    
-    //드롭한 일정 업데이트
-    $.ajax({
-    	url:  "/schedule/tenant/" + scheduleSeq,
-			type: "put",
-			dataType : "json",
-			contentType: "application/json; charset=utf-8",
-			data : JSON.stringify(updateData),
-        success: function (response) {
-        	console.log(response)
-            alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
-        	location.reload();
-        }
-    });
-
-  },
-
   select: function (startDate, endDate, jsEvent, view) {
 
     $(".fc-body").unbind('click');

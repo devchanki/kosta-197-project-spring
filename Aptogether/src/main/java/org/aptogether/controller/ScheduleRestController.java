@@ -59,19 +59,25 @@ public class ScheduleRestController {
 		}
 		return gson.toJson(array);
 	}
+	
 
 	@PostMapping(value="/tenant/insertSchedule", consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String tenant_CreateSchedule(@RequestBody ScheduleVO vo){
-		log.info("scheduleVO: " + vo);
+		
+		 vo.setAuthority("0");
+		 log.info("scheduleVO: " + vo);
 		int insertCount = service.insertSchedule(vo);
 		JsonObject obj = new JsonObject();	//status -> 하기위해 Jsonobj를 만들어줌
 		Gson gson = new Gson(); //Json 형태로 뿌려줘야해 왜냐면 text라서 json을 못 가져와! 
 
+		
 		if(insertCount == 1 )
 				obj.addProperty("status", "true");
 		else
 				obj.addProperty("status", "false");
 		return gson.toJson(obj);
+		
+		
 	}
 	
 	
@@ -79,6 +85,7 @@ public class ScheduleRestController {
 									produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String tenant_DeleteSchedule(@PathVariable("scheduleSeq")int scheduleSeq){
 		log.info("schedule delete: "+ scheduleSeq);
+		
 		int seq = service.deleteSchedule(scheduleSeq);
 		JsonObject obj = new JsonObject();
 		Gson gson = new Gson(); 
@@ -96,7 +103,6 @@ public class ScheduleRestController {
 			value="/tenant/{scheduleSeq}",  consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String tenant_UpdateSchedule( @RequestBody ScheduleVO vo, @PathVariable("scheduleSeq")int scheduleSeq){
 		log.info("schedule update seq :" + scheduleSeq);
-		
 		vo.setScheduleSeq(scheduleSeq);
 		log.info("schedule update : "+ vo);
 		int modify = service.updateSchedule(vo);
@@ -134,7 +140,10 @@ public class ScheduleRestController {
 	
 	@PostMapping(value="/keeper/insertSchedule", consumes="application/json", produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String keeper_CreateSchedule(@RequestBody ScheduleVO vo){
+		
+		vo.setAuthority("1");
 		log.info("scheduleVO: " + vo);
+
 		int insertCount = service.insertSchedule(vo);
 		JsonObject obj = new JsonObject();	//status -> 하기위해 Jsonobj를 만들어줌
 		Gson gson = new Gson(); //Json 형태로 뿌려줘야해 왜냐면 text라서 json을 못 가져와! 

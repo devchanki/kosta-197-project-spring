@@ -160,19 +160,19 @@ var calendar = $('#calendar').fullCalendar({
    *  일정 받아옴 
    * ************** */
 	  
-	  //관리자 ajax
+	  //입주민 ajax
 
 	  events: function (start, end, timezone, callback) {
-	    $.ajax({
-	      type: "get",
-	      url: "/schedule/keeper/listSchedule/2",
-	      dataType: "json",
-	      success: function (response) {
-	    	  console.log("start.....");
-	    	  console.log(response);
-	        callback(response);
-	      }
-	    });
+			    $.ajax({
+				      type: "get",
+				      url: "/schedule/keeper/listSchedule/2",
+				      dataType: "json",
+				      success: function (response) {
+				    	  console.log("start.....");
+				    	  console.log(response);
+				        callback(response);
+				      }
+				    });
 	  },
 	  
   eventAfterAllRender: function (view) {

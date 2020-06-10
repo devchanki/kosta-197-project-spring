@@ -490,8 +490,8 @@
 													<label class="col-4" for="edit-type">구분</label> <select
 														class="inputModal" type="text" name="edit-type"
 														id="edit-type">
-														<option value="등록">등록</option>
-														<option value="수정">수정</option>
+														<option value="등록">등록요청</option>
+														<option value="수정">수정요청</option>
 													</select>
 												</div>
 											</div>
@@ -500,9 +500,9 @@
 												<div class="col-12">
 													<label class="col-4" for="edit-color">색상</label> <select
 														class="inputModal" name="Color" id="edit-color">
-														<option value="#D25565" style="color: #D25565;">주요일정</option>
-														<option value="#74c0fc" style="color: #74c0fc;">전체일정</option>
-														<option value="#a9e34b" style="color: #a9e34b;">동일정</option>
+														<option value="#F5A9A9" style="color: #F5A9A9;">주요일정</option>
+														<option value="#A9D0F5" style="color: #A9D0F5;">전체일정</option>
+														<option value="#F5D0A9" style="color: #F5D0A9;">동일정</option>
 													</select>
 												</div>
 											</div>
@@ -518,7 +518,7 @@
 										<div class="modal-footer modalBtnContainer-addEvent">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">취소</button>
-											<button type="button" class="btn btn-primary" id="save-event">저장</button>
+											<button type="button" class="btn btn-primary" id="save-event">요청</button>
 										</div>
 										<div class="modal-footer modalBtnContainer-modifyEvent">
 											<button type="button" class="btn btn-secondary"

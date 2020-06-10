@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <!doctype html>
@@ -452,7 +455,12 @@
 													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden">
 												</div>
 											</div>
-
+											<div class="container-fluid">
+												<div class="col-12">
+													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden">
+												</div>
+											</div>
+											
 											<div class="container-fluid">
 												<div class="col-12">
 													<label class="col-4" for="edit-title">일정명</label> <input
@@ -500,9 +508,9 @@
 												<div class="col-12">
 													<label class="col-4" for="edit-color">색상</label> <select
 														class="inputModal" name="Color" id="edit-color">
-														<option value="#D25565" style="color: #D25565;">주요일정</option>
-														<option value="#74c0fc" style="color: #74c0fc;">전체일정</option>
-														<option value="#a9e34b" style="color: #a9e34b;">동일정</option>
+														<option value="#F5A9A9" style="color: #F5A9A9;">주요일정</option>
+														<option value="#A9D0F5" style="color: #A9D0F5;">전체일정</option>
+														<option value="#F5D0A9" style="color: #F5D0A9;">동일정</option>
 													</select>
 												</div>
 											</div>
@@ -545,24 +553,24 @@
 										<th>제목</th>
 										<th>상세내역</th>
 										<th>동</th>
-										<th>호수</th>
 										<th>Start date</th>
 										<th>end date</th>
 										<th>비고</th>
 									</tr>
 								</thead>
-								<tbody>
-								 <tbody>
-						            <tr>
-						                <td>이사</td>
-						                <td>이사갑니다.</td>
-						                <td>301동</td>
-						                <td>611호</td>
-						                <td>2020/06/17</td>
-						                <td>2020/06/19</td>
-						                <td><button type="button" class="btn btn-outline-success btn-sm">1</button>
-						                <button type="button" class="btn btn-outline-danger btn-sm">2</button></td>
+								<c:forEach items="${list }" var="schedule">
+									<tr>
+						                <td><c:out value="${schedule.title }"/></td>
+						                <td><c:out value="${schedule.contents }"/></td>
+						                <td><c:out value="${schedule.dong }"/></td>
+						                <td><c:out value="${schedule.startDate }"/></td>
+						                <td><c:out value="${schedule.endDate }"/></td>
+						                <td><button type="button" class="btn btn-outline-success btn-sm">  </button>
+						                <button type="button" class="btn btn-outline-danger btn-sm">  </button></td>
 						            </tr>
+								</c:forEach>
+								 <tbody>
+						            
 								</tbody>
 							</table>
 						</div>
@@ -658,9 +666,9 @@
 	<script src="/resources/js/fullcalendar/bootstrap/js/ko.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/select2.min.js"></script>
 	<script src="/resources/js/fullcalendar/mainKeeper.js"></script>
-	<script src="/resources/js/fullcalendar/addEventKeeper.js"></script>
-	<script src="/resources/js/fullcalendar/editEventKeeper.js"></script>
-	<script src="/resources/js/fullcalendar/etcSettingKeeper.js"></script>
+	<script src="/resources/js/fullcalendar/addEvent.js"></script>
+	<script src="/resources/js/fullcalendar/editEvent.js"></script>
+	<script src="/resources/js/fullcalendar/etcSetting.js"></script>
 	<script>
 		$(document).ready(
 				function() {
@@ -684,43 +692,17 @@
 		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
 	
-		var dataSet = [
 
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ],
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ],
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ],
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ],
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ],
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ],
-				[ "청소", "베란다 물청소 합니다.", "301동", "3011호", "2020/06/18",
-						"2020/06/18", "등록" ], 		
-				];
 
 		$(document).ready(function() {
-			
 			$('#auth_table').DataTable({
 				"scrollY" : "200px",
 				"scrollCollapse" : true,
 				"paging" : false,
-
-				data : dataSet,
-				columns : [ 
-					{title : "이름"}, 
-					{title : "상세보기"},
-					{title : "동"}, 
-					{title : "호수"}, 
-					{title : "start date"},
-					{title : "end date"},
-					{title : "비고"} ]
+		
 			});
 		});
-		
+	
 	</script>
 
 	<link

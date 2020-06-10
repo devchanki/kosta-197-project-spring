@@ -12,6 +12,8 @@ var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 var editAptSeq = $('#edit-Apt-Seq');
 
+var realURL =document.location.href;
+console.log(realURL);
 
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
@@ -88,35 +90,65 @@ var newEvent = function (start, end, eventType) {
  				"contents":  editDesc.val(),
  				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
  				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
- 				"aptSeq":1,
- 				"backgroundColor": editColor.val()
+ 				"aptSeq":2,
+ 				"backgroundColor": editColor.val(),
+                "authority" :  1
+
  			};
         
-		 $.ajax({
- 			url: "/schedule/tenant/insertSchedule",
- 			type: "post",
- 			dataType: "json",
- 			contentType: "application/json; charset=utf-8",
- 			data: JSON.stringify(tmp),
- 			  
- 			success: function(data){      
- 					 $('#calendar').fullCalendar('removeEvents');
- 	                $('#calendar').fullCalendar('refetchEvents');
- 	                console.log(data);
- 				if(data.status == "true"){
- 					
- 					alert("입력에 성공하셨습니다.");
- 				}else {
- 					alert("잠시후 다시 시도해주세요.");
- 				}
- 			},
- 			error: function(request, status, error) {
- 				console.log(request, status, error);
- 				alert("요청에 실패하였습니다. 조금 있다 다시 요청해주세요.")
- 			}
- 		}); 
-		 
-		 
+        //일단 아직 권한 안 주고 주소로만 해놨음
+        
+        if(realURL=="http://localhost:8081/schedule/keeper/scheduleKeeper"){
+        	 $.ajax({
+      			url: "/schedule/keeper/insertSchedule",
+      			type: "post",
+      			dataType: "json",
+      			contentType: "application/json; charset=utf-8",
+      			data: JSON.stringify(tmp),
+      			  
+      			success: function(data){      
+      					 $('#calendar').fullCalendar('removeEvents');
+      	                $('#calendar').fullCalendar('refetchEvents');
+      	                console.log(data);
+      				if(data.status == "true"){
+      					
+      					alert("일정이 등록되었습니다.");
+      				
+      				}else {
+      					alert("잠시후 다시 시도해주세요.");
+      				}
+      			},
+      			error: function(request, status, error) {
+      				console.log(request, status, error);
+      				alert("요청에 실패하였습니다. 조금 있다 다시 요청해주세요.")
+      			}
+      		}); 
+        }else{
+        	$.ajax({
+      			url: "/schedule/tenant/insertSchedule",
+      			type: "post",
+      			dataType: "json",
+      			contentType: "application/json; charset=utf-8",
+      			data: JSON.stringify(tmp),
+      			  
+      			success: function(data){      
+      					 $('#calendar').fullCalendar('removeEvents');
+      	                $('#calendar').fullCalendar('refetchEvents');
+      	                console.log(data);
+      				if(data.status == "true"){
+      					
+      					alert("관리자의 승인을 기다리는 중입니다.");
+      				
+      				}else {
+      					alert("잠시후 다시 시도해주세요.");
+      				}
+      			},
+      			error: function(request, status, error) {
+      				console.log(request, status, error);
+      				alert("요청에 실패하였습니다. 조금 있다 다시 요청해주세요.")
+      			}
+      		}); 
+        }
 		 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
         eventModal.find('input, textarea').val('');

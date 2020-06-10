@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.aptogether.domain.ScheduleVO;
 import org.aptogether.mapper.ScheduleMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public List<ScheduleVO> listSchedule(int aptSeq) {
 		log.info("get list....");
-		return mapper.listSchedule(aptSeq);
+		return mapper.listSchedule(1);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 /* ****************
  *  일정 편집
  * ************** */
+
 var editEvent = function(event, element, view) {
 
 	$('#deleteEvent').data('id', event._id); // 클릭한 이벤트 ID
@@ -42,74 +43,99 @@ var editEvent = function(event, element, view) {
 
 	// 업데이트 버튼 클릭시
 	$('#updateEvent').unbind();
-	$('#updateEvent').on('click',function() {
+	$('#updateEvent')
+			.on(
+					'click',
+					function() {
 
-				if (editStart.val() > editEnd.val()) {
-					alert('끝나는 날짜가 앞설 수 없습니다.');
-					return false;
-				}
+						if (editStart.val() > editEnd.val()) {
+							alert('끝나는 날짜가 앞설 수 없습니다.');
+							return false;
+						}
 
-				if (editTitle.val() === '') {
-					alert('일정명은 필수입니다.')
-					return false;
-				}
+						if (editTitle.val() === '') {
+							alert('일정명은 필수입니다.')
+							return false;
+						}
 
-				var statusAllDay;
-				var startDate;
-				var endDate;
-				var displayDate;
+						var statusAllDay;
+						var startDate;
+						var endDate;
+						var displayDate;
 
-				if (editAllDay.is(':checked')) {
-					statusAllDay = true;
-					startDate = moment(editStart.val()).format('YYYY-MM-DD');
-					endDate = moment(editEnd.val()).format('YYYY-MM-DD');
-					displayDate = moment(editEnd.val()).add(1, 'days').format(
-							'YYYY-MM-DD');
-				} else {
-					statusAllDay = false;
-					startDate = moment(editStart.val()).format('YYYY-MM-DD');
-					endDate = moment(editEnd.val()).format('YYYY-MM-DD');
-					displayDate = endDate;
-				}
+						if (editAllDay.is(':checked')) {
+							statusAllDay = true;
+							startDate = moment(editStart.val()).format(
+									'YYYY-MM-DD');
+							endDate = moment(editEnd.val())
+									.format('YYYY-MM-DD');
+							displayDate = moment(editEnd.val()).add(1, 'days')
+									.format('YYYY-MM-DD');
+						} else {
+							statusAllDay = false;
+							startDate = moment(editStart.val()).format(
+									'YYYY-MM-DD');
+							endDate = moment(editEnd.val())
+									.format('YYYY-MM-DD');
+							displayDate = endDate;
+						}
 
-				eventModal.modal('hide');
+						eventModal.modal('hide');
 
-				event.allDay = statusAllDay;
-				event.title = editTitle.val();
-				event.dong = editDong.val();
-				event.start = startDate;
-				event.end = displayDate;
-				event.type = editType.val();
-				event.backgroundColor = editColor.val();
-				event.contents = editDesc.val();
-				event.apt_seq = editAptSeq.val();
+						event.allDay = statusAllDay;
+						event.title = editTitle.val();
+						event.dong = editDong.val();
+						event.start = startDate;
+						event.end = displayDate;
+						event.type = editType.val();
+						event.backgroundColor = editColor.val();
+						event.contents = editDesc.val();
+						event.apt_seq = editAptSeq.val();
 
-				$("#calendar").fullCalendar('updateEvent', event);
+						$("#calendar").fullCalendar('updateEvent', event);
 
-				var scheduleSeq = editId.val();
-				var updateData = {
-					"title" : editTitle.val(),
-					"dong" : editDong.val(),
-					"contents" : editDesc.val(),
-					"startDate" : moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
-					"endDate" : moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
-					"backgroundColor" : editColor.val(),
-					"aptSeq" : 1
-				};
-				// 일정 업데이트
-				$.ajax({
-					url : "/schedule/tenant/" + scheduleSeq,
-					type : "put",
-					dataType : "json",
-					contentType: "application/json; charset=utf-8",
-					data : JSON.stringify(updateData),
-					success : function(response) {
-						alert('수정되었습니다.');
-						location.reload();
-					}
-				});
+						var scheduleSeq = editId.val();
+						var updateData = {
+							"title" : editTitle.val(),
+							"dong" : editDong.val(),
+							"contents" : editDesc.val(),
+							"startDate" : moment(editStart.val()).format(
+									'YYYY-MM-DD HH:mm'),
+							"endDate" : moment(editEnd.val()).format(
+									'YYYY-MM-DD HH:mm'),
+							"backgroundColor" : editColor.val(),
+						};
 
-			});
+						// 일정 업데이트
+						if (realURL == "http://localhost:8081/schedule/keeper/scheduelKeeper") {
+							$.ajax({
+										url : "/schedule/keeper/" + scheduleSeq,
+										type : "put",
+										dataType : "json",
+										contentType : "application/json; charset=utf-8",
+										data : JSON.stringify(updateData),
+										success : function(response) {
+											alert('수정되었습니다.');
+											location.reload();
+										}
+									});
+						} else {
+
+							$.ajax({
+										url : "/schedule/tenant/" + scheduleSeq,
+										type : "put",
+										dataType : "json",
+										contentType : "application/json; charset=utf-8",
+										data : JSON.stringify(updateData),
+										success : function(response) {
+											alert('관리자의 승인을 기다리는 중입니다.');
+											location.reload();
+										}
+									});
+
+						}
+
+					});
 };
 
 // 삭제버튼
@@ -122,17 +148,30 @@ $('#deleteEvent').on('click', function() {
 
 	var scheduleSeq = editId.val();
 	// 삭제시
-	$.ajax({
-		type : "delete",
-		url : "/schedule/tenant/" + scheduleSeq,
-		dataType : "json",
-		contentType : "application/json; charset=utf-8",
 
-		success : function(response) {
-			alert('삭제되었습니다.');
-			location.reload();
+	if (realURL == "http://localhost:8081/schedule/keeper/scheduelKeeper") {
+		$.ajax({
+			type : "delete",
+			url : "/schedule/keeper/" + scheduleSeq,
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(response) {
+				alert('삭제되었습니다.');
+				location.reload();
+			}
+		});
+	} else {
+		$.ajax({
+			type : "delete",
+			url : "/schedule/tenant/" + scheduleSeq,
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(response) {
+				alert('관리자의 승인을 기다리는 중입니다.');
+				location.reload();
 
-		}
-	});
+			}
+		});
+	}
 
 });
