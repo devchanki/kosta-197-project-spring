@@ -1,7 +1,13 @@
 package org.aptogether.controller;
 
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.aptogether.service.FeeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +33,20 @@ public class FeeController {
 	}
 	
 	@GetMapping("/feeRegister/{levyDateNum}")
-	public String feeRegister(@PathVariable("levyDateNum") String levyDateNum){
+	public String feeRegister(@PathVariable("levyDateNum") String levyDateNum, Model model){
+		
+		
+		SimpleDateFormat simple = new SimpleDateFormat("yyyyMM");
+		Date d;
+		try {
+			d = simple.parse(levyDateNum);
+			SimpleDateFormat simple1 = new SimpleDateFormat("yyyy-MM-dd");
+			String b = simple1.format(d);
+			
+			model.addAttribute("levyD", b);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		return "feeRegister";
 	}

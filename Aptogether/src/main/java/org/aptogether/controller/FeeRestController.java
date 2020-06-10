@@ -2,7 +2,9 @@ package org.aptogether.controller;
 
 import java.util.List;
 
+import org.aptogether.domain.FeeRegisterVO;
 import org.aptogether.domain.FeeVO;
+import org.aptogether.domain.HouseholdVO;
 import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MemberVO;
 import org.aptogether.service.FeeService;
@@ -27,6 +29,30 @@ import lombok.extern.log4j.Log4j;
 public class FeeRestController {
 	
 	private FeeService service;
+	
+	@GetMapping(value = "/listDong/{aptSeq}",
+			   produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+			public ResponseEntity<List<HouseholdVO>> listDong(@PathVariable("aptSeq") int aptSeq){
+				
+				HouseholdVO dong = new HouseholdVO();
+				
+				dong.setAptSeq(aptSeq);
+				
+				return new ResponseEntity<>(service.listDong(dong), HttpStatus.OK);
+				}
+	
+	
+	@GetMapping(value = "/listFeeReg/{levyDate}/{dong}",
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE } )
+	public ResponseEntity<List<FeeRegisterVO>> listFeeReg(@PathVariable("levyDate") String levyDate, @PathVariable("dong") int dong){
+		
+		FeeRegisterVO feeRegister = new FeeRegisterVO();
+		
+		feeRegister.setLevyDate(levyDate);
+		feeRegister.setDong(dong);
+		
+		return new ResponseEntity<>(service.listFeeReg(levyDate, dong), HttpStatus.OK);
+	}
 	
 
 /*	@GetMapping(value = "/findMember", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})

@@ -4,14 +4,64 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.aptogether.mapper.FeeMapper">
-	
-	<select id="findMember" resultType="org.aptogether.domain.MemberVO">
-		select * from member where apt_seq = #{aptSeq}
-											    and dong= #{dong}
-											    and ho= #{ho}
+
+	<select id="listDong" resultType="org.aptogether.domain.HouseholdVO">
+		select dong from household 
+	    where apt_seq = #{aptSeq} 
+	    group by dong
+	    order by dong
 	</select>
 	
- 	<insert id="insertFee">
+	
+<!-- 	<resultMap type="org.aptogether.domain.LevyVO" id="LevyMap">
+		<id property="levySeq" column="levy_seq"/>
+		<result property="levySeq" column="levy_seq"/>
+		
+		<collection property="feeList" resultMap="feeMap"></collection>
+	</resultMap> -->
+	
+	<resultMap type="org.aptogether.domain.FeeRegisterVO" id="FeeRegisterMap">
+<!-- 		<id property="levySeq" column="levy_seq"/> -->
+		<id property="householdSeq" column="household_seq"/>
+		<result property="levyDate" column="levy_date"/>
+		<result property="dong" column="dong"/>
+		<collection property="feeList" resultMap="feeMap"></collection>
+	</resultMap>
+	
+	
+	
+	<resultMap type="org.aptogether.domain.FeeVO" id="feeMap">
+		<result property="levySeq" column="levy_seq"/>
+		<result property="householdSeq" column="household_seq"/>
+		<result property="generalBill" column="general_bill"/>
+		<result property="securityBill" column="security_bill"/>
+		<result property="cleaningBill" column="cleaning_bill"/>
+		<result property="fumigationBill" column="fumigation_bill"/>
+		<result property="elevatorBill" column="elevator_bill"/>
+		<result property="electricityBill" column="electricity_bill"/>
+		<result property="waterBill" column="water_bill"/>
+		<result property="ho" column="ho"/>
+	</resultMap>
+
+	
+	<select id="listFeeReg" resultMap="FeeRegisterMap">
+<!--  		select l.levy_date, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
+		from fee f, levy l
+		where 
+		l.levy_seq = f.levy_seq
+		and l.levy_date= #{levyDate}  -->
+	
+  		select l.levy_date  levy_date, h.dong, h.ho, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
+		from fee f, household h, levy l
+		where f.household_seq = h.household_seq
+		and l.levy_seq = f.levy_seq
+		and  h.dong = #{dong}
+		and l.levy_date= #{levyDate}
+		order by h.ho asc  
+	</select>
+	
+	
+<!--  	<insert id="insertFee">
  		<selectKey keyProperty="feeSeq" order="BEFORE" resultType="int">
  			select manage_fee_seq.nextval from dual
  		</selectKey>
@@ -44,7 +94,7 @@
 			 ) 
 		where rownum <= 6
 	]]>
-	</select>
+	</select> -->
 	
 </mapper>
 

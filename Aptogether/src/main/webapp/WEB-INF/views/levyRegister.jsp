@@ -261,19 +261,23 @@
 		var deadlineDate = $("#deadlineDate");		
 
 		
-		feeServcie.listLevy({aptSeq : 1}, function(list) {
+		feeService.listLevy({aptSeq : 1}, function(list) {
 			
 			for(var i = 0, len = list.length||0; i <len; i++){
 				console.log(list[i]);
 				$("#levyTable").append('<tr>'
 														+'<td>'+ list[i].status+'</td>'
-													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>'
+													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>' 
 														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
 														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
 														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
 												    +'</tr>');
 				
+				
 			} 
+			
+			
+			
 			
 		}); 
 
@@ -304,7 +308,7 @@
 						deadlineDate : deadlineDate.val()
 					};
 				
-					feeServcie.addLevy(levy, function(result) {
+					feeService.addLevy(levy, function(result) {
 						alert("관리비 부과정보 등록완료");
 						$("#levyModal").modal('hide');
 						 location.reload();

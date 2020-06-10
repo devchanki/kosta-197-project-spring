@@ -1,7 +1,7 @@
 console.log("$Fee module$");
 
 
-var feeServcie = (function() {
+var feeService = (function() {
 	
 	
 	function addLevy(levy, callback, error) {
@@ -44,6 +44,41 @@ var feeServcie = (function() {
 	}
 	
 	
+	function listDong(dong, callback, error) {
+		
+		var aptSeq = dong.aptSeq;
+		
+		$.getJSON("/keeper1/listDong/" + aptSeq + ".json",
+				function(data) {
+					if(callback){
+						callback(data);
+					}
+				}).fail(function(xhr, status, err) {
+					if(error){
+						error();
+					}
+				});
+	}
+	
+	
+	function listFeeReg(feeRef, callback, error) {
+		
+		var levyDate = feeRef.levyDate;
+		var dong = feeRef.dong;
+		
+		$.getJSON("/keeper1/listFeeReg/" + levyDate + "/" + dong + ".json",
+				function(data) {
+					if(callback){
+						callback(data);
+					}
+				}).fail(function(xhr, status, err) {
+					if(error){
+						error();
+					}
+				});
+	}
+	
+	
 	function insertFee(fee, callback, error) {
 		console.log("insert fee.....");
 		
@@ -70,27 +105,11 @@ var feeServcie = (function() {
 	}
 	
 	
-	function findMember(param, callback, error) {
-		console.log("find member.....");
-		
-		var aptSeq = param.aptSeq;
-		var dong = param.dong;
-		var ho = param.ho;
-		
-		$.get("/keeper1/" + aptSeq +"/" + dong + "/" + ho + ".json", function(result) {
-			
-			if(callback){
-				callback(result);
-			}
-		}).fail(function(xhr, status, err) {
-			if(error){
-				error();
-			}
-		});
-	}
 	
 	return {
 		addLevy : addLevy,
-		listLevy : listLevy
+		listLevy : listLevy,
+		listDong : listDong,
+		listFeeReg : listFeeReg
 	};
 })();

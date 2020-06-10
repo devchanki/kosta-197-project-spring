@@ -3,13 +3,13 @@ package org.aptogether.domain;
 import java.util.List;
 
 import lombok.Data;
-
 @Data
-public class HouseholdVO {
+public class FeeRegisterVO {
 
 	private int householdSeq;
 	private int aptSeq;
+	private String levyDate;
 	private int dong;
-	private int ho;
-	private int roomSize;
+	
+	private List<FeeVO> feeList;
 }

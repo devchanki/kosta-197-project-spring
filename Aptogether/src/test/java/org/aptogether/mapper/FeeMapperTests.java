@@ -2,7 +2,10 @@ package org.aptogether.mapper;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.aptogether.domain.FeeVO;
+import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MemberVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,5 +76,14 @@ public class FeeMapperTests {
 //		
 //		mapper.listFeeRowNum(user).forEach(feeRowNum -> log.info(feeRowNum));
 //	}
+	
+	@Test
+	public void testFeeList(){
+		
+		
+				
+		
+		mapper.listFeeReg("2020/02/01", 1).forEach(feeVO -> log.info(feeVO));
+	}
 
 }

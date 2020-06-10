@@ -1,5 +1,8 @@
 package org.aptogether.domain;
 
+
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -15,6 +18,8 @@ public class FeeVO {
 	private int elevatorBill;
 	private int electricityBill;
 	private int waterBill;
+	
+	private int ho;
 	
 	
 	public int getTotalValue() {

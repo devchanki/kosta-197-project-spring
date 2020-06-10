@@ -2,12 +2,17 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.aptogether.domain.FeeRegisterVO;
 import org.aptogether.domain.FeeVO;
+import org.aptogether.domain.HouseholdVO;
 import org.aptogether.domain.MemberVO;
 
 public interface FeeService {
 	
-	public MemberVO findMember(MemberVO user);
+	public List<HouseholdVO> listDong(HouseholdVO dong);
+	
+	public List<FeeRegisterVO> listFeeReg(@Param("levyDate") String levyDate, @Param("dong") int dong);
 	
 	public int insertFee(FeeVO fee);
 	

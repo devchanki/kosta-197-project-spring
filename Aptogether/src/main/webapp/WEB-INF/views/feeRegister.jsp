@@ -32,7 +32,7 @@
 		vertical-align: middle;
 		color: black;
 	}
-		
+	
 	
 </style>
 </head>
@@ -58,27 +58,36 @@
 					<div class="row">
 					
 						<div class="container-fluid">
+						<select id="selectDong"></select>
+						<p><c:out value="${levyD}"/></p>
 							<div class="card mb-4">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">관리비 부과기초작업</h6>
 									<button id="addLevy" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 										추가</button>
+								
 								</div>
+								
 								<div class="card-body">
 									<table class="table table-bordered table-hover">
 									  <thead class="table-primary">
 									    <tr>
-									      <th scope="col" rowspan="2">zzz</th>
-									      <th scope="col" rowspan="2">zzz</th>
-									      <th scope="col" colspan="2">zzz</th>
-									      <th scope="col" rowspan="2">zzz</th>
+									      <th scope="col" colspan="2">세대정보</th>
+									      <th scope="col" colspan="7">요금항목</th>
 									    </tr>
 									    <tr>
-									    <th scope="col">zzz</th>
-									    <th scope="col">zzz</th>
+									    <th scope="col">동</th>
+									    <th scope="col">호</th>
+									    <th scope="col">일반관리비</th>
+									    <th scope="col">경비비</th>
+									    <th scope="col">청소비</th>
+									    <th scope="col">소독비</th>
+									    <th scope="col">승강기유지비</th>
+									    <th scope="col">전기료</th>
+									    <th scope="col">수도료</th>
 									    </tr>
 									  </thead>
-									  <tbody id="">
+									  <tbody id="feeTable">
 									  </tbody>
 									</table>
 									<%--  <form action="" commandName="feeVO" method="post">
@@ -247,9 +256,75 @@
 	<script>
 	$(function() {
 		
+			function Commas(val){
+			    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			}
 		
-		 
+			
+			feeService.listDong({aptSeq : 1}, function(list) {
+					
+					for(var i = 0, len = list.length||0; i <len; i++){
+						$("#selectDong").append('<option value="'+list[i].dong+'">'+list[i].dong+' 동'+'</option>');
+					} 
+					
+					$.getJSON("/keeper1/listFeeReg/" + "<c:out value="${levyD}"/>" + "/" + list[0].dong + ".json",
+						function(data) {
+							$("#feeTable").append('<tr>' +'<td class="dongtd" style="vertical-align: middle;">'+  $("#selectDong option:selected").val() + '</td>' + '</tr>');
+						 		for(var i = 0, len = data.length||0; i <len; i++){
+ 										$("#feeTable").append('<tr>'
+											   									+'<td>'+ data[i].feeList[0].ho+ '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].generalBill) + '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].securityBill)+ '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].cleaningBill)+ '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].fumigationBill)+ '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].elevatorBill)+ '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].electricityBill)+ '</td>'
+																			   	+'<td>'+ Commas(data[i].feeList[0].waterBill)+ '</td>'
+																			  +'</tr>');
+								} 
+						 		 $(".dongtd").attr('rowspan',i+1); 
+								
+							}).fail(function(xhr, status, err) {
+								if(error){
+									error();
+								}
+							});
+				}); 
+			
+			
+			
+			
 
+			$("#selectDong").on("change", function() {
+				
+				var thisLevyDate = "<c:out value="${levyD}"/>";
+				var selectedDong = $("#selectDong option:selected").val();
+				console.log(thisLevyDate);
+				
+			 	feeService.listFeeReg({levyDate : thisLevyDate, dong : selectedDong},
+			 			function(list) {
+			 		$("#feeTable").html('');
+			 		$("#feeTable").append('<tr>'
+						   	+'<td class="dongtd" style="vertical-align: middle;">'+ selectedDong + '</td>' + '</tr>');
+			 		for(var i = 0, len = list.length||0; i <len; i++){
+							$("#feeTable").append('<tr>'
+								   	+'<td>'+ list[i].feeList[0].ho+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].generalBill)+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].securityBill)+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].cleaningBill)+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].fumigationBill)+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].elevatorBill)+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].electricityBill)+ '</td>'
+								   	+'<td>'+ Commas(list[i].feeList[0].waterBill)+ '</td>'
+								+ '</tr>');
+					} 
+			 		$(".dongtd").attr('rowspan',i+1);
+						}) ;
+			});
+		
+		
+		
+		
 		
 		
 	});
