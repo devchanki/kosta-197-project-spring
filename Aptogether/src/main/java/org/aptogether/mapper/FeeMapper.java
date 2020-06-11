@@ -4,8 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 import org.aptogether.domain.FeeVO;
+import org.aptogether.domain.MemberVO;
 
 public interface FeeMapper {
-	@Select("select * from manage_fee")
-	public List<FeeVO> list ();
+	
+	public MemberVO findMember(MemberVO user);
+	
+	public int insertFee(FeeVO fee);
+	
+	public List<FeeVO> listFee(MemberVO user);
+	
+	public List<FeeVO>	listFeeRowNum(MemberVO user);
 }

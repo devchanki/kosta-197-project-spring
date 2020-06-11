@@ -165,7 +165,7 @@ var calendar = $('#calendar').fullCalendar({
 	  events: function (start, end, timezone, callback) {
 			    $.ajax({
 				      type: "get",
-				      url: "/schedule/keeper/listSchedule/2",
+				      url: "/keeper/listSchedule/2",
 				      dataType: "json",
 				      success: function (response) {
 				    	  console.log("start.....");
@@ -204,7 +204,7 @@ var calendar = $('#calendar').fullCalendar({
 	
     //리사이즈한 일정 업데이트
     $.ajax({
-    	url : "/schedule/keeper/" + scheduleSeq,
+    	url : "/keeper/" + scheduleSeq,
 		type : "put",
 		dataType : "json",
 		contentType: "application/json; charset=utf-8",
@@ -253,7 +253,7 @@ var calendar = $('#calendar').fullCalendar({
     
     //드롭한 일정 업데이트
     $.ajax({
-    	url:  "/schedule/keeper/" + scheduleSeq,
+    	url:  "/keeper/" + scheduleSeq,
 			type: "put",
 			dataType : "json",
 			contentType: "application/json; charset=utf-8",

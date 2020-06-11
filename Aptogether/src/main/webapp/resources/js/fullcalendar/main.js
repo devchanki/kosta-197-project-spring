@@ -18,7 +18,7 @@ function getDisplayEventDate(event) {
 
 function filtering(event) {
 	if($("#dong_toggle").prop('checked')){
-		 return (sessionDong == event.dong) ? true : false;
+		 return (dong.val() == event.dong) ? true : false;
 	 }else{
 		 console.log("unclick");
 		 return true;
@@ -164,7 +164,7 @@ var calendar = $('#calendar').fullCalendar({
 	  events: function (start, end, timezone, callback) {
 			    $.ajax({
 				      type: "get",
-				      url: "/schedule/tenant/listSchedule/1",
+				      url: "/tenant/listSchedule/1",
 				      dataType: "json",
 				      success: function (response) {
 				    	  console.log("start.....");

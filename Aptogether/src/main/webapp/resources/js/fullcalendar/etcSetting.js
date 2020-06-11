@@ -5,7 +5,7 @@ $('#edit-color').change(function () {
 
 //필터
 $('#dong_toggle').on('change', function () {
-	console.log("123");
+	console.log(dong.val()+" 동의 일정");
     $('#calendar').fullCalendar('rerenderEvents');
 });
 
@@ -15,7 +15,6 @@ $("#type_filter").select2({
 });
 
 //datetimepicker
-
 
 function get_calendar_height() {
     return $(window).height() - 30;

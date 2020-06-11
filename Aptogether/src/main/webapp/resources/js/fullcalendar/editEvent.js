@@ -100,22 +100,8 @@ var editEvent = function(event, element, view) {
 						};
 
 						// 일정 업데이트
-						if (realURL == "http://localhost:8081/schedule/keeper/scheduleKeeper") {
 							$.ajax({
-										url : "/schedule/keeper/" + scheduleSeq,
-										type : "put",
-										dataType : "json",
-										contentType : "application/json; charset=utf-8",
-										data : JSON.stringify(updateData),
-										success : function(response) {
-											alert('수정되었습니다.');
-											location.reload();
-										}
-									});
-						} else {
-
-							$.ajax({
-										url : "/schedule/tenant/" + scheduleSeq,
+										url : "/tenant/" + scheduleSeq,
 										type : "put",
 										dataType : "json",
 										contentType : "application/json; charset=utf-8",
@@ -125,11 +111,8 @@ var editEvent = function(event, element, view) {
 											location.reload();
 										}
 									});
-
-						}
-
-					});
-};
+							});
+				};
 
 // 삭제버튼
 $('#deleteEvent').on('click', function() {
@@ -142,21 +125,9 @@ $('#deleteEvent').on('click', function() {
 	var scheduleSeq = editId.val();
 	// 삭제시
 
-	if (realURL == "http://localhost:8081/schedule/keeper/scheduelKeeper") {
 		$.ajax({
 			type : "delete",
-			url : "/schedule/keeper/" + scheduleSeq,
-			dataType : "json",
-			contentType : "application/json; charset=utf-8",
-			success : function(response) {
-				alert('삭제되었습니다.');
-				location.reload();
-			}
-		});
-	} else {
-		$.ajax({
-			type : "delete",
-			url : "/schedule/tenant/" + scheduleSeq,
+			url : "/tenant/" + scheduleSeq,
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			success : function(response) {
@@ -165,6 +136,4 @@ $('#deleteEvent').on('click', function() {
 
 			}
 		});
-	}
-
 });

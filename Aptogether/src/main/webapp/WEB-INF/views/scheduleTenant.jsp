@@ -1,5 +1,11 @@
+<%@page import="org.aptogether.domain.CustomUser"%>
+<%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <!doctype html>
@@ -356,7 +362,7 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">${member.name}
+								class="mr-2 d-none d-lg-inline text-gray-600 small">${principal.name}
 									님 </span> <img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
@@ -413,7 +419,7 @@
 
 							<div id="wrapper">
 								<div id="toggle_dong">
-									<input type="checkbox" class="filter" id="dong_toggle"
+									<input type="checkbox" class="filter" id="dong_toggle" 
 										data-toggle="toggle" data-on="우리 동" data-off="전체 일정"
 										data-height="30" data-onstyle="dark">
 								</div>
@@ -424,8 +430,7 @@
 								<div id="loading"></div>
 								<div id="calendar"></div>
 							</div>
-
-
+							
 							<!-- 일정 추가 MODAL -->
 							<div class="modal fade" tabindex="-1" role="dialog"
 								id="eventModal">
@@ -449,13 +454,19 @@
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden">
+													<input class="dongNewEvent" id="dong" type="hidden" value="${principal.dong }">
+												</div>
+											</div>
+											
+											<div class="container-fluid">
+												<div class="col-12">
+													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden" value="${principal.aptSeq}" >
 												</div>
 											</div>
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<input class="AuthNewEvent" id="edit-auth" type="text">
+													<input class="AuthNewEvent" id="edit-auth" type="hidden">
 												</div>
 											</div>
 
@@ -637,7 +648,8 @@
 	<script src="/resources/js/fullcalendar/editEvent.js"></script>
 	<script src="/resources/js/fullcalendar/etcSetting.js"></script>
 	<script>
-		$(document).ready(
+		
+		$(document).ready(				
 				function() {
 
 					$(window).resize(

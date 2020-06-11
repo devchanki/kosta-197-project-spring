@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -447,13 +449,13 @@
 								</ul>
 							</div>
 
-							<div id="wrapper">
-								<div id="toggle_dong">
-									<input type="checkbox" class="filter" id="dong_toggle"
-										data-toggle="toggle" data-on="우리 동" data-off="전체 일정"
-										data-height="30" data-onstyle="dark">
-								</div>
-							</div>
+<!-- 							<div id="wrapper"> -->
+<!-- 								<div id="toggle_dong"> -->
+<!-- 									<input type="checkbox" class="filter" id="dong_toggle"  -->
+<!-- 										data-toggle="toggle" data-on="우리 동" data-off="전체 일정" -->
+<!-- 										data-height="30" data-onstyle="dark"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 
 
 							<div id="wrapper">
@@ -485,7 +487,7 @@
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden">
+													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden" value="${principal.aptSeq}">
 												</div>
 											</div>
 
@@ -603,7 +605,7 @@
 								</thead>
 								<c:forEach items="${list }" var="schedule">
 									<tr>
-										<%-- 										 <td><c:out value="${schedule.scheduleSeq }"/></td> --%>
+										<%-- <td><c:out value="${schedule.scheduleSeq }"/></td> --%>
 										<td><c:out value="${schedule.title }" /></td>
 										<td><c:out value="${schedule.contents }" /></td>
 										<td><c:out value="${schedule.dong }" /></td>
@@ -715,18 +717,15 @@
 	<script src="/resources/js/fullcalendar/bootstrap/js/ko.js"></script>
 	<script src="/resources/js/fullcalendar/bootstrap/js/select2.min.js"></script>
 	<script src="/resources/js/fullcalendar/mainKeeper.js"></script>
-	<script src="/resources/js/fullcalendar/addEvent.js"></script>
-	<script src="/resources/js/fullcalendar/editEvent.js"></script>
+	<script src="/resources/js/fullcalendar/addEventKeeper.js"></script>
+	<script src="/resources/js/fullcalendar/editEventKeeper.js"></script>
 	<script src="/resources/js/fullcalendar/etcSetting.js"></script>
 
 	<!-- 캘린더 크기 조정 -->
 	<script>
-		$(document).ready(
-				function() {
+		$(document).ready(function() {
 					$(window).resize(
-							function() {
-								$('#calendar').fullCalendar('option', 'height',
-										get_calendar_height());
+							function() {$('#calendar').fullCalendar('option', 'height', get_calendar_height());
 							});
 
 					//set fullcalendar height property
@@ -756,7 +755,7 @@
 		$(document).ready(function() {
 			$('.scheduleAccept').on('click', function() {
 				$.ajax({
-					url : "/schedule/keeper/admit/" + $(this).val(),
+					url : "/keeper/admitSchedule/" + $(this).val(),
 					type : "put",
 					dataType : "json",
 					contentType : "application/json; charset=utf-8",
@@ -772,7 +771,7 @@
 			$('.scheduleReject').on('click', function() {
 				$.ajax({
 					type : "delete",
-					url : "/schedule/keeper/" + $(this).val(),
+					url : "/keeper/" + $(this).val(),
 					dataType : "json",
 					contentType : "application/json; charset=utf-8",
 					success : function(response) {
@@ -787,7 +786,7 @@
 			$('.scheduleRefresh').on('click', function() {
 				$.ajax({
 					type : "get",
-				      url: "/schedule/keeper/admitShowSchedule/1",
+				      url: "/keeper/admitShowSchedule/1",
 				      dataType: "json",
 				      success: function (response) {
 				    	  console.log("start.....");

@@ -21,20 +21,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Setter
 	private ScheduleMapper mapper;
-
-	// @Override
-	// public List<ScheduleVO> listSchedule() {
-	// ScheduleVO schedule = new ScheduleVO();
-	// log.info("get list..............!");
-	// return mapper.listSchedule(1);
-	// }
-
-/*	@Override
-	public List<ScheduleVO> listSchedule(int aptSeq) {
-		log.info("get list....");
-		return mapper.listSchedule(aptSeq);
-	}*/
-
+	
 	@Override
 	public int insertSchedule(ScheduleVO vo) {
 		log.info("register......." + vo);
@@ -65,8 +52,5 @@ public class ScheduleServiceImpl implements ScheduleService {
 		log.info("admit update");
 		return mapper.admitSchedule(scheduleSeq);
 	}
-
-
-	
 
 }

@@ -43,7 +43,7 @@
 			</div>
 		</div></li>
 	<li class="nav-item"><a class="nav-link"
-		href="/Aptogether/scheduleApt.jsp"> <i
+		href="/tenant/scheduleTenant"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>아파트 일정 보기</span></a></li>
 	<li class="nav-item"><a class="nav-link"
 		href="/Aptogether/poll/PollListviewAction.do"> <i

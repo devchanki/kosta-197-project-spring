@@ -5,22 +5,37 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	<security:http>
+	<bean id="bcryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-		<security:intercept-url pattern="/error/*" access="permitAll" />
-		<security:intercept-url pattern="/apt/*" access="permitAll"/>
-		<security:intercept-url pattern="/keeper/*" access="hasRole('ROLE_KEEPER')"/> 
-		<security:intercept-url pattern="/tenant/*" access="hasRole('ROLE_TENANT')"/> 
-		
-		<security:form-login login-page="/signin" />
-		
-		<security:access-denied-handler error-page="/401"/>
+	<bean id="customUserDetailsService" class="org.aptogether.service.CustomUserDetailsService"/>
+	<bean id="customLoginSuccessHandler" class="org.aptogether.security.CustomLoginSuccessHandler"/>
+	<security:http>
+		<security:csrf disabled="true" />
+		<security:intercept-url pattern="/error/*"
+			access="permitAll" />
+		<security:intercept-url pattern="/apt/*"
+			access="permitAll" />
+		<security:intercept-url pattern="/keeper/*"
+			access="hasRole('ROLE_KEEPER')" />
+		<security:intercept-url pattern="/tenant/*"
+			access="hasRole('ROLE_TENANT')" />
+
+
+		<security:form-login login-page="/signin"
+			authentication-success-handler-ref="customLoginSuccessHandler" 
+			login-processing-url="/signin" username-parameter="email"
+			password-parameter="password"/>
+
+		<security:access-denied-handler error-page="/error/401" />
 	</security:http>
-	
+
 	<security:authentication-manager>
-<!-- 		<security:authentication-provider user-service-ref="customUserDetailService">
-			<security:password-encoder ref="bcryptPasswordEncoder"/>
-		</security:authentication-provider> -->
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<security:password-encoder
+				ref="bcryptPasswordEncoder" />
+
+		</security:authentication-provider>
 	</security:authentication-manager>
+
 </beans>

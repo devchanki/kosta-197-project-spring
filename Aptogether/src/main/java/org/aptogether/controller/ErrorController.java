@@ -16,5 +16,5 @@ public class ErrorController {
 	public String hasNoAuth(Authentication auth, Model model) {
 		return "401";
 	}
-	
+
 }
