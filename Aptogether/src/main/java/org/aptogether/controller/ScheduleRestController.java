@@ -220,4 +220,33 @@ public class ScheduleRestController {
 		return gson.toJson(obj);	
 	}
 	
+	
+	@GetMapping(value = "/keeper/admitShowSchedule/{aptSeq}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public String keeper_AdmitShowSchedule(@PathVariable("aptSeq") int aptSeq) {
+		List<ScheduleVO> list = service.listSchedule(1, "0"); 
+	//	log.info("list" + list);
+		
+		Gson gson = new Gson();
+		JsonArray array = new JsonArray();
+		for(ScheduleVO schedule: list){
+			JsonObject tmp = new JsonObject();
+			tmp.addProperty("_id", schedule.getScheduleSeq());
+			tmp.addProperty("title", schedule.getTitle());
+			tmp.addProperty("contents", schedule.getContents());
+			tmp.addProperty("start", schedule.getStartDate());
+			tmp.addProperty("end", schedule.getEndDate());
+			tmp.addProperty("allDay", "false");
+			tmp.addProperty("dong", schedule.getDong());
+			tmp.addProperty("backgroundColor", schedule.getBackgroundColor());
+			tmp.addProperty("authority", schedule.getAuthority());
+			array.add(tmp);
+		}
+		return gson.toJson(array);
+	}
+	
+
+	
+	
+	
+	
 }
