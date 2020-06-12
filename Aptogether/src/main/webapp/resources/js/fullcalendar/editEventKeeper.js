@@ -32,7 +32,7 @@ var editEvent = function(event, element, view) {
 	editDong.val(event.dong);
 	editStart.val(moment(event.start).format('YYYY-MM-DD HH:mm'));
 	editEnd.val(moment(event.end).format('YYYY-MM-DD HH:mm'));
-	editType.val('수정');
+	editType.val(event.states);
 	editDesc.val(event.contents);
 	editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 	editAptSeq.val(event.apt_seq);
@@ -80,7 +80,7 @@ var editEvent = function(event, element, view) {
 						event.dong = editDong.val();
 						event.start = startDate;
 						event.end = displayDate;
-						event.type = editType.val();
+						event.states = editType.val();
 						event.backgroundColor = editColor.val();
 						event.contents = editDesc.val();
 						event.apt_seq = editAptSeq.val();
@@ -96,6 +96,7 @@ var editEvent = function(event, element, view) {
 							"contents" : editDesc.val(),
 							"startDate" : moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
 							"endDate" : moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
+							"states": editType.val(),
 							"backgroundColor" : editColor.val()
 						};
 

@@ -411,7 +411,7 @@
 								<ul class="dropdown-menu dropNewEvent card" role="menu"
 									aria-labelledby="dropdownMenu"
 									style="display: block; position: static; margin-bottom: 4px;">
-									<li><a class="dropdown-item" href="#">등록</a></li>
+									<li><a class="dropdown-item" href="#">요청</a></li>
 									<div class="dropdown-divider"></div>
 									<li><a class="dropdown-item" href="#" data-role="close">Close</a></li>
 								</ul>
@@ -505,19 +505,18 @@
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<label class="col-4" for="edit-type">구분</label> <select
-														class="inputModal" type="text" name="edit-type"
-														id="edit-type">
+													<label class="col-4" for="edit-type">구분</label> 
+													<select class="inputModal" type="text" name="edit-type" id="edit-type">
 														<option value="등록">등록요청</option>
 														<option value="수정">수정요청</option>
+														<option value="삭제">삭제요청</option>
 													</select>
 												</div>
 											</div>
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<label class="col-4" for="edit-color">색상</label> <select
-														class="inputModal" name="Color" id="edit-color">
+													<label class="col-4" for="edit-color">색상</label> <select class="inputModal" name="Color" id="edit-color">
 														<option value="#F5A9A9" style="color: #F5A9A9;">주요일정</option>
 														<option value="#A9D0F5" style="color: #A9D0F5;">전체일정</option>
 														<option value="#F5D0A9" style="color: #F5D0A9;">동일정</option>
@@ -541,9 +540,9 @@
 										<div class="modal-footer modalBtnContainer-modifyEvent">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">닫기</button>
-											<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+<!-- 											<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button> -->
 											<button type="button" class="btn btn-primary"
-												id="updateEvent">저장</button>
+												id="updateEvent">요청</button>
 										</div>
 									</div>
 									<!-- /.modal-content -->

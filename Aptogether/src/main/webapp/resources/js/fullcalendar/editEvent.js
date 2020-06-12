@@ -26,13 +26,13 @@ var editEvent = function(event, element, view) {
 		editEnd.val(event.end.format('YYYY-MM-DD HH:mm'));
 	}
 
-	modalTitle.html('일정 수정');
+	modalTitle.html('일정 요청');
 	editId.val(event._id);
 	editTitle.val(event.title);
 	editDong.val(event.dong);
 	editStart.val(moment(event.start).format('YYYY-MM-DD HH:mm'));
 	editEnd.val(moment(event.end).format('YYYY-MM-DD HH:mm'));
-	editType.val('수정');
+	editType.val(event.type);
 	editDesc.val(event.contents);
 	editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 	editAptSeq.val(event.apt_seq);
@@ -50,11 +50,17 @@ var editEvent = function(event, element, view) {
 							alert('끝나는 날짜가 앞설 수 없습니다.');
 							return false;
 						}
+						
+						if (editStart.val()==='') {
+							alert('날짜 선택은 필수입니다.');
+							return false;
+						}
 
 						if (editTitle.val() === '') {
 							alert('일정명은 필수입니다.')
 							return false;
 						}
+
 
 						var statusAllDay;
 						var startDate;
@@ -96,7 +102,8 @@ var editEvent = function(event, element, view) {
 							"contents" : editDesc.val(),
 							"startDate" : moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
 							"endDate" : moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
-							"backgroundColor" : editColor.val()
+							"backgroundColor" : editColor.val(),
+							"states":editType.val()
 						};
 
 						// 일정 업데이트
@@ -115,7 +122,8 @@ var editEvent = function(event, element, view) {
 				};
 
 // 삭제버튼
-$('#deleteEvent').on('click', function() {
+				
+/*$('#deleteEvent').on('click', function() {
 	console.log(editId.val());
 
 	$('#deleteEvent').unbind();
@@ -136,4 +144,4 @@ $('#deleteEvent').on('click', function() {
 
 			}
 		});
-});
+});*/

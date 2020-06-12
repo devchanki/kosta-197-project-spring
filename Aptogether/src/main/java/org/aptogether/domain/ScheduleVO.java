@@ -13,4 +13,6 @@ public class ScheduleVO {
 	private String backgroundColor;
 	private String dong;
 	private String authority; 
+	private String states; 
+	
 }

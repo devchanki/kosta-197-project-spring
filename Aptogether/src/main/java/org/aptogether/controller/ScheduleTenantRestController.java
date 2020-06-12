@@ -56,6 +56,7 @@ public class ScheduleTenantRestController {
 			tmp.addProperty("dong", schedule.getDong());
 			tmp.addProperty("backgroundColor", schedule.getBackgroundColor());
 			tmp.addProperty("authority", schedule.getAuthority());
+			tmp.addProperty("states", schedule.getStates());
 			array.add(tmp);
 		}
 		return gson.toJson(array);
@@ -115,5 +116,7 @@ public class ScheduleTenantRestController {
 				obj.addProperty("status", "false");
 		return gson.toJson(obj);	
 	}
+	
+
 	
 }

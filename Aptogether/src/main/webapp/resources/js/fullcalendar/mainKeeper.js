@@ -1,6 +1,7 @@
 
 var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
+
 function getDisplayEventDate(event) {
 
   var displayEventDate;
@@ -160,13 +161,13 @@ var calendar = $('#calendar').fullCalendar({
    *  일정 받아옴 
    * ************** */
 	  
-	  //입주민 ajax
+	  //관리자 ajax
+
 
 	  events: function (start, end, timezone, callback) {
 			    $.ajax({
 				      type: "get",
-				      url: "/keeper/listSchedule/2",
-				      dataType: "json",
+				      url: "/keeper/listSchedule/",
 				      success: function (response) {
 				    	  console.log("start.....");
 				    	  console.log(response);
@@ -181,7 +182,7 @@ var calendar = $('#calendar').fullCalendar({
     }
   },
   
-
+  
 
   //일정 리사이즈
   eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
@@ -198,11 +199,14 @@ var calendar = $('#calendar').fullCalendar({
 			contents:  event.contents,
 			startDate: moment(event.start._d).format('YYYY-MM-DD HH:mm'),
 			endDate: moment(event.end._d).format('YYYY-MM-DD HH:mm'),
+			states: event.states,
 			aptSeq: event.aptseq,
 			backgroundColor: event.backgroundColor
 	      };
 	
     //리사이즈한 일정 업데이트
+
+	
     $.ajax({
     	url : "/keeper/" + scheduleSeq,
 		type : "put",
@@ -238,7 +242,11 @@ var calendar = $('#calendar').fullCalendar({
 
 	var scheduleSeq = event._id;
 	console.log(event._id);
+	console.log(scheduleSeq);
 	console.log(event.backgroundColor);
+	console.log(event.type);
+	
+
 	
     var updateData ={
 			scheduleSeq: event._id,
@@ -247,6 +255,7 @@ var calendar = $('#calendar').fullCalendar({
 			contents:  event.contents,
 			startDate: moment(event.start._d).format('YYYY-MM-DD HH:mm'),
 			endDate: moment(event.end._d).format('YYYY-MM-DD HH:mm'),
+			states: event.states,
 			aptSeq: event.aptseq,
 			backgroundColor: event.backgroundColor
 	};

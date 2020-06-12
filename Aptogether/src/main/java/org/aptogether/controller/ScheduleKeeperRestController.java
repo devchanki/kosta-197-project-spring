@@ -42,8 +42,8 @@ public class ScheduleKeeperRestController {
 	private ScheduleService service;
 
 	
-	@GetMapping(value = "/listSchedule/{aptSeq}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public String keeper_ShowSchedule(@PathVariable("aptSeq") int aptSeq, Authentication auth) {
+	@GetMapping(value = "/listSchedule", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public String keeper_ShowSchedule(Authentication auth) {
 		
 		CustomUser user = (CustomUser) auth.getPrincipal();
 		int keeperAptSeq = user.getAptSeq();
@@ -63,6 +63,8 @@ public class ScheduleKeeperRestController {
 			tmp.addProperty("dong", schedule.getDong());
 			tmp.addProperty("backgroundColor", schedule.getBackgroundColor());
 			tmp.addProperty("authority", schedule.getAuthority());
+			tmp.addProperty("states", schedule.getStates());
+
 			array.add(tmp);
 		}
 		return gson.toJson(array);
@@ -167,6 +169,8 @@ public class ScheduleKeeperRestController {
 			tmp.addProperty("dong", schedule.getDong());
 			tmp.addProperty("backgroundColor", schedule.getBackgroundColor());
 			tmp.addProperty("authority", schedule.getAuthority());
+			tmp.addProperty("states", schedule.getStates());
+			
 			array.add(tmp);
 		}
 		return gson.toJson(array);

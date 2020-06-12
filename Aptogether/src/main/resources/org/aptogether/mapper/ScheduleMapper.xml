@@ -16,7 +16,7 @@
 		insert into schedule
 		values(schedule_Seq.nextval, #{contents}, to_date(#{startDate}, 'YYYY-MM-DD HH24:MI'),
 		to_date(#{endDate}, 'YYYY-MM-DD HH24:MI'), #{aptSeq}, #{title},
-		#{backgroundColor}, #{dong}, #{authority})
+		#{backgroundColor}, #{dong}, #{authority}, #{states})
 	</insert>
 
 	<delete id="deleteSchedule" parameterType="org.aptogether.domain.ScheduleVO">
@@ -29,7 +29,8 @@
 		end_Date= to_date(#{endDate}, 'YYYY-MM-DD HH24:MI'),
 		background_Color=#{backgroundColor}, 
 		dong=#{dong},
-		authority=#{authority}
+		authority=#{authority},
+		states=#{states}
 		where schedule_Seq=#{scheduleSeq}
 	</update>
 	

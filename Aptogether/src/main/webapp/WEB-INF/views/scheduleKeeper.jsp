@@ -394,7 +394,7 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">${member.name}
+								class="mr-2 d-none d-lg-inline text-gray-600 small">${principal.name}
 									님 </span> <img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
@@ -611,8 +611,9 @@
 										<td><c:out value="${schedule.dong }" /></td>
 										<td><c:out value="${schedule.startDate }" /></td>
 										<td><c:out value="${schedule.endDate }" /></td>
-										<td><c:out value="${schedule.backgroundColor }" /></td>
+										<td><c:out value="${schedule.states }" /></td>
 										<td>
+										
 											<button type="button" class="scheduleAccept"
 												value="${schedule.scheduleSeq }"></button>
 											<button type="button" class="scheduleReject"
@@ -786,7 +787,7 @@
 			$('.scheduleRefresh').on('click', function() {
 				$.ajax({
 					type : "get",
-				      url: "/keeper/admitShowSchedule/1",
+				      url: "/keeper/admitShowSchedule/"+${principal.aptSeq},
 				      dataType: "json",
 				      success: function (response) {
 				    	  console.log("start.....");

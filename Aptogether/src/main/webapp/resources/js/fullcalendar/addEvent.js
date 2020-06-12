@@ -12,6 +12,8 @@ var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 var editAptSeq = $('#edit-Apt-Seq');
 
+var editType = $('#edit-type');
+
 var editAuth = $('#edit-auth');
 var realAuth = $('#edit-Autho');
 
@@ -36,6 +38,7 @@ var newEvent = function (start, end, eventType) {
     editId.val();
     editAuth.val();
     dong.val();
+    editType.val('등록');
     
     addBtnContainer.show();
     modifyBtnContainer.hide();
@@ -48,6 +51,7 @@ var newEvent = function (start, end, eventType) {
     	console.log(editDong.val());
     	console.log(editAptSeq.val());
     	console.log(realAuth.val());
+    	console.log(editType.val());
 
     	
         var eventData = {
@@ -57,7 +61,7 @@ var newEvent = function (start, end, eventType) {
             	startDate : moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
             	endDate : moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
             	aptSeq : editAptSeq.val(),
-            	type: editType.val(),
+            	states: editType.val(),
                 backgroundColor: editColor.val(),
         };
         
@@ -92,6 +96,7 @@ var newEvent = function (start, end, eventType) {
  				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
  				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
  				"aptSeq":editAptSeq.val(),
+ 				"states": editType.val(),
  				"backgroundColor": editColor.val(),
 
  			};

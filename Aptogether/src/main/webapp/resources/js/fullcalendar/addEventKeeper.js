@@ -12,14 +12,16 @@ var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 var editAptSeq = $('#edit-Apt-Seq');
 
+var editType = $('#edit-type');
+
 var editAuth = $('#edit-auth');
 
 var realURL =document.location.href;
 console.log(realURL);
 
 
-var realAuth = $('#edit-Autho');
-console.log(realAuth.val());
+/*var realAuth = $('#edit-Autho');
+console.log(realAuth.val());*/
 
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
@@ -43,6 +45,7 @@ var newEvent = function (start, end, eventType) {
     editAuth.val();
     dong.val();
     editAuth.val();
+    editType.val();
     
     addBtnContainer.show();
     modifyBtnContainer.hide();
@@ -54,7 +57,6 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').on('click', function () {
     	console.log(editDong.val());
     	console.log(editAptSeq.val());
-    	console.log(realAuth.val());
 
     	
         var eventData = {
@@ -64,8 +66,8 @@ var newEvent = function (start, end, eventType) {
             	startDate : moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
             	endDate : moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
             	aptSeq : editAptSeq.val(),
-            	type: editType.val(),
-                backgroundColor: editColor.val(),
+            	states: editType.val(),
+                backgroundColor: editColor.val()
         };
         
         
@@ -99,12 +101,11 @@ var newEvent = function (start, end, eventType) {
  				"startDate": moment(editStart.val()).format('YYYY-MM-DD HH:mm'),
  				"endDate": moment(editEnd.val()).format('YYYY-MM-DD HH:mm'),
  				"aptSeq":editAptSeq.val(),
- 				"backgroundColor": editColor.val(),
+ 				"states": editType.val(),
+ 				"backgroundColor": editColor.val()
 
  			};
-        
-        //일단 아직 권한 안 주고 주소로만 해놨음
-        
+                
         	 $.ajax({
       			url: "/keeper/insertSchedule",
       			type: "post",

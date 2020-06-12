@@ -164,7 +164,7 @@ var calendar = $('#calendar').fullCalendar({
 	  events: function (start, end, timezone, callback) {
 			    $.ajax({
 				      type: "get",
-				      url: "/tenant/listSchedule/1",
+				      url: "/tenant/listSchedule/",
 				      dataType: "json",
 				      success: function (response) {
 				    	  console.log("start.....");
