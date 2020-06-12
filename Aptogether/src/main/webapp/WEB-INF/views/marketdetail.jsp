@@ -26,6 +26,160 @@ font-size:10px;
 }
 
 </style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript">
+/* console.log("----");
+console.log("js test");
+var seqValue='<c:out value="${product.seq}"/>';
+
+var replyUL=$(".chat");
+
+showList(1);
+
+replyserive.get(10,function(data){
+	console.log(data);
+});
+
+function showList(page){
+	replyservice.getList({seq:seqValue,page||1},function(list){
+		var str="";
+		if(list==null||list.length==0){
+			replyUL.html("");
+			return;
+		}
+		for(var i=0,len=list.length||0;i<len;i++){
+			str+="<li class='left clearfix' data-replyNo'"+list[i].replyNo+"'>";
+			str+="<div><div class='header'><strong class='primary-font'>"+list[i].replyWriter+"</strong>";
+			str+="<small class='pull-right text-muted'>"+list[i].reply 
+			str+="<p>"+list[i].replyContents+"</p></div></li>";
+		}
+		replyUL.html(str);
+	});
+} */
+
+/* replyservice.getList({seq:seqValue,page:1 }, function(list) {
+
+	console.log("실행")
+    for (var i = 0, len = list.length || 0; i < len; i++) {
+    	console.log(list[i]);
+    }
+});
+replyservice.add(
+		{replyContents:"js test", replyWriter:"tester",seq:seqValue}
+		,function(result){
+			alert("result:"+result);
+		}
+	); 
+replyservice.remove(37,function(count){
+	console.log(count);
+	if(count==="success"){
+		alert("remove");
+	}
+},function(err){
+	alert("error");
+}); 
+replyservice.update({
+	replyNo:38,
+	seq:seqValue,
+	replyContents:"modified reply"
+},function(result){alert("수정완료");
+});
+replyservice.get(412,function(data){
+	console.log(data);
+});*/
+
+/* 
+
+ replyservice add(
+	{replyContents:"js test", replyWriter:"tester",seq:seqValue}
+	,function(result){
+		alert("result:"+result);
+	}
+); 
+replyservice.get({seq:seqValue,page:1},function(list){
+	for(var i=0,len=list.length||0;i<len;i++){
+		console.log(list[i]);
+	}
+});
+
+ */
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var seqValue='<c:out value="${product.seq}"/>';
+
+	var replyUL=$(".chat");
+
+	showList(1);
+
+	replyservice.get(10,function(data){
+		console.log(data);
+	});
+
+	function showList(page){
+		replyservice.getList({seq:seqValue,page:page||1},function(list){
+			var str="";
+			if(list==null||list.length==0){
+				replyUL.html("");
+				return;
+			}
+			for(var i=0,len=list.length||0;i<len;i++){
+				str+="<li class='left clearfix' data-replyNo'"+list[i].replyNo+"'>";
+				str+="<div><div class='header'><strong class='primary-font'>"+list[i].replyWriter+"</strong>";
+				str+="<small class='pull-right text-muted'>"+replyservice.displayTime(list[i].replyRegdate)+"</small></div>";
+				str+="<p>"+list[i].replyContents+"</p></div></li>";
+			}
+			replyUL.html(str);
+		});
+	}
+
+    var modal = $(".modal");
+    var modalInputReply = modal.find("input[name='replyContents']");
+    var modalInputReplyer = modal.find("input[name='replyWriter']");
+    var modalInputReplyDate = modal.find("input[name='replyRegdate']");
+    
+    var modalModBtn = $("#modalModBtn");
+    var modalRemoveBtn = $("#modalRemoveBtn");
+    var modalRegisterBtn = $("#modalRegisterBtn");
+    
+    $("#modalCloseBtn").on("click", function(e){
+    	
+    	modal.modal('hide');
+    });
+    
+    $("#addReplyBtn").on("click", function(e){
+      
+      modal.find("input").val("");
+      modalInputReplyDate.closest("div").hide();
+      modal.find("button[id !='modalCloseBtn']").hide();
+      
+      modalRegisterBtn.show();
+      
+      $(".replymodal").modal("show");
+      
+    });
+    modalRegisterBtn.on("click",function(e){
+        
+        var reply = {
+        		replyContents: modalInputReply.val(),
+        		replyWriter:modalInputReplyer.val(),
+              seq:seqValue
+            };
+        replyservice.add(reply, function(result){
+          
+          alert(result);
+          
+          modal.find("input").val("");
+          modal.modal("hide");
+          
+          showList(1);
+        });
+        
+    });
+    
+});
+</script>
 <title>SB Admin 2 - Dashboard</title>
 
 <!-- Custom fonts for this template-->
@@ -356,7 +510,7 @@ font-size:10px;
 					<div class="row">
                         <h1 class="mt-4">중고거래 </h1>
                          
-
+</div>
 
 <!--  -->
 <hr>
@@ -425,16 +579,91 @@ font-size:10px;
 					<div class="card-body">
 						<div class="card-body">
 <div>
+
+<!-- 모달창의 시작 -->
+<!-- Modal -->
+      <div class="modal fade replymodal" id="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>내용</label> 
+                <input class="form-control" name='replyContents' value='New Reply!!!!'>
+              </div>      
+              <div class="form-group">
+                <label>작성자</label> 
+                <input class="form-control" name='replyWriter' value='replyer'>
+              </div>
+              <div class="form-group">
+                <label>작성날짜</label> 
+                <input class="form-control" name='replyRegdate' value='2018-01-01 13:13'>
+              </div>
+      
+            </div>
+<div class="modal-footer">
+        <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+        <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+        <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+        <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+      </div>          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+
+
 <h5><p>댓글목록</p></h5>
 
-						   <c:forEach var="reply" items="${list}">
-   <tr>
-   <td>${reply.r_writer }:</td>
-   <td>${reply.r_contents }</td>
-   <td><span id="ptext">${reply.r_regdate }</span></td>
-   </tr>
-   <br>
-   </c:forEach>
+					<div class='row'>
+
+  <div class="col-lg-12">
+
+    <!-- /.panel -->
+    <div class="panel panel-default">
+<!--       <div class="panel-heading">
+        <i class="fa fa-comments fa-fw"></i> Reply
+      </div> -->
+      
+      <div class="panel-heading">
+        <i class="fa fa-comments fa-fw"></i> Reply
+        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
+      </div>      
+      
+      
+      <!-- /.panel-heading -->
+      <div class="panel-body">        
+      
+        <ul class="chat">
+	<li class="left clearfix" data-replyNo='12'>
+	<div>
+	<div class="header">
+	<strong class="primary-font">user00</strong>
+	<small class="pull-right text-muted">2018-01-01 13:13</small>
+	</div>
+	<p>good job</p>
+	</div>
+	</li>
+        </ul>
+        <!-- ./ end ul -->
+      </div>
+      <!-- /.panel .chat-panel -->
+
+	<div class="panel-footer"></div>
+
+
+		</div>
+  </div>
+  <!-- ./ end row -->
+</div>
+					
    </div>
    </div></div></div>
    </div></div>
@@ -482,6 +711,7 @@ font-size:10px;
 			</div>
 		</div>
 	</div>
+	
 
  <!-- Bootstrap core JavaScript-->
   <script src="/resources/vendor/jquery/jquery.min.js"></script>
