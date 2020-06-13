@@ -1,9 +1,10 @@
-package org.aptogether.mapper;
+package org.aptogether.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.MemberVO;
+import org.aptogether.mapper.FeeMapperTests;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,19 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class FeeMapperTests {
+public class FeeServcieTests {
 
-	@Setter(onMethod_= @Autowired)
-	private FeeMapper mapper;
+	@Setter(onMethod_= {@Autowired})
+	private FeeService service;
 	
+//	@Test
+//	public void test(){
+//		
+//		log.info(service);
+//		assertNotNull(service);
+//	}
+	
+
 //	@Test
 //	public void testFindMember(){
 //		
@@ -29,13 +38,13 @@ public class FeeMapperTests {
 //		user.setDong("101");
 //		user.setHo("1101");
 //		
-//		mapper.findMember(user);
+//		service.findMember(user);
 //		
 //		log.info(user);
 //	}
 	
 //	@Test
-//	public void testInsert(){
+//	public void testInsertFee(){
 //		
 //		FeeVO fee = new FeeVO();
 //		fee.setMemberSeq(30);
@@ -47,9 +56,9 @@ public class FeeMapperTests {
 //		fee.setElectricityFee(1);
 //		fee.setWaterFee(1);
 //		fee.setHeatingFee(1);
-//		fee.setPayDate("2020-06-01");
+//		fee.setPayDate("2020-07-31");		
 //		
-//		mapper.insertFee(fee);
+//		service.insertFee(fee);
 //		
 //		log.info(fee);
 //	}
@@ -59,19 +68,18 @@ public class FeeMapperTests {
 //		
 //		UserVO user = new UserVO();
 //		user.setAptSeq(6);
-//		user.setMemberSeq(30);
+//		user.setMemberSeq(30);		
 //		
-//		mapper.listFee(user).forEach(fee -> log.info(fee));
+//		service.listFee(user).forEach(fee -> log.info(fee));
 //	}
 	
 //	@Test
 //	public void testListFeeRowNum(){
 //		
-//		MemberVO user = new MemberVO();
+//		UserVO user = new UserVO();
 //		user.setAptSeq(6);
-//		user.setMemberSeq(30);
+//		user.setMemberSeq(30);		
 //		
-//		mapper.listFeeRowNum(user).forEach(feeRowNum -> log.info(feeRowNum));
+//		service.listFeeRowNum(user).forEach(feeRowNume -> log.info(feeRowNume));
 //	}
-
 }

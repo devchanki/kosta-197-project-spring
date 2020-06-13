@@ -1,16 +1,19 @@
 package org.aptogether.domain;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class MemberVO {
-	private int memberSeq;
-	private String id;
-	private String password;
-	private int aptSeq;
-	private int dong;
-	private int ho;
-	private boolean admit;
-	private String type;
-	private String name;
+public class MemberVO implements Serializable{
+	int memberSeq;
+	String id;
+	String password;
+	int aptSeq;
+	int householdSeq;
+	boolean admit;
+	String type;
+	String name;
+	int dong;
+	int ho;
 }

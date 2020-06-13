@@ -1,12 +1,11 @@
-package org.aptogether.mapper;
+package org.aptogether.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.MemberVO;
 
-public interface FeeMapper {
+public interface FeeService {
 	
 	public MemberVO findMember(MemberVO user);
 	
@@ -15,4 +14,5 @@ public interface FeeMapper {
 	public List<FeeVO> listFee(MemberVO user);
 	
 	public List<FeeVO>	listFeeRowNum(MemberVO user);
+
 }
