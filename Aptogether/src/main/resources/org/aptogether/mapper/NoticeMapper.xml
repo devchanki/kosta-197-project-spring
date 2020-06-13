@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.aptogether.mapper.NoticeMapper">
+
+	<select id="getList" resultType="org.aptogether.domain.NoticeVO">
+	<![CDATA[
+		select * from notice where notice_seq > 0
+	]]>
+	</select>
+
+	<insert id="insertNotice">
+		<selectKey keyProperty="noticeSeq" order="BEFORE" resultType="int">	
+			select notice_seq.nextval from dual
+		</selectKey>
+		insert into notice(notice_seq, title, content, category) 
+		values(#{noticeSeq}, #{title}, #{content}, #{category})
+	</insert>
+	
+	<select id="readNotice" resultType="org.aptogether.domain.NoticeVO">
+		select * from notice where notice_seq = #{noticeSeq}
+	</select>
+	
+	<delete id="deleteNotice">
+		delete from notice where notice_seq = #{noticeSeq}
+	</delete>
+	
+	<update id="updateNotice">
+		update notice set title = #{title},
+										content = #{content},
+										category = #{category}
+		where notice_seq = #{noticeSeq}
+	</update>
+
+
+</mapper>

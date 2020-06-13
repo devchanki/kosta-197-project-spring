@@ -19,7 +19,7 @@ public class ScheduleTenantController {
 	
 	private ScheduleService service;
 	
-	@GetMapping("/tenant/scheduleTenant")
+	@GetMapping("/scheduleTenant")
 	public String tenant_Schedule(){
 		return "scheduleTenant";
 	}

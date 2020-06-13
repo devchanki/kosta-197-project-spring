@@ -34,8 +34,8 @@ public class ScheduleTenantRestController {
 	@Autowired
 	private ScheduleService service;
 
-	@GetMapping(value = "/listSchedule/{aptSeq}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public String tenant_ShowSchedule(@PathVariable("aptSeq") int aptSeq, Authentication auth) {
+	@GetMapping(value = "/listSchedule", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public String tenant_ShowSchedule(Authentication auth) {
 		
 		CustomUser user = (CustomUser) auth.getPrincipal();
 		int tenantAptSeq = user.getAptSeq();
