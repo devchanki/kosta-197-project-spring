@@ -1,7 +1,7 @@
 package org.aptogether.mapper;
 
-import org.aptogether.domain.UserVO;
+import org.aptogether.domain.MemberVO;
 
-public interface UserMapper {
-	public UserVO read(String id);
+public interface MemberMapper {
+	public MemberVO read(String id);
 }

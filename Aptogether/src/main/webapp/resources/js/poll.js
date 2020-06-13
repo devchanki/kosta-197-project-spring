@@ -1,4 +1,5 @@
 	var i = 1;
+	var selected = -1;
 
 	function add() {
 		$('.option_input')
@@ -18,18 +19,25 @@
 			$('.intputs').remove();
 		})
 	}
+
+	$('#selectClose').click(function(){
+		location.reload();
+	})
+	
+	
 	
 	function showData(a,b,c) {
 		$('#myModalLabel').html(b);
 		$('#myModalContents').html(c);
 		$('.option_modal_body').html("");
 		$.ajax({
-			url: "OptionListAction.do",
-			type: "GET",
+			url: "/tenant/pollOptionList",
+			type: "POST",
 			dataType: "json",
-			data: {
-				"poll_seq" : a
-			},
+			contentType: "application/json",
+			data: JSON.stringify({
+				"pollSeq" : a
+			}) ,
 			success: function(data) {
 				for(let i =0; i < data.length; i++){
 					console.log(data[i]);
@@ -39,12 +47,12 @@
 					'<div class="input-group"><div class="input-group-prepend">'
 					 +'<div class="input-group-text">'
 					 +'<input type="radio" name="seq" value="'
-					 + data[i].option_seq
+					 + data[i].optionSeq
 					 +'" aria-label="Radio button for following text input">'
 					 +'</div>'
 					 +'</div>'
 					 +'<input type="text" class="form-control"  aria-label="Text input with radio button" value="'
-					 + data[i].option_text + '"readonly>'
+					 + data[i].optionText + '"readonly>'
 					 +'</div>'
 					)
 				}
@@ -52,6 +60,27 @@
 		})
 	}
 	
-	$('#d').click(function(){
-		location.reload();
-	})
+	
+	function selectOption() {
+		selected = $('.input-group input:radio[name=seq]:checked').val();
+		console.log(selected);
+		resizeCanvas();
+	}
+	
+//	$(window).load (function () {
+//		console.log('aa');
+//		
+//	})
+//	
+//	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

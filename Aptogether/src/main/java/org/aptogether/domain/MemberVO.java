@@ -3,11 +3,11 @@ package org.aptogether.domain;
 import lombok.Data;
 
 @Data
-public class UserVO {
-	private int member_seq;
+public class MemberVO {
+	private int memberSeq;
 	private String id;
 	private String password;
-	private int apt_seq;
+	private int aptSeq;
 	private int dong;
 	private int ho;
 	private boolean admit;
