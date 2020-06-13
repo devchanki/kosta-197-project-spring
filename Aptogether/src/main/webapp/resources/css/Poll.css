@@ -29,5 +29,11 @@
 	background-color: #45464e;
 }
 
+.alert{
+	display: none;
+}
 
+.bigPicture{
+	width: 100%;
+}
 

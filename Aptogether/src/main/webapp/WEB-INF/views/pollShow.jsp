@@ -88,11 +88,11 @@
 							<h5 id="myModalContents"></h5>
 						</div>
 						<div class="modal-body">
+							<div class="alert alert-danger" role="alert">선택 해 주세요.</div>
 							<div class="option_modal_body"></div>
 							<div class="modal-footer">
 								<button id="optionSelect" type="button" onclick="selectOption()"
-									data-toggle="modal" data-target="#sign_modal"
-									class="btn btn-outline-info" data-dismiss="modal">선택</button>
+									data-toggle="modal" class="btn btn-outline-info">선택</button>
 								<button id="selectClose" type="button"
 									class="btn btn-outline-dark" data-dismiss="modal">취소</button>
 							</div>
@@ -103,19 +103,20 @@
 			<!-- 투표선택 모달 끝 -->
 
 			<!-- 전자서명 모달 시작 -->
-			<div class="modal fade" id="sign_modal" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel1">
+			<div class="modal fade" id="sign_modal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel1">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div id="signature-pad" class="m-signature-pad">
 							<div class="m-signature-pad--body">
 								<canvas width="300" height="400" id="cpad"></canvas>
-								
+
 							</div>
 							<div class="m-signature-pad--footer">
-								<button type="button" class="button clear" data-action="clear">지우기</button>
-								<button type="button" class="button save" data-action="save"
-									data-dismiss="modal">저장</button>
+								<button type="button"
+									class="btn btn-outline-danger button clear" data-action="clear">지우기</button>
+								<button type="button" class="btn btn-outline-info button save"
+									data-action="save" data-dismiss="modal">저장</button>
 							</div>
 						</div>
 					</div>

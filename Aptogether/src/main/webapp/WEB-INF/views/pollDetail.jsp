@@ -36,61 +36,75 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<%@ include file="menu.jsp" %>
+		<%@ include file="menu.jsp"%>
 
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
+		<!-- Begin Page Content -->
+		<div class="container-fluid">
 
-					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">투표상세</h1>
-					</div>
-					<!-- Content Row -->
-					<div class="flex-column">
-
-						<table class="table table-hover table-borderless">
-							<thead>
-								<tr class="table-primary">
-									<th scope="col">동</th>
-									<th scope="col">호수</th>
-									<th scope="col">이름</th>
-									<th scope="col">선택</th>
-									<th scope="col">서명</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="dt" items="${detail}">
-									<tr>
-										<td>${dt.dong}</td>
-										<td>${dt.ho}</td>
-										<td>${dt.name}</td>
-										<td>${dt.optionSeq}</td>
-										<td><img src="/keeper/pollSignThumnail?fileName=${dt.fileName}" ></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- /.container-fluid -->
-
-
+			<!-- Page Heading -->
+			<div
+				class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800">투표상세</h1>
 			</div>
-			<!-- End of Main Content -->
+			<!-- Content Row -->
+			<div class="flex-column">
 
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
+				<table class="table table-hover table-borderless">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col">동</th>
+							<th scope="col">호수</th>
+							<th scope="col">이름</th>
+							<th scope="col">선택</th>
+							<th scope="col">서명</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="dt" items="${detail}">
+							<tr>
+								<td>${dt.dong}</td>
+								<td>${dt.ho}</td>
+								<td>${dt.name}</td>
+								<td>${dt.optionSeq}</td>
+								<td><img
+									src="/keeper/pollSignThumnail?fileName=${dt.fileName}"
+									onclick="imgName('${dt.fileName}')"
+									data-toggle="modal" data-target="#showimg_modal"></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="modal fade" id="showimg_modal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<img class="bigPicture" >
 					</div>
 				</div>
-			</footer>
-			<!-- End of Footer -->
-
+			</div>
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- /.container-fluid -->
+
+
+	</div>
+	<!-- End of Main Content -->
+
+	<!-- Footer -->
+	<footer class="sticky-footer bg-white">
+		<div class="container my-auto">
+			<div class="copyright text-center my-auto">
+				<span>Copyright &copy; Your Website 2019</span>
+			</div>
+		</div>
+	</footer>
+	<!-- End of Footer -->
+
+	</div>
+	<!-- End of Content Wrapper -->
 
 	</div>
 	<!-- End of Page Wrapper -->
@@ -132,12 +146,13 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="/resources/js/sb-admin-2.min.js"></script>
+	<script src="/resources/js/poll.js"></script>
 
 	<!-- Page level plugins -->
-<!-- 	<script src="/resources/vendor/chart.js/Chart.min.js"></script> -->
+	<!-- 	<script src="/resources/vendor/chart.js/Chart.min.js"></script> -->
 
 	<!-- Page level custom scripts -->
-<!-- 	<script src="/resources/js/demo/chart-area-demo.js"></script>
+	<!-- 	<script src="/resources/js/demo/chart-area-demo.js"></script>
 	<script src="/resources/js/demo/chart-pie-demo.js"></script> -->
 
 </body>

@@ -29,7 +29,9 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-		
+
+
+
 		<multipart-config>
 			<location>C:\\</location>
 			<max-file-size>20971520</max-file-size>
@@ -42,16 +44,32 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/404.jsp</location>
 	</error-page>
-	
+
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
+
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+<!-- 
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>

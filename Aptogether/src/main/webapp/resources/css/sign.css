@@ -74,7 +74,9 @@ body {
 }
 
 .m-signature-pad--footer {
-	position: absolute;
+	display: flex;
+    justify-content: flex-end;
+    position: absolute;
 	left: 20px;
 	right: 20px;
 	bottom: 20px;
@@ -82,16 +84,15 @@ body {
 }
 
 .m-signature-pad--footer
-  .description {
-	color: #C3C3C3;
-	text-align: center;
-	font-size: 1.2em;
-	margin-top: 1.8em;
+	.clear{
+	margin-right: 5px;
 }
 
-.m-signature-pad--footer
+
+
+/* .m-signature-pad--footer
   .button {
-	/* position: absolute; */
+	position: absolute;
 	bottom: 0;
 }
 
@@ -103,7 +104,7 @@ body {
 .m-signature-pad--footer
   .button.save {
 	right: 0;
-}
+} */
 
 @media screen and (max-width: 1024px) {
 	.m-signature-pad {

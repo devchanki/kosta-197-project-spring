@@ -1,5 +1,8 @@
 	var i = 1;
 	var selected = -1;
+	var checked = false;
+	
+
 
 	function add() {
 		$('.option_input')
@@ -24,7 +27,13 @@
 		location.reload();
 	})
 	
-	
+	function imgName(fileName){
+		console.log(fileName.substring(2, fileName.length));
+		fileName = fileName.substring(2, fileName.length);
+		console.log( '/keeper/pollSignBigPicture?fileName=' + fileName);
+		$('.bigPicture').attr('src', '/keeper/pollSignBigPicture?fileName=' + fileName);
+		console.log(fileName);
+	}
 	
 	function showData(a,b,c) {
 		$('#myModalLabel').html(b);
@@ -61,16 +70,27 @@
 	}
 	
 	
+	
 	function selectOption() {
-		selected = $('.input-group input:radio[name=seq]:checked').val();
-		console.log(selected);
-		resizeCanvas();
+			selected = $('.input-group input:radio[name=seq]:checked').val();
+			console.log(selected);
+			
+				if(!selected){
+					$('.alert').show();
+				}else{
+					$('.alert').alert('close');
+						$('#option_modal').modal('hide');
+					$('.alert').toggle();
+					resizeCanvas();
+					$('#sign_modal').modal('show');
+				}
+	
 	}
 	
-//	$(window).load (function () {
-//		console.log('aa');
+// $(window).load (function () {
+// console.log('aa');
 //		
-//	})
+// })
 //	
 //	
 	

@@ -64,6 +64,23 @@ public class PollKeeperController {
 		
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
+	
+	@GetMapping(value ="/pollSignBigPicture", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> keeper_signBigPicture(String fileName) {
+		Resource resource = new FileSystemResource("c:\\upload\\sign\\" + fileName);
+		
+		String resourceName = resource.getFilename();
+		
+		HttpHeaders headers = new HttpHeaders();
+		try {
+			headers.add("Content-Disposition", "attachment; filename=" + new String(resourceName.getBytes("UTF-8"), "ISO-8859-1")); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
 
 	@PostMapping("/pollInsert")
 	public String keeper_insert(PollVO poll, RedirectAttributes rttr) {
