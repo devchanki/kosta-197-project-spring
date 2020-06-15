@@ -2,6 +2,7 @@ package org.aptogether.service;
 
 import static org.junit.Assert.*;
 
+import org.aptogether.domain.NoticeCriteria;
 import org.aptogether.domain.NoticeVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,42 +29,42 @@ public class NoticeServiceTests {
 	}
 
 	
-	@Test
-	public void testRegister(){
-		NoticeVO notice = new NoticeVO();
-		notice.setTitle("새로운 제목이다 어쩔래");
-		notice.setContent("새로운 내용이다 어절래");
-		notice.setCategory("공지");
-		service.register(notice);
-		log.info("생성된 게시물의 번호: "+ notice.getNoticeSeq());
-	}
+//	@Test
+//	public void testRegister(){
+//		NoticeVO notice = new NoticeVO();
+//		notice.setTitle("새로운 제목이다 어쩔래");
+//		notice.setContent("새로운 내용이다 어절래");
+//		notice.setCategory("공지");
+//		service.register(notice);
+//		log.info("생성된 게시물의 번호: "+ notice.getNoticeSeq());
+//	}
 	
 	@Test
 	public void testGetList(){
-		service.getList().forEach(notice -> log.info(notice));
+		service.getList(new NoticeCriteria(2,10)).forEach(notice -> log.info(notice));
 	}
 	
-	@Test
-	public void testGet(){
-		log.info(service.get(2));
-	}
-
-	@Test
-	public void testDelete(){
-		log.info("REMOVE RESULT : " + service.remove(2));
-	}
-	
-	@Test
-	public void testUpdate(){
-		
-		NoticeVO notice = service.get(4);		
-		if (notice == null){
-			return;
-		}
-	
-		notice.setTitle("제목 수정합니다");
-		log.info("MODIFY RESULT: " + service.modify(notice));
-	}
+//	@Test
+//	public void testGet(){
+//		log.info(service.get(2));
+//	}
+//
+//	@Test
+//	public void testDelete(){
+//		log.info("REMOVE RESULT : " + service.remove(2));
+//	}
+//	
+//	@Test
+//	public void testUpdate(){
+//		
+//		NoticeVO notice = service.get(4);		
+//		if (notice == null){
+//			return;
+//		}
+//	
+//		notice.setTitle("제목 수정합니다");
+//		log.info("MODIFY RESULT: " + service.modify(notice));
+//	}
 	
 
 	

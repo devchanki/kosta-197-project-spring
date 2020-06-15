@@ -10,28 +10,51 @@
 	]]>
 	</select>
 
+	<select id="getListWithPaging" resultType="org.aptogether.domain.NoticeVO">
+	<![CDATA[
+		select 
+			notice_Seq, title, regdate
+			from
+		(
+			select /*+ INDEX_DESC(notice pk_notice)*/ 
+			rownum rn, notice_Seq, title, regdate 
+		from notice 
+			where rownum <= #{pageNum} * #{amount}
+		)
+		where rn > (#{pageNum} -1) * #{amount}
+	]]>
+	</select>
+
+
 	<insert id="insertNotice">
-		<selectKey keyProperty="noticeSeq" order="BEFORE" resultType="int">	
+		<selectKey keyProperty="noticeSeq" order="BEFORE"
+			resultType="int">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(notice_seq, title, content, category) 
+		insert into notice(notice_seq, title, content, category)
 		values(#{noticeSeq}, #{title}, #{content}, #{category})
 	</insert>
-	
+
 	<select id="readNotice" resultType="org.aptogether.domain.NoticeVO">
-		select * from notice where notice_seq = #{noticeSeq}
+		select * from notice where
+		notice_seq = #{noticeSeq}
 	</select>
-	
+
 	<delete id="deleteNotice">
 		delete from notice where notice_seq = #{noticeSeq}
 	</delete>
-	
+
 	<update id="updateNotice">
 		update notice set title = #{title},
-										content = #{content},
-										category = #{category}
+		content =
+		#{content},
+		category = #{category}
 		where notice_seq = #{noticeSeq}
 	</update>
+	
+	<select id="getTotalCount" resultType="int">
+		select count (*) from notice where notice_seq > 0
+	</select>
 
 
 </mapper>

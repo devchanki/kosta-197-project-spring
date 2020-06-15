@@ -2,6 +2,7 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.aptogether.domain.NoticeCriteria;
 import org.aptogether.domain.NoticeVO;
 import org.aptogether.mapper.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,15 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeVO> getList() {
-		log.info("getList.....................");
-		return mapper.getList();
+	public List<NoticeVO> getList(NoticeCriteria cri) {
+		log.info("getList...........with criteria.........." + cri);
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getTotal(NoticeCriteria cri) {
+		log.info("get total Count");
+		return mapper.getTotalCount(cri);
 	}
 
 }

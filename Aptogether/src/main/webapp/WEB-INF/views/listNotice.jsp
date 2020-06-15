@@ -8,8 +8,6 @@
 <html lang="ko">
 
 <head>
-
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -17,8 +15,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title></title>
-
-
 <!-- Custom fonts for this template-->
 <link href="/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -29,6 +25,87 @@
 <!-- Custom styles for this template-->
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="/resources/vendor/jquery.min.js"></script>
+
+
+<style type="text/css">
+.btnPaging {
+	margin-top: 60px;
+	text-align: center;
+}
+
+.pagination {
+	margin-left: 550px;
+	margin-right: 510px;
+}
+
+.paginate_button a {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin: 0 3px;
+	vertical-align: top;
+	border: 1px solid #d1d1d1;
+	border-radius: 5px;
+	background: #fff;
+}
+
+.paginate_button a [aria-selected="true"] {
+	border-color: #ffbc0d;
+	background-color: #ffbc0d;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+ul, li {
+	list-style: none outside;
+}
+
+.notice_Date {
+	display: table-cell;
+	width: 19%;
+	text-align: center;
+}
+
+.notice_Title {
+	display: table-cell;
+	padding: 0 45px;
+}
+
+.notice_Seq {
+	display: table-cell;
+	width: 11%;
+	text-align: center;
+}
+
+#notice-body {
+	margin-top: 10px;
+}
+
+#notice_default {
+	margin-left: 40px;
+	margin-right: 40px;
+	font-family: SpeedeeK, Malgun Gothic, '맑은 고딕', Dotum, '돋움', Arial,
+		sans-serif;
+}
+
+#notice_header {
+	margin-left: 40px;
+	margin-right: 40px;
+	font-family: SpeedeeK, Malgun Gothic, '맑은 고딕', Dotum, '돋움', Arial,
+		sans-serif;
+}
+
+#regBtn{
+margin-left: 96%;
+}
+li.paginate_button.active > a {
+	background-color: #6e707e26;
+}
+</style>
+
 
 </head>
 
@@ -41,7 +118,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">NOTICE</h1>
+				<strong><h1 class="page-header" id="notice_header">NOTICE</h1></strong>
 			</div>
 		</div>
 
@@ -49,37 +126,68 @@
 		<div class="row">
 			<!-- start row -->
 			<div class="col-lg-12">
-				<div class="panel panel-default">
+				<div class="panel panel-default" id="notice_default">
 					<div class="panel panel-heading">
-						총 ___개의 게시물이 있습니다.
-						<button type="button" class="btn btn-outline-dark btn-sm" id="regBtn">새글</button>
+						총 <strong>${pageMaker.total }개</strong>의 게시물이 있습니다.
 					</div>
-					<div class="panel-body">
+
+					<button type="button" class="btn btn-outline-secondary btn-sm" id="regBtn">notice</button>
+						
+						
+					<div class="panel-body" id="notice-body">
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th scope="col">글번호</th>
-									<th scope="col">제목</th>
-									<th scope="col">작성일</th>
+									<th scope="col" class="notice_Seq">글번호</th>
+									<th scope="col" class="notice_Title">제목</th>
+									<th scope="col" class="notice_Date">작성일</th>
 								</tr>
 							</thead>
 							<c:forEach items="${list }" var="notice">
 								<tbody>
 									<tr>
-										<td><c:out value="${notice.noticeSeq }" /></td>
-										<td><a
-											href='/keeper/getNotice?noticeSeq=<c:out value="${notice.noticeSeq }"/>'>
-												<c:out value="${notice.title}" />
-										</a></td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd"
-												value="${notice.regdate}" /></td>
+										<td class="notice_Seq"><c:out
+												value="${notice.noticeSeq }" /></td>
+										<td class="notice_Title"><a class="move"
+											href='<c:out value="${notice.noticeSeq }"/>'> <c:out
+													value="${notice.title }" /></a></td>
+										<td class="notice_Date"><fmt:formatDate
+												pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
 									</tr>
 								</tbody>
 							</c:forEach>
 
 						</table>
-						<!-- table 태그 끝 -->
 
+						<div class='btnPaging'>
+							<ul class="pagination">
+
+								<c:if test="${pageMaker.prev}">
+									<li class="paginate_button previous"><a
+										href="${pageMaker.startPage -1}">Previous</a></li>
+								</c:if>
+
+								<c:forEach var="num" begin="${pageMaker.startPage}"
+									end="${pageMaker.endPage}">
+									<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active":""}">
+										<a href="${num}">${num}</a>
+									</li>
+								</c:forEach>
+
+								<c:if test="${pageMaker.next}">
+									<li class="paginate_button next"><a
+										href='${pageMaker.endPage +1 }'>Next</a></li>
+								</c:if>
+
+							</ul>
+						</div>
+						<!--  end Pagination -->
+
+						<form id='actionForm' action="/keeper/listNotice" method='get'>
+							<input type='hidden' name='pageNum'
+								value='${pageMaker.cri.pageNum}'> <input type='hidden'
+								name='amount' value='${pageMaker.cri.amount}'>
+						</form>
 
 						<!-- Modal  추가 -->
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -119,33 +227,68 @@
 		<!-- End of Main Content -->
 
 		<script>
-			$(document).ready(function() {
-			
-						var result = '<c:out value="${result}"/>';
-			
-						checkModal(result);
-// 						history.replaceState({},null,null);
-						function checkModal(result) {
-			
-// 							if (result === '' history.state) {
-// 								return;
-// 							}
-										console.log(result);
+			$(document)
+					.ready(
+							function() {
 
-							if (parseInt(result) > 0) {
-								$(".modal-body").html("게시글 " + parseInt(result)+ " 번이 등록되었습니다.");
-							}
-			
-							$("#myModal").modal("show");
+								var result = '<c:out value="${result}"/>';
 
-						}
-						
-						$("#regBtn").on("click", function(){
-							self.location = "/keeper/registerNotice";
-						});
-					});
-			
-	</script>
+								checkModal(result);
+								// 						history.replaceState({},null,null);
+								function checkModal(result) {
+
+									// 							if (result === '' history.state) {
+									// 								return;
+									// 							}
+									console.log(result);
+
+									if (parseInt(result) > 0) {
+										$(".modal-body").html(
+												"게시글 " + parseInt(result)
+														+ " 번이 등록되었습니다.");
+										$("#myModal").modal("show");
+									}
+									return;
+
+								}
+
+								$("#regBtn").on("click", function() {
+									self.location = "/keeper/registerNotice";
+								});
+
+								var actionForm = $("#actionForm");
+
+								$(".paginate_button a").on(
+										"click",
+										function(e) {
+
+											e.preventDefault();
+											console.log('click');
+											actionForm.find(
+													"input[name='pageNum']")
+													.val($(this).attr("href"));
+											actionForm.submit();
+										});
+
+								$(".move")
+										.on(
+												"click",
+												function(e) {
+													e.preventDefault();
+													actionForm
+															.append("<input type='hidden' name='noticeSeq' value='"
+																	+ $(this)
+																			.attr(
+																					"href")
+																	+ "'> ");
+													actionForm
+															.attr("action",
+																	"/keeper/getNotice");
+													actionForm.submit();
+												});
+
+							});
+		</script>
 
 
 
@@ -208,8 +351,6 @@
 	<script src="/resources/js/demo/datatables-demo.js"></script>
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
-
 </body>
 </html>
 

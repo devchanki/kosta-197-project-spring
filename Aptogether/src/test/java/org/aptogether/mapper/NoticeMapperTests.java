@@ -2,6 +2,9 @@ package org.aptogether.mapper;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
+import org.aptogether.domain.NoticeCriteria;
 import org.aptogether.domain.NoticeVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,6 +66,17 @@ public class NoticeMapperTests {
 //		int count = mapper.updateNotice(notice);
 //		log.info("update count : " + count);
 //	}
+	
+	@Test
+	public void testPaging(){
+		NoticeCriteria cri = new NoticeCriteria();
+		//10페이지씩
+		cri.setPageNum(3);
+		cri.setAmount(10);
+		
+		List<NoticeVO> list = mapper.getListWithPaging(cri);
+		list.forEach(notice -> log.info(notice.getNoticeSeq()));
+	}
 	
 	
 	

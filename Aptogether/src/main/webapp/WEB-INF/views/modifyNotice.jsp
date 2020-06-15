@@ -25,7 +25,41 @@
 <!-- Custom styles for this template-->
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="/resources/vendor/jquery/jquery.js"></script>
+<style type="text/css">
 
+#notice_default {
+	margin-top: 80px;
+	margin-left: 250px;
+	margin-right: 250px;
+}
+
+#notice-head {
+	margin-bottom: 30px;
+}
+
+.bbsNotice > * {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.bbsNotice {
+    display: table;
+    width: 100%;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #292929;
+}
+
+.bbs.content{
+	margin-top: 10px;
+}
+
+.btnbox{
+margin-top: 12px; 
+margin-left: 78%;
+}
+
+</style>
 </head>
 
 <body id="page-top">
@@ -35,45 +69,53 @@
 		<jsp:include page="managerMenu.jsp"></jsp:include>
 		<!-- End of Topbar -->
 
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">게시물 등록</h1>
-			</div>
-		</div>
-
 		<!-- Begin Page Content -->
 		<div class="row">
 			<!-- start row -->
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel panel-heading">공지사항</div>
-					<div class="panel-body">
+			<div class="col-lg-12" id="bbsDetail">
+				<div class="panel panel-default" id="notice_default">
+					<div class="panel panel-heading" id="notice-head">수정</div>
+					<div class="panel-body" id="notice-body">
 
 						<!-- form 시작 -->
 						<form role="form" action="/keeper/modifyNotice" method="post">
+
+							<input type='hidden' name='pageNum'
+								value='<c:out value="${cri.pageNum }"/>'> <input
+								type='hidden' name='amount'
+								value='<c:out value="${cri.amount }"/>'>
+
 							<div class="form-group">
-								<label>글번호</label><input class="form-control" name="noticeSeq"
+								<input class="form-control" name="noticeSeq" type="hidden"
 									value='<c:out value="${notice.noticeSeq }"/>'
 									readonly="readonly">
 							</div>
-							<div class="form-group">
-								<label>제목</label><input class="form-control" name="title"
+							
+							<div class="bbsNotice">
+								<label>제목</label><input class="col-lg-6" name="title" id="bbsNotice.title"  style="margin-right: 400px;"
 									value='<c:out value="${notice.title }"/>'>
+									<div>
+									<label for="category">구분</label> 
+								<select class="inputForm" type="text" name="category" id="category">
+									<option value="일반">일반</option>
+									<option value="공지">공지</option>
+								</select>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label>구분</label><input class="form-control" name="category"
-									value='<c:out value="${notice.category }"/>'>
-							</div>
+	
 
-							<div class="form-group">
-								<label>text area</label>
+							<div class="form-group" id="bbsNotice.content">
+								<label class="bbs.content">text area</label>
 								<textarea class="form-control" rows="3" name="content"><c:out
 										value="${notice.content }" /></textarea>
 							</div>
-							<button type="submit" data-oper='modify' class="btn btn-success">수정</button>
-							<button type="submit" data-oper='remove' class="btn btn-danger">삭제</button>
-							<button type="submit" data-oper='list' class="btn btn-info">목록</button>
+							
+							<div class="btnbox"> 
+							<button type="submit" data-oper='remove' class="btn btn-outline-secondary">Delete</button>
+								<button type="submit" data-oper='modify' class="btn btn-outline-secondary">Modify</button>
+								<button type="submit" data-oper='list' class="btn btn-outline-dark">List</button>
+							</div>
 						</form>
 					</div>
 					<!-- end  panel-body -->
@@ -88,42 +130,35 @@
 		<!-- End of Main Content -->
 
 		<script>
-		$(function() {
-			var formObj = $("form");
-			$('button').on("click", function(e) {
-				e.preventDefault();
-				var operation = $(this).data("oper");
-				console.log(operation);
+			$(function() {
+				var formObj = $("form");
+				$('button').on(
+						"click",
+						function(e) {
+							e.preventDefault();
+							var operation = $(this).data("oper");
 
-				if (operation === 'remove') {
-					formObj.attr("action", "/keeper/removeNotice");
-				} else if (operation === 'list') {
-					//move to list
-					self.location = "/keeper/listNotice";
-					return;
-				}
-				formObj.submit();
+							console.log(operation);
+
+							if (operation === 'remove') {
+								formObj.attr("action", "/keeper/removeNotice");
+							} else if (operation === 'list') {
+								//move to list
+								// 						self.location = "/keeper/listNotice";
+								formObj.attr("action", "/keeper/listNotice")
+										.attr("method", "get");
+								var pageNumTag = $("input[name='pageNum']")
+										.clone();
+								var amountTag = $("input[name='amount']")
+										.clone();
+
+								formObj.empty();
+								formObj.append(pageNumTag);
+								formObj.append(amountTag);
+							}
+							formObj.submit();
+						});
 			});
-		});
-		
-		
-// 			$(document).ready(function() {
-// 				var formObj = $("form");
-// 				$('button').on("click", function(e) {
-// 					e.preventDefault();
-// 					var operation = $(this).data("oper");
-// 					console.log(operation);
-
-// 					if (operation === 'remove') {
-// 						formObj.attr("action", "/keeper/removeNotice");
-// 					} else if (operation === 'list') {
-// 						//move to list
-// 						self.location = "/keeper/listNotice";
-// 						return;
-// 					}
-// 					formObj.submit();
-// 				});
-// 			});
 		</script>
 
 

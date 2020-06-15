@@ -52,7 +52,11 @@
 						<form role="form" action="/keeper/registerNotice" method="post">
 							<div class="form-group">
 								<label>Title</label><input class="form-control" name="title">
-								<label>구분</label><input class="form-control" name="category">
+								<label for="category">구분</label>
+									<select class="inputForm" type="text" name="category" id="category">
+											<option value="일반">일반</option>
+											<option value="공지">공지</option>
+									</select>
 
 							</div>
 

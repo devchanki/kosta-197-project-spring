@@ -533,9 +533,8 @@
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<label class="col-4" for="edit-type">구분</label> <select
-														class="inputModal" type="text" name="edit-type"
-														id="edit-type">
+													<label class="col-4" for="edit-type">구분</label> 
+													<select class="inputModal" type="text" name="edit-type" id="edit-type">
 														<option value="등록">등록</option>
 														<option value="수정">수정</option>
 													</select>

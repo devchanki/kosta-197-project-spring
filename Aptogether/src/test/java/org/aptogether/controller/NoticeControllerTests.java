@@ -73,13 +73,22 @@ public class NoticeControllerTests {
 //				
 //	}
 	
-	@Test
-	public void testRemove()throws Exception{
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/removeNotice")
-				.param("noticeSeq", "10"))
-				.andReturn().getModelAndView().getViewName();
-				log.info(resultPage);
-	}
-	
+//	@Test
+//	public void testRemove()throws Exception{
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/removeNotice")
+//				.param("noticeSeq", "10"))
+//				.andReturn().getModelAndView().getViewName();
+//				log.info(resultPage);
+//	}
 
+
+	@Test
+	public void testListPaging()throws Exception{
+		log.info(mockMvc.perform(
+				MockMvcRequestBuilders.get("/keeper/listNotice")
+				.param("pageNum","2")
+				.param("amount", "30")
+				)
+				.andReturn().getModelAndView().getModelMap());
+	}
 }
