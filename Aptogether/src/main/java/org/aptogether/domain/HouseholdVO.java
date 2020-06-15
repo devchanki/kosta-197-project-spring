@@ -1,15 +1,14 @@
 package org.aptogether.domain;
 
-import java.util.List;
+import java.io.Serializable;
 
 import lombok.Data;
 
 @Data
-public class HouseholdVO {
-
+public class HouseholdVO implements Serializable{
 	private int householdSeq;
-	private int aptSeq;
 	private int dong;
 	private int ho;
-	private int roomSize;
-}
+	private int aptSeq;
+	private float roomSize;
+	}

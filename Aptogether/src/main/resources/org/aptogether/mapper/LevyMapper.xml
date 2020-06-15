@@ -9,7 +9,7 @@
 		<selectKey keyProperty="levySeq" order="BEFORE" resultType="int">
  			select levy_seq.nextval from dual
  		</selectKey>
-		insert into Levy values (#{levySeq}, 1, to_date(#{levyDate}, 'YYYY-MM'), to_date(#{startCalDate}, 'YYYY.MM.DD'),
+		insert into Levy values (#{levySeq}, #{aptSeq} , to_date(#{levyDate}, 'YYYY-MM'), to_date(#{startCalDate}, 'YYYY.MM.DD'),
 												to_date(#{endCalDate}, 'YYYY.MM.DD'), to_date(#{deadlineDate}, 'YYYY.MM.DD'), 0)
 	</insert>
 	

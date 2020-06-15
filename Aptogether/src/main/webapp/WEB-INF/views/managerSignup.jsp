@@ -2,16 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="" />
     <meta name="author" content="" />
 
@@ -35,9 +33,8 @@
         display: none;
         position: fixed;
         width: 100%;
-        height: 100%;
         z-index: 9999;
-        margin-top: 100px;
+        margin-top: 60px;
         left: 0;
       }
 
@@ -45,9 +42,23 @@
         margin: auto;
         padding: 30px 20px;
         box-sizing: border-box;
+        overflow: scroll;
+        height: 800px;
       }
       .margin-bottom {
         margin-bottom: 10px;
+      }
+      .margin-bottom-10 {
+      	margin-bottom: 10px;
+      }
+      .margin-top-15px {
+      	margin-top: 15px;
+      	height:40px;
+      	font-size: 22px;
+      }
+      .warning{
+      	font-size: 22px;
+      	color: red;
       }
     </style>
   </head>
@@ -78,8 +89,8 @@
           <div class="apt-list-box">
             <div class="list-group"></div>
           </div>
-          <input type="button" onclick="doAction()" value="선택하기" />
-          <input type="button" onclick="closeModal()" value="닫기 " />
+          <input type="button" class="margin-top-15px" onclick="doAction()" value="선택하기" />
+          <input type="button" class="margin-top-15px" onclick="closeModal()" value="닫기 " />
         </div>
       </div>
 
@@ -93,7 +104,7 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Aptogether - 회원가입</h1>
                 </div>
-                <form class="user" action="/signup" method="post">
+                <form:form class="user" action="/signupManager" modelAttribute="JoinVO" method="post">
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
@@ -108,7 +119,7 @@
                       <input
                         type="text"
                         class="form-control form-control-user"
-                        name=""
+                        name="aptName"
                         id="aptName"
                         placeholder="아파트 이름"
                         readonly
@@ -129,14 +140,28 @@
                     아파트 찾기
                   </button>
 
-                  <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      id="email"
-                      name="email"
-                      placeholder="이메일 주소를 입력하세요"
-                    />
+                  <div class="form-group row">
+                  	<div class="col-sm-8 mb-sm-0">
+                      <input
+                      	type="email"
+                      	class="form-control form-control-user"
+                      	id="email"
+                      	name="id"
+                      	placeholder="이메일 주소를 입력하세요"
+                   	/>
+                   	</div>
+                   	<div class="col-sm-4">
+                   <button
+                   	type="button"
+                    id="checkId"
+                    onclick="validateId()"
+                    class="btn btn-facebook btn-user btn-block"
+                  	>
+                    아이디 중복확인
+                  </button>
+                   	
+                  	</div>
+
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -157,52 +182,17 @@
                       />
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input
-                        type="number"
-                        class="form-control form-control-user"
-                        name="dong"
-                        id="dong"
-                        placeholder="동"
-                      />
-                    </div>
-                    <div class="col-sm-6">
-                      <input
-                        type="number"
-                        class="form-control form-control-user"
-                        name="ho"
-                        id="ho"
-                        placeholder="호"
-                      />
-                    </div>
-                  </div>
 
                   <hr />
                   <div>
                     <div class="custom-control custom-radio margin-bottom">
                       <input
-                        type="radio"
+                        type="hidden"
                         name="type"
-                        value="1"
-                        class="custom-control-input"
-                        id="customCheck1"
-                      />
-                      <label class="custom-control-label" for="customCheck1"
-                        >입주민</label
-                      >
-                    </div>
-                    <div class="custom-control custom-radio margin-bottom">
-                      <input
-                        type="radio"
-                        name="type"
-                        value="0"
+                        value="ROLE_KEEPER"
                         class="custom-control-input"
                         id="customCheck"
                       />
-                      <label class="custom-control-label" for="customCheck"
-                        >관리 사무소</label
-                      >
                     </div>
                   </div>
                   <input
@@ -210,7 +200,8 @@
                     class="btn btn-primary btn-user btn-block"
                     value="회원 가입하기"
                   />
-                </form>
+                  <div class="warning">${status } </div>
+                </form:form>
                 <hr />
                 <!--               <div class="text-center">
                 <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -226,8 +217,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/Aptogether/vendor/jquery/jquery.min.js"></script>
-    <script src="/Aptogether/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="/Aptogether/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -242,34 +233,46 @@
       }
 
       function searchApt() {
+    	  console.log(JSON.stringify({aptName: $("#modalAptName").val()}));
         $.ajax({
-          url: "/Aptogether/apt/showAptList",
-          type: "GET",
-          dataType: "text",
-          data: {
-            keyword: $("#modalAptName").val(),
-          },
+          url: "/apt/showAptList",
+          type: "POST",
+          dataType: "json",
+          contentType: "application/json;charset=utf-8",
+          data: JSON.stringify({aptName: $("#modalAptName").val()}),
           success: function (data) {
-            data = JSON.parse(data);
-            console.log(data);
+        	  console.log(data);
             $(".apt-list-box .list-group").html("");
-            for (var i = 0; i < data.length; i++) {
-              $(".apt-list-box .list-group").append(
-                '<button type="button" class="list-group-item list-group-item-action" onclick="selectApt(' +
-                  data[i].apt_seq +
-                  "," +
-                  "'" +
-                  data[i].apt_name +
-                  "'" +
-                  ')"' +
-                  ">" +
-                  data[i].apt_name +
-                  "(" +
-                  data[i].apt_location +
-                  ")" +
-                  "</button>"
-              );
+            if(data.status == 'success') {
+                for (var i = 0; i < data.aptList.length; i++) {
+                    $(".apt-list-box .list-group").append(
+                      '<button type="button" class="list-group-item list-group-item-action margin-bottom-10" onclick="selectApt(' +
+                        data.aptList[i].aptSeq +
+                        "," +
+                        "'" +
+                        data.aptList[i].aptName +
+                        "'" +
+                        ')"' +
+                        ">" +
+                        data.aptList[i].aptName +
+                        "(" +
+                        data.aptList[i].aptLocation +
+                        ")" +
+                        "</button>"
+                    );
+                  }
+            } else if(data.status == 'no_value') {
+            	$(".apt-list-box .list-group").html(
+                        '<button type="button" class="list-group-item list-group-item-action margin-bottom-10" disabled>' +
+						"아파트 목록이 없습니다 등록 부탁드립니다"
+                          + "</button>")
+            } else{
+            	$(".apt-list-box .list-group").html(
+                        '<button type="button" class="list-group-item list-group-item-action margin-bottom-10" disabled>' +
+						"잘못된 값을 입력하셨거나 에러가 발생했습니다"
+                          + "</button>")
             }
+
           },
         });
       }
@@ -278,14 +281,40 @@
       }
       $(function () {
     	$('input:radio').click(function () {
-    		console.log('hello')
+    		console.log($(this).val());
+    		if($(this).val() == 'ROLE_KEEPER'){
+    			$('.resident').hide();
+    		}else {
+    			$('.resident').show();
+    		}
     	});
-        console.log("conssole.");
         $("#modal-toggle-button").on("click", function () {
           $(".modal-mine").toggle();
           return false;
         });
       });
+      
+      function validateId() {
+    	  var myId = $('#email').val();
+    	  $.ajax({
+    		  url: "/signUpIdValidate",
+    		  type: "POST",
+    		  data: JSON.stringify({
+    			  id: myId
+    		  }),
+    		  contentType: "application/json",
+    		  dataType: "json",
+    		  success: function (data) {
+    			  console.log(data);
+    			  alert('아이디가 사용가능합니다. ');
+    			  
+    		  },
+    		  error: function () {
+    			  alert('아이디가 이미 존재합니다. ');
+    		  }
+    	  })
+    	  return false;
+      };
     </script>
   </body>
 </html>

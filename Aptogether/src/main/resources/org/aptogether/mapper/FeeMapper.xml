@@ -84,7 +84,7 @@
 														 #{heatingFee},  to_date(#{payDate}, 'YYYY-MM-DD'))
 	</insert>
 	
-	<select id="listFee" parameterType="org.aptogether.domain.MemberVO" resultType="org.aptogether.domain.FeeVO">
+	<select id="listFee" parameterType="org.aptogether.domain.TenantVO" resultType="org.aptogether.domain.FeeVO">
 		select ma.* from
 									manage_fee ma left join member me
 									on ma.member_seq = me.member_seq

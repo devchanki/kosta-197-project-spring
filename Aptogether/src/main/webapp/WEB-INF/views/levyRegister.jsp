@@ -277,7 +277,6 @@
 			if(levyDate.val() && deadlineDate.val() !=""){
 				
 					var levy = {
-						/*aptSeq : 1,*/ 
 						levyDate : levyDate.val(),
 						startCalDate : startDate,
 						endCalDate : endDate,
@@ -306,13 +305,13 @@
 		
 		
 		
-		feeService.listLevy({aptSeq : 1}, function(list) {
+		feeService.listLevy(function(list) {
 			
 			for(var i = 0, len = list.length||0; i <len; i++){
 				console.log(list[i]);
 				$("#levyTable").append('<tr>'
 														+'<td>'+ list[i].status+'</td>'
-													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>' 
+													 	+'<td>'+ '<a href="/keeper/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>' 
 														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
 														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
 														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
@@ -365,7 +364,7 @@
 		createTable();
 		function createTable() {
 			$.ajax({
-				url : "/keeper1/listFee/"+ member_seq.val(),
+				url : "/keeper/listFee/"+ member_seq.val(),
 				type : "get",
 				dataType : "json",
 				success : function(result) {

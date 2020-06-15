@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Aptogether - Login</title>
+  <title>Aptogether - 관리사무소 Login</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,10 +37,11 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Aptogether - 로그인</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Aptogether - 관리사무실 로그인</h1>
                   </div>
-                  <form class="user" action="/signin" method="post">
+                  <form class="user" action="/keeper/signin" method="post">
                     <div class="form-group">
+                    	${status} 
                       <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="이메일">
                     </div>
                     <div class="form-group">
@@ -49,7 +50,7 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <input type="submit" value="로그인" class="btn btn-primary btn-user btn-block" />
                     <hr>
-                    <a href="/Aptogether/" class="btn btn-facebook btn-user btn-block">
+                    <a href="/" class="btn btn-facebook btn-user btn-block">
                       메인으로 가기
                     </a>
                   </form>
@@ -58,7 +59,7 @@
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div> -->
                   <div class="text-center">
-                    <a class="small" href="/signup">회원가입</a>
+                    <a class="small" href="/keeper/signup">회원가입</a>
                   </div>
                 </div>
               </div>

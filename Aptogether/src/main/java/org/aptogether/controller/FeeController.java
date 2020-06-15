@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.aptogether.domain.CustomKeeper;
 import org.aptogether.service.FeeService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/keeper1/*")
+@RequestMapping("/keeper/*")
 public class FeeController {
 	
 	private FeeService service;
@@ -26,8 +28,11 @@ public class FeeController {
 		return "managerDashBoard";
 	}
 	
-	@GetMapping("/levyRegister/{aptSeq}")
-	public String levyRegister(@PathVariable("aptSeq") int aptSeq){
+	@GetMapping("/levyRegister")
+	public String levyRegister(Authentication auth){
+		
+		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+		keeper.getAptSeq();
 		
 		return "levyRegister";
 	}

@@ -2,18 +2,17 @@ package org.aptogether.controller;
 
 import java.util.List;
 
+import org.aptogether.domain.CustomKeeper;
 import org.aptogether.domain.FeeRegisterVO;
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
-import org.aptogether.domain.LevyVO;
-import org.aptogether.domain.MemberVO;
 import org.aptogether.domain.MeterVO;
 import org.aptogether.domain.UnitPriceVO;
 import org.aptogether.service.FeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,20 +25,22 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @RestController
-@RequestMapping("/keeper1/*")
+@RequestMapping("/keeper/*")
 @Log4j
 @AllArgsConstructor
 public class FeeRestController {
 	
 	private FeeService service;
 	
-	@GetMapping(value = "/listDong/{aptSeq}",
+	@GetMapping(value = "/listDong",
 			   produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-			public ResponseEntity<List<HouseholdVO>> listDong(@PathVariable("aptSeq") int aptSeq){
+			public ResponseEntity<List<HouseholdVO>> listDong(Authentication auth){
+				CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+				keeper.getAptSeq();
 				
 				HouseholdVO dong = new HouseholdVO();
 				
-				dong.setAptSeq(aptSeq);
+				dong.setAptSeq(keeper.getAptSeq());
 				
 				return new ResponseEntity<>(service.listDong(dong), HttpStatus.OK);
 				}

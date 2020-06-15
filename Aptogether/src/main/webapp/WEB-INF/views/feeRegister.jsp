@@ -284,13 +284,13 @@
 			});
 		
 			
-			feeService.listDong({aptSeq : 1}, function(list) {
+			feeService.listDong(function(list) {
 					
 					for(var i = 0, len = list.length||0; i <len; i++){
 						$("#selectDong").append('<option value="'+list[i].dong+'">'+list[i].dong+' 동'+'</option>');
 					} 
 					
-					$.getJSON("/keeper1/listFeeReg/"+ list[0].dong + ".json",
+					$.getJSON("/keeper/listFeeReg/"+ list[0].dong + ".json",
 						function(data) {
 						console.log(data);
 							$("#feeTable").append('<tr>' +'<td class="dongtd" style="vertical-align: middle;">'+  $("#selectDong option:selected").val() + '</td>' + '</tr>');
@@ -537,7 +537,7 @@
 		createTable();
 		function createTable() {
 			$.ajax({
-				url : "/keeper1/listFee/"+ member_seq.val(),
+				url : "/keeper/listFee/"+ member_seq.val(),
 				type : "get",
 				dataType : "json",
 				success : function(result) {

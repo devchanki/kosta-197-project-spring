@@ -9,7 +9,7 @@ var feeService = (function() {
 		
 		$.ajax({
 			type : 'post',
-			url : '/keeper1/addLevy',
+			url : '/keeper/addLevy',
 			data : JSON.stringify(levy),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -27,11 +27,11 @@ var feeService = (function() {
 	}
 	
 	
-	function listLevy(levy, callback, error) {
+	function listLevy(callback, error) {
 		
-		var aptSeq = levy.aptSeq;
+
 		
-		$.getJSON("/keeper1/listLevy/" + aptSeq + ".json",
+		$.getJSON("/keeper/listLevy",
 				function(data) {
 					if(callback){
 						callback(data);
@@ -44,11 +44,10 @@ var feeService = (function() {
 	}
 	
 	
-	function listDong(dong, callback, error) {
+	function listDong(callback, error) {
 		
-		var aptSeq = dong.aptSeq;
 		
-		$.getJSON("/keeper1/listDong/" + aptSeq + ".json",
+		$.getJSON("/keeper/listDong",
 				function(data) {
 					if(callback){
 						callback(data);
@@ -66,7 +65,7 @@ var feeService = (function() {
 		var levyDate = feeRef.levyDate;
 		var dong = feeRef.dong;
 		
-		$.getJSON("/keeper1/listFeeReg/" + dong + ".json",
+		$.getJSON("/keeper/listFeeReg/" + dong + ".json",
 				function(data) {
 					if(callback){
 						callback(data);
@@ -81,7 +80,7 @@ var feeService = (function() {
 	
 	function getUnitPrice(unitPriceSeq, callback, error) {
 		
-		$.getJSON("/keeper1/getUnitPrice/" + unitPriceSeq + ".json", 
+		$.getJSON("/keeper/getUnitPrice/" + unitPriceSeq + ".json", 
 				function(data) {
 					if(callback){
 						callback(data);
@@ -98,7 +97,7 @@ var feeService = (function() {
 		
 		$.ajax({
 			type : 'put',
-			url : '/keeper1/updateUnitPrice/' + unitPrice.unitPriceSeq,
+			url : '/keeper/updateUnitPrice/' + unitPrice.unitPriceSeq,
 			data : JSON.stringify(unitPrice),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -117,7 +116,7 @@ var feeService = (function() {
 	
 	function findUnitPriceSeq(unitPriceSeq, callback, error) {
 		
-		$.getJSON("/keeper1/findUnitPriceSeq/" + unitPriceSeq + ".json", 
+		$.getJSON("/keeper/findUnitPriceSeq/" + unitPriceSeq + ".json", 
 				function(data) {
 					if(callback){
 						callback(data);
@@ -134,7 +133,7 @@ var feeService = (function() {
 		
 		$.ajax({
 			type : 'post',
-			url : '/keeper1/addMeter',
+			url : '/keeper/addMeter',
 			data : JSON.stringify(meter),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -157,7 +156,7 @@ var feeService = (function() {
 		
 		$.ajax({
 			type : 'put',
-			url : '/keeper1/updateMeter/' + meter.householdSeq,
+			url : '/keeper/updateMeter/' + meter.householdSeq,
 			data : JSON.stringify(meter),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -181,7 +180,7 @@ var feeService = (function() {
 //		
 //		$.ajax({
 //			type : "post",
-//			url : "/keeper1/insertFee",
+//			url : "/keeper/insertFee",
 //			data : JSON.stringify(fee),
 //			contentType : "application/json; charset=utf-8",
 //			success : function(result, status, xhr) {

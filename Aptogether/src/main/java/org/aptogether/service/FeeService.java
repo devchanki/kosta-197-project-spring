@@ -2,12 +2,11 @@ package org.aptogether.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.aptogether.domain.FeeRegisterVO;
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
-import org.aptogether.domain.MemberVO;
 import org.aptogether.domain.MeterVO;
+import org.aptogether.domain.TenantVO;
 import org.aptogether.domain.UnitPriceVO;
 
 public interface FeeService {
@@ -25,11 +24,13 @@ public interface FeeService {
 	public int updateMeter(MeterVO meter);
 	
 	
+	//public TenantVO findMember(TenantVO user);
+
 	
 	public int insertFee(FeeVO fee);
 	
-	public List<FeeVO> listFee(MemberVO user);
+	public List<FeeVO> listFee(TenantVO user);
 	
-	public List<FeeVO>	listFeeRowNum(MemberVO user);
+	public List<FeeVO>	listFeeRowNum(TenantVO user);
 
 }

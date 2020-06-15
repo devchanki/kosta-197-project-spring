@@ -20,10 +20,12 @@ import javax.xml.xpath.XPathFactory;
 
 import org.aptogether.domain.AptCodeVO;
 import org.aptogether.domain.AptVO;
+import org.aptogether.domain.CustomUser;
 import org.aptogether.mapper.AptMapper;
 import org.aptogether.security.ApiKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +39,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import lombok.extern.log4j.Log4j;
@@ -50,7 +53,7 @@ public class AptRestController {
 	private AptMapper aptMapper;
 
 	@GetMapping(value = "/showAptList/{bjdCode}", produces = "application/json; charset=utf8")
-	public String showAptList(@PathVariable("bjdCode") String bjdCode) {
+	public String showAptList(@PathVariable("bjdCode") String bjdCode, Authentication auth) {
 		final String USER_AGENT = "Mozilla/5.0";
 		String url1 = "http://apis.data.go.kr/1611000/AptListService/getLegaldongAptList?bjdCode=";
 		String url2 = "&numOfRows=100&ServiceKey=" + ApiKeys.getAptListKey();
@@ -226,5 +229,38 @@ public class AptRestController {
 			resultJson.addProperty("status", "error");
 		}
 		return gson.toJson(resultJson);
+	}
+
+	@PostMapping(value = "/showAptList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody String aptSearchWithName(@RequestBody Map<String, Object> aptNameMap) {
+		Gson gson = new Gson();
+
+		JsonArray array = new JsonArray();
+		if (aptNameMap == null) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("status", "invaild_input");
+			return gson.toJson(obj);
+		} else {
+			String aptName = (String) aptNameMap.get("aptName");
+			System.out.println("%" + aptName + "%");
+			List<AptVO> aptList = (List<AptVO>) aptMapper.searchWithKeyword("%" + aptName + "%");
+			System.out.println(aptList.size());
+			JsonObject jsonObj = new JsonObject();
+			if(aptList.size() == 0) {
+				jsonObj.addProperty("status", "no_value");
+			}else {
+				jsonObj.addProperty("status", "success");
+			}
+			
+			for (AptVO apt : aptList) {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("aptName", apt.getAptName());
+				obj.addProperty("aptSeq", apt.getAptSeq());
+				obj.addProperty("aptLocation", apt.getLocation());
+				array.add(obj);
+			}
+			jsonObj.add("aptList", array);
+			return gson.toJson(jsonObj);
+		}
 	}
 }
