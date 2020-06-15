@@ -12,6 +12,10 @@ public interface PollMapper {
 	//@Select("select * from poll where poll_seq > 0")
 	public List<PollVO> PollList();
 	
+	public List<PollVO> PollOnList();
+	
+	public List<PollVO> PollEndList();
+	
 	public void PollInsert(PollVO poll);
 	
 	public void PollOptionInsert(List<PollOptionVO> option);

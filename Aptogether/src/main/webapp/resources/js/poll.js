@@ -1,7 +1,9 @@
+	
 	var i = 1;
 	var selected = -1;
 	var checked = false;
-	
+	var listUrl = null;
+	var template = "option_modal";
 
 
 	function add() {
@@ -87,13 +89,64 @@
 	
 	}
 	
-// $(window).load (function () {
-// console.log('aa');
-//		
-// })
-//	
-//	
-	
+		
+		 $("[data-action]").on("click", function(){
+			 if($(this).data("action")=="1"){
+				 listUrl = "/tenant/pollAllList";
+			 }else if($(this).data("action")=="2"){
+				 listUrl = "/tenant/pollOnList";
+			 }else if($(this).data("action")=="3"){
+				 listUrl = "/tenant/pollEndList";
+				 template = "endList_modal";
+			 }
+			 
+			 $.ajax({
+				 	url: listUrl,
+					type: "GET",
+					dataType: "json",
+					success: function(data) {
+						
+						$('.pollList').html('');
+						for(let i =0; i < data.length; i++){
+							console.log(data[i]);
+							
+
+							var time = moment(data[i].endDate).format('LL');
+							console.log(time);
+							$('.pollList').append(
+										 '<div class="card custom-bg mb-4 margin-auto max-width-card"'
+										 +	'data-toggle="modal" data-target="#'
+										 + template
+										 +	'" onclick="showData('
+										 + data[i].pollSeq
+										 + ', &quot;'
+										 + data[i].question
+										 + '&quot;, &quot;'
+										 + data[i].contents
+										 + '&quot;)">'
+										 +	'<div class="card-body text-white">'
+										 +	'<h5 class="card-title">'
+										 + data[i].question
+										 + '</h5>'
+										 +	'<p class="small text-white">'
+										 + data[i].contents
+										 +	'</p></div>'
+										 +	'<div class="card-footer custom-bg small text-white">'
+										 +	'<img id="poll_hitcount" src="/resources/img/eye.png">'
+										 +	' 조회수 :  '
+										 + data[i].hitcount
+										 +'<span class="margin-left-span"> ' 
+										 +  time
+										 +' 마감 '
+										 +	'</span>'
+										 +	'</div></div>'
+								)
+				 
+						}
+					}
+			 })
+		 })
+
 	
 	
 	

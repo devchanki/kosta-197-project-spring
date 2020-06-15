@@ -13,6 +13,10 @@ public interface PollService {
 	
 	public List<PollVO> PollList();
 	
+	public List<PollVO> PollOnList();
+	
+	public List<PollVO> PollEndList();
+	
 	public void PollOptionInsert(List<PollOptionVO> option);
 	
 	public List<PollOptionVO> PollOptionList(int pollSeq);

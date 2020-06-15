@@ -39,7 +39,8 @@ public class PollTenantController {
 		model.addAttribute("list", service.PollList());
 		return "pollShow";
 	}
-
+	
+	
 	@PostMapping(value = "/pollOptionList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<PollOptionVO>> tenant_pollOptionList(@RequestBody Map<String, Object> seq) {
 		log.info("option......");

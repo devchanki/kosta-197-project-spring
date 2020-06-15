@@ -49,27 +49,40 @@
 
 			<!-- Content Row -->
 			<div class="flex-column">
+
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-secondary active" data-action="1"> <input
+						type="radio" name="options" id="option1" value="1"
+						autocomplete="off" checked> 전체
+					</label> <label class="btn btn-secondary" data-action="2"> <input
+						type="radio" name="options" id="option2" value="2"
+						autocomplete="off"> 진행중
+					</label> <label class="btn btn-secondary" data-action="3"> <input
+						type="radio" name="options" id="option3" value="3"
+						autocomplete="off"> 종료
+					</label>
+				</div>
+
 				<!-- pollList 출력 -->
-				<c:forEach var="poll" items="${list}">
-					<div class="card custom-bg mb-4 margin-auto max-width-card"
-						data-toggle="modal" data-target="#option_modal"
-						onclick="showData(${poll.pollSeq} , '${poll.question}', '${poll.contents }'  )">
-						<div class="card-body text-white">
-							<h5 class="card-title">${poll.question }</h5>
-							<p class="small text-white">
-								<c:set var="contents" value="${poll.contents }" />
-								${fn:substring(contents,0,20)}...
-							</p>
+				<div class="pollList">
+					<c:forEach var="poll" items="${list}">
+						<div class="card custom-bg mb-4 margin-auto max-width-card"
+							data-toggle="modal" data-target="#option_modal"
+							onclick="showData(${poll.pollSeq} , '${poll.question}', '${poll.contents }'  )">
+							<div class="card-body text-white">
+								<h5 class="card-title">${poll.question }</h5>
+								<p class="small text-white">${poll.contents }</p>
+							</div>
+							<div class="card-footer custom-bg small text-white">
+								<img id="poll_hitcount" src="/resources/img/eye.png"> 조회수
+								: ${poll.hitcount} <span class="margin-left-span"><fmt:parseDate
+										var="date" value="${poll.endDate}"
+										pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+										value="${date }" pattern="yyyy년 M월 dd일 마감" /> </span>
+							</div>
 						</div>
-						<div class="card-footer custom-bg small text-white">
-							<img id="poll_hitcount" src="/resources/img/eye.png"> 조회수 :
-							${poll.hitcount} <span class="margin-left-span"><fmt:parseDate
-									var="date" value="${poll.endDate}"
-									pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-									value="${date }" pattern="yyyy년 MM월 dd일 마감" /> </span>
-						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
 
 			<!-- 투표선택 모달 시작 -->
@@ -123,6 +136,21 @@
 				</div>
 			</div>
 			<!-- 전자서명 모달 끝 -->
+
+			<!-- 그래프 모달 시작 -->
+			<div class="modal fade" id="endList_modal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel1">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div id="signature-pad" class="m-signature-pad">
+							<div class="m-signature-pad--body">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 그래프 모달 끝 -->
+
 		</div>
 		<!-- End of Main Content -->
 	</div>
@@ -183,6 +211,10 @@
 	Page level custom scripts
 	<script src="/Aptogether/js/demo/chart-area-demo.js"></script>
 	<script src="/Aptogether/js/demo/chart-pie-demo.js"></script> -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script>
 	<script src="/resources/js/poll.js"></script>
 	<script src="/resources/js/sign.js"></script>
 	<script>

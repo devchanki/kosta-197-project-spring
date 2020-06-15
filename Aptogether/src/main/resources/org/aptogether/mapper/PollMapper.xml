@@ -12,6 +12,26 @@
 		where apt_seq = 1
 		order by poll_seq desc
 	</select>
+	
+	<select id="PollOnList" resultType="org.aptogether.domain.PollVO"
+		parameterType="org.aptogether.domain.MemberVO">
+		<!-- select * from poll where apt_seq = 1 order by poll_seq -->
+		select *
+		from poll
+		where apt_seq = 1
+		and end_date > sysdate
+		order by poll_seq desc
+	</select>
+	
+	<select id="PollEndList" resultType="org.aptogether.domain.PollVO"
+		parameterType="org.aptogether.domain.MemberVO">
+		<!-- select * from poll where apt_seq = 1 order by poll_seq -->
+		select *
+		from poll
+		where apt_seq = 1
+		and sysdate > end_date
+		order by poll_seq desc
+	</select>
 
 	<insert id="PollInsert" parameterType="org.aptogether.domain.PollVO">
 		insert into poll
