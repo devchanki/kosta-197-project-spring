@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.aptogether.domain.CustomKeeper;
+import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.JoinKeeperVO;
 import org.aptogether.domain.JoinTenantVO;
 import org.aptogether.mapper.MemberMapper;
@@ -63,6 +64,13 @@ public class HomeController {
 		model.addAttribute("waiting", memberMapper.showNotAdmitUser(keeper.getAptSeq()));
 		return "managerDashBoard";
 	}
+	
+	@GetMapping("/tenant/dashboard")
+	public String tenantHome(Authentication auth, Model model) {
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		return "userDashBoard";
+	}
+	
 	@GetMapping("/tenant/a")
 	public String test() {
 		return "test";

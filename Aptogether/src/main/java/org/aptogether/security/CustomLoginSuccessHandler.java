@@ -26,13 +26,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		System.out.println(user);
 		if (user.getType().equals("ROLE_TENANT")) {
 			response.sendRedirect("/tenant/main");
+			return;
 		} else if (user.getType().equals("ROLE_KEEPER")) {
 			response.sendRedirect("/keeper/main");
+			return;
 		} else {
-			
+			response.sendRedirect("/");
+			return;
 		}
-
-		log.warn(authentication.getAuthorities());
-		response.sendRedirect("/");
 	}
 }
