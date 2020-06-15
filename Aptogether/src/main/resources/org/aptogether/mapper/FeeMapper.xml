@@ -13,25 +13,13 @@
 	</select>
 	
 	
-<!-- 	<resultMap type="org.aptogether.domain.LevyVO" id="LevyMap">
-		<id property="levySeq" column="levy_seq"/>
-		<result property="levySeq" column="levy_seq"/>
-		
-		<collection property="feeList" resultMap="feeMap"></collection>
-	</resultMap> -->
-	
 	<resultMap type="org.aptogether.domain.FeeRegisterVO" id="FeeRegisterMap">
-<!-- 		<id property="levySeq" column="levy_seq"/> -->
 		<id property="householdSeq" column="household_seq"/>
-		<result property="levyDate" column="levy_date"/>
 		<result property="dong" column="dong"/>
 		<collection property="feeList" resultMap="feeMap"></collection>
 	</resultMap>
 	
-	
-	
 	<resultMap type="org.aptogether.domain.FeeVO" id="feeMap">
-		<result property="levySeq" column="levy_seq"/>
 		<result property="householdSeq" column="household_seq"/>
 		<result property="generalBill" column="general_bill"/>
 		<result property="securityBill" column="security_bill"/>
@@ -41,24 +29,49 @@
 		<result property="electricityBill" column="electricity_bill"/>
 		<result property="waterBill" column="water_bill"/>
 		<result property="ho" column="ho"/>
+		<result property="roomSize" column="room_size"/>
 	</resultMap>
-
 	
 	<select id="listFeeReg" resultMap="FeeRegisterMap">
-<!--  		select l.levy_date, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
-		from fee f, levy l
-		where 
-		l.levy_seq = f.levy_seq
-		and l.levy_date= #{levyDate}  -->
-	
-  		select l.levy_date  levy_date, h.dong, h.ho, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
-		from fee f, household h, levy l
-		where f.household_seq = h.household_seq
-		and l.levy_seq = f.levy_seq
-		and  h.dong = #{dong}
-		and l.levy_date= #{levyDate}
-		order by h.ho asc  
+  		 select h.household_seq, h.dong, h.ho, h.room_size, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
+		from fee f full join household h
+        on f.household_seq = h.household_seq
+		where  h.dong = #{dong}
+		order by h.ho asc
 	</select>
+	
+	<select id="getUnitPrice" resultType="org.aptogether.domain.UnitPriceVO">
+		select * from unit_price where unit_price_seq = #{unitPriceSeq}
+	</select>
+	
+	<update id="updateUnitPrice">
+		update unit_price set general_price = #{generalPrice},
+											security_price = #{securityPrice},
+											cleaning_price = #{cleaningPrice},
+											fumigation_price = #{fumigationPrice},
+											elevator_price = #{elevatorPrice},
+											electricity_price = #{electricityPrice},
+											water_price = #{waterPrice}
+									where unit_price_seq = #{unitPriceSeq}
+	</update>
+	
+	
+	<insert id="addMeter">
+		<selectKey keyProperty="meterSeq" order="BEFORE" resultType="int">
+ 			select meter_seq.nextval from dual
+ 		</selectKey>
+ 		insert into meter values(#{meterSeq}, #{unitPriceSeq}, #{householdSeq}, #{electricMeter}, #{waterMeter})
+<!--  		insert into meter (meter_seq, unit_price_seq, household_seq, electric_meter, water_meter)
+ 		select #{meterSeq}, #{unitPriceSeq}, #{householdSeq}, #{electricMeter}, #{waterMeter} from dual
+ 		where not exists (select household_seq from meter where household_seq = #{householdSeq}) -->
+	</insert>
+	
+	
+	<update id="updateMeter">
+		update unit_price set electric_meter = #{electricMeter},
+											water_meter = #{waterMeter},
+									where house_seq = #{houseSeq}
+	</update>
 	
 	
 <!--  	<insert id="insertFee">

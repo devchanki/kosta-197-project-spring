@@ -15,10 +15,16 @@
 	
  	<select id="listLevy" resultType="org.aptogether.domain.LevyVO">
 		select * from levy
-        where apt_seq = #{aptSeq}
+		where apt_seq = #{aptSeq}
         order by levy_date desc
 	</select>
 	
+	
+	<select id="findUnitPriceSeq" resultType="org.aptogether.domain.UnitPriceVO">
+		select unit_price_seq from unit_price u, levy l
+		where u.levy_seq = l.levy_seq
+		and l.levy_date = #{levyDate}
+	</select>
 	
 	
 </mapper>

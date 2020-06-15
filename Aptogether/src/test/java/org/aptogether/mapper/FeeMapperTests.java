@@ -77,13 +77,6 @@ public class FeeMapperTests {
 //		mapper.listFeeRowNum(user).forEach(feeRowNum -> log.info(feeRowNum));
 //	}
 	
-	@Test
-	public void testFeeList(){
-		
-		
-				
-		
-		mapper.listFeeReg("2020/02/01", 1).forEach(feeVO -> log.info(feeVO));
-	}
+
 
 }

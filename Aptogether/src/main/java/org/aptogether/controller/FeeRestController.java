@@ -7,6 +7,8 @@ import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
 import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MemberVO;
+import org.aptogether.domain.MeterVO;
+import org.aptogether.domain.UnitPriceVO;
 import org.aptogether.service.FeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -42,17 +45,67 @@ public class FeeRestController {
 				}
 	
 	
-	@GetMapping(value = "/listFeeReg/{levyDate}/{dong}",
+	@GetMapping(value = "/listFeeReg/{dong}",
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE } )
-	public ResponseEntity<List<FeeRegisterVO>> listFeeReg(@PathVariable("levyDate") String levyDate, @PathVariable("dong") int dong){
+	public ResponseEntity<List<FeeRegisterVO>> listFeeReg(@PathVariable("dong") int dong){
 		
 		FeeRegisterVO feeRegister = new FeeRegisterVO();
-		
-		feeRegister.setLevyDate(levyDate);
+
 		feeRegister.setDong(dong);
 		
-		return new ResponseEntity<>(service.listFeeReg(levyDate, dong), HttpStatus.OK);
+		return new ResponseEntity<>(service.listFeeReg(dong), HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/getUnitPrice/{unitPriceSeq}",
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE } )
+	public ResponseEntity<UnitPriceVO> getUnitPrice(@PathVariable("unitPriceSeq") int unitPriceSeq ){
+		
+		return new ResponseEntity<>(service.getUnitPrice(unitPriceSeq), HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/updateUnitPrice/{unitPriceSeq}",
+								    consumes= "application/json" ,produces = { MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateUnitPrice(@RequestBody UnitPriceVO unitPrice, @PathVariable("unitPriceSeq") int unitPriceSeq){
+		
+		unitPrice.setUnitPriceSeq(unitPriceSeq);
+		
+		log.info("unitPriceSeq : " +unitPriceSeq);
+		log.info("update : " + unitPrice);
+		
+		return service.updateUnitPrice(unitPrice) == 1
+				  	? new ResponseEntity<>("success", HttpStatus.OK)
+				  	: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
+	
+	@PostMapping(value = "/addMeter", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> addMeter(@RequestBody MeterVO meter){
+		log.info("MeterVO : " + meter);
+		
+		int insertCount = service.addMeter(meter);
+		
+		log.info(" Add COUNT : " + insertCount);
+		
+		return insertCount == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/updateMeter/{householdSeq}",
+		    consumes= "application/json" ,produces = { MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateMeter(@RequestBody MeterVO meter, @PathVariable("householdSeq") int householdSeq){
+	
+		meter.setHouseholdSeq(householdSeq);
+	
+		return service.updateMeter(meter) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	
 
 /*	@GetMapping(value = "/findMember", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})

@@ -1,11 +1,11 @@
 console.log("$Fee module$");
 
 
+
 var feeService = (function() {
 	
 	
 	function addLevy(levy, callback, error) {
-		console.log("관리비 부과정보를 추가합니다.");
 		
 		$.ajax({
 			type : 'post',
@@ -66,7 +66,7 @@ var feeService = (function() {
 		var levyDate = feeRef.levyDate;
 		var dong = feeRef.dong;
 		
-		$.getJSON("/keeper1/listFeeReg/" + levyDate + "/" + dong + ".json",
+		$.getJSON("/keeper1/listFeeReg/" + dong + ".json",
 				function(data) {
 					if(callback){
 						callback(data);
@@ -79,30 +79,127 @@ var feeService = (function() {
 	}
 	
 	
-	function insertFee(fee, callback, error) {
-		console.log("insert fee.....");
+	function getUnitPrice(unitPriceSeq, callback, error) {
+		
+		$.getJSON("/keeper1/getUnitPrice/" + unitPriceSeq + ".json", 
+				function(data) {
+					if(callback){
+						callback(data);
+					}
+				}).fail(function(xhr, status, err) {
+					if(error){
+						error();
+					}
+				});
+	}
+	
+	
+	function updateUnitPrice(unitPrice, callback, error) {
 		
 		$.ajax({
-			type : "post",
-			url : "/keeper1/insertFee",
-			data : JSON.stringify(fee),
+			type : 'put',
+			url : '/keeper1/updateUnitPrice/' + unitPrice.unitPriceSeq,
+			data : JSON.stringify(unitPrice),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
-			if (callback) {
-				callback(result);
-				alert("입력에 성공하셨습니다.");
-				location.reload();
-			} else {
-				alert("잠시후 다시 시도해주세요.");
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if(error){
+					error();
+				}
 			}
-		},
-		error : function(xhr, status, er) {
-			if(error){
-				error(er);
-			}
-		}
-	  });
+		});
 	}
+	
+	
+	function findUnitPriceSeq(unitPriceSeq, callback, error) {
+		
+		$.getJSON("/keeper1/findUnitPriceSeq/" + unitPriceSeq + ".json", 
+				function(data) {
+					if(callback){
+						callback(data);
+					}
+				}).fail(function(xhr, status, err) {
+					if(error){
+						error();
+					}
+				});
+	}
+	
+	
+	function addMeter(meter, callback, error) {
+		
+		$.ajax({
+			type : 'post',
+			url : '/keeper1/addMeter',
+			data : JSON.stringify(meter),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if(error){
+					error(er);
+				}
+			}
+		});
+		
+	}
+	
+	
+	
+	function updateMeter(meter, callback, error) {
+		
+		$.ajax({
+			type : 'put',
+			url : '/keeper1/updateMeter/' + meter.householdSeq,
+			data : JSON.stringify(meter),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if(error){
+					error();
+				}
+			}
+		});
+	}
+	
+	
+	
+	
+//	function insertFee(fee, callback, error) {
+//		console.log("insert fee.....");
+//		
+//		$.ajax({
+//			type : "post",
+//			url : "/keeper1/insertFee",
+//			data : JSON.stringify(fee),
+//			contentType : "application/json; charset=utf-8",
+//			success : function(result, status, xhr) {
+//			if (callback) {
+//				callback(result);
+//				alert("입력에 성공하셨습니다.");
+//				location.reload();
+//			} else {
+//				alert("잠시후 다시 시도해주세요.");
+//			}
+//		},
+//		error : function(xhr, status, er) {
+//			if(error){
+//				error(er);
+//			}
+//		}
+//	  });
+//	}
 	
 	
 	
@@ -110,6 +207,11 @@ var feeService = (function() {
 		addLevy : addLevy,
 		listLevy : listLevy,
 		listDong : listDong,
-		listFeeReg : listFeeReg
+		listFeeReg : listFeeReg,
+		getUnitPrice :  getUnitPrice,
+		updateUnitPrice : updateUnitPrice,
+		findUnitPriceSeq : findUnitPriceSeq,
+		addMeter : addMeter,
+		updateMeter : updateMeter
 	};
 })();

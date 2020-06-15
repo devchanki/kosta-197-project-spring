@@ -8,7 +8,6 @@ public class FeeRegisterVO {
 
 	private int householdSeq;
 	private int aptSeq;
-	private String levyDate;
 	private int dong;
 	
 	private List<FeeVO> feeList;

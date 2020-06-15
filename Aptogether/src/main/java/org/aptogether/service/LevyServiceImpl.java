@@ -3,6 +3,7 @@ package org.aptogether.service;
 import java.util.List;
 
 import org.aptogether.domain.LevyVO;
+import org.aptogether.domain.UnitPriceVO;
 import org.aptogether.mapper.LevyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,13 @@ public class LevyServiceImpl implements LevyService {
 		log.info("list " + levy);
 		
 		return mapper.listLevy(levy);
+	}
+	
+	@Override
+	public UnitPriceVO findUnitPriceSeq(String levyDate) {
+		
+		
+		return mapper.findUnitPriceSeq(levyDate);
 	}
 
 }

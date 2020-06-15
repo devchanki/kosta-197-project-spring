@@ -61,6 +61,7 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">[APTOGETHER 관리비 부과]</h1>
+						<p id="unitPriceSeq"></p>
 					</div>
 
 
@@ -257,38 +258,13 @@
 	<script>
 	$(function() {
 		
-		var levyDate = $("#levyDate");
-		var deadlineDate = $("#deadlineDate");		
-
-		
-		feeService.listLevy({aptSeq : 1}, function(list) {
-			
-			for(var i = 0, len = list.length||0; i <len; i++){
-				console.log(list[i]);
-				$("#levyTable").append('<tr>'
-														+'<td>'+ list[i].status+'</td>'
-													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>' 
-														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
-														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
-														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
-												    +'</tr>');
-				
-				
-			} 
-			
-			
-			
-			
-		}); 
-
-		
-		
-		
 		$("#addLevy").on("click", function() {
 			$(".levyModalI").val("");
 			$("#levyModal").modal('show');
 		});
 		
+ 		var levyDate = $("#levyDate");
+		var deadlineDate = $("#deadlineDate");		
 		
 		$("#levyReg").on("click", function(e) {
 			
@@ -312,6 +288,7 @@
 						alert("관리비 부과정보 등록완료");
 						$("#levyModal").modal('hide');
 						 location.reload();
+
 				});
 			
 			}else if(levyDate.val() == "", deadlineDate.val() != ""){
@@ -325,6 +302,34 @@
 			
 			
 		});
+		
+		
+		
+		
+		feeService.listLevy({aptSeq : 1}, function(list) {
+			
+			for(var i = 0, len = list.length||0; i <len; i++){
+				console.log(list[i]);
+				$("#levyTable").append('<tr>'
+														+'<td>'+ list[i].status+'</td>'
+													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>' 
+														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
+														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
+														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
+												    +'</tr>');
+				
+				
+			} 
+			
+			
+		}); 
+		
+		
+
+
+		
+		
+
 		
 		
 		 
