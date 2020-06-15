@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,13 +34,43 @@ img {
 		var imaddimg = document.getElementById("hey");
 		imaddimg.innerHTML += '<input type="file" name="fname'+i+'"><br>';
 		i++;
-
 	}
 </script>
 
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
 
 
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#uploadBtn").on("click",function(e){
+		var formData=new FormData();
+		var inputFile=$("input[name='fname']");
+		var files=inputFile[0].files;
+		console.log(files);
+		console.log(formData);
+		for(var i=0;i<files.length;i++){
+			console.log(files[i]);
+ 			formData.append("fname",files[i]);
+		}
+		$.ajax({
+			url:'/tenant/uploadAjaxAction',
+			processData:false,
+			contentType:false,
+			
+			enctype:'multipart/form-data',
+			data:formData,
+			type:'POST',
+			success:function(result){
+				alert('upload');
+			}
+		});
+		console.log(formData.get("fname"));
+	});
+	return;
+});
+</script>
 
 <title>SB Admin 2 - Dashboard</title>
 
@@ -389,7 +418,7 @@ img {
 						<div class="card mb-4">
 									<div class="card-body">
 										<!-- enctype="multipart/form-data" -->
-										<form action="/tenant/market/register" method="post">
+										<form action="/tenant/market/register" method="post" enctype="multipart/form-data">
 											<div class="card-body">
 												작성자: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input
 													type="text" name="writer"><br>
@@ -406,11 +435,10 @@ img {
 
 												사진:
 												<p></p>
-												<input type="file" name="fname">
-												<p id="hey">
-													<button id="dd" onclick="addimg()">사진 더 추가하기</button>
+												<input type="file" name="fname" multiple>
 													<br>
 											</div>
+											
 											<div class="card-body">
 												내용 <br>
 												<textarea rows="6" cols="70" name="contents" style="width:100%;height:100;border:1;overflow:visible;text-overflow:ellipsis;"></textarea>
@@ -418,6 +446,7 @@ img {
 													type="submit" value="등록">
 											</div>
 										</form>
+										<button id='uploadBtn'>upload</button>
 									</div>
 								</div>
 							
