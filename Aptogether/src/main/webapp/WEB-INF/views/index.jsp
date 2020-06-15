@@ -13,7 +13,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Apartogether - Main</title>
+	<title>Aptogether - Main</title>
 </head>
 
 <body>  
@@ -33,12 +33,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-5 select-box">
-					<div class="user">처음이십니까?</div>
-					<a href="signup.html">바로가기 </a>
+					<div class="user">아파트 주민이십니까? </div>
+					<a class ="link" href="/tenant/signup"> 회원가입 바로가기 </a>
+					<a class ="link" href="/tenant/signin"> 로그인 바로가기 </a>
 				</div>
 				<div class="offset-xl-2 col-xl-5 select-box">
-					<div class="user">회원이십니까?</div>
-					<a href="signin.html">바로가기</a>
+					<div class="user">관리사무소 회원이십니까?</div>
+					<a class ="link" href="/keeper/signup"> 회원가입 바로가기 </a>
+					<a class ="link" href="/keeper/signin"> 로그인 바로가기 </a>
 				</div>
 			</div>
 		</div>

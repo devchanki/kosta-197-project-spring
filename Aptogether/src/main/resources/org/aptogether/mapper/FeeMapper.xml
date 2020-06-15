@@ -4,14 +4,77 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.aptogether.mapper.FeeMapper">
-	
-	<select id="findMember" resultType="org.aptogether.domain.MemberVO">
-		select * from member where apt_seq = #{aptSeq}
-											    and dong= #{dong}
-											    and ho= #{ho}
+
+	<select id="listDong" resultType="org.aptogether.domain.HouseholdVO">
+		select dong from household 
+	    where apt_seq = #{aptSeq} 
+	    group by dong
+	    order by dong
 	</select>
 	
- 	<insert id="insertFee">
+	
+	<resultMap type="org.aptogether.domain.FeeRegisterVO" id="FeeRegisterMap">
+		<id property="householdSeq" column="household_seq"/>
+		<result property="dong" column="dong"/>
+		<collection property="feeList" resultMap="feeMap"></collection>
+	</resultMap>
+	
+	<resultMap type="org.aptogether.domain.FeeVO" id="feeMap">
+		<result property="householdSeq" column="household_seq"/>
+		<result property="generalBill" column="general_bill"/>
+		<result property="securityBill" column="security_bill"/>
+		<result property="cleaningBill" column="cleaning_bill"/>
+		<result property="fumigationBill" column="fumigation_bill"/>
+		<result property="elevatorBill" column="elevator_bill"/>
+		<result property="electricityBill" column="electricity_bill"/>
+		<result property="waterBill" column="water_bill"/>
+		<result property="ho" column="ho"/>
+		<result property="roomSize" column="room_size"/>
+	</resultMap>
+	
+	<select id="listFeeReg" resultMap="FeeRegisterMap">
+  		 select h.household_seq, h.dong, h.ho, h.room_size, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
+		from fee f full join household h
+        on f.household_seq = h.household_seq
+		where  h.dong = #{dong}
+		order by h.ho asc
+	</select>
+	
+	<select id="getUnitPrice" resultType="org.aptogether.domain.UnitPriceVO">
+		select * from unit_price where unit_price_seq = #{unitPriceSeq}
+	</select>
+	
+	<update id="updateUnitPrice">
+		update unit_price set general_price = #{generalPrice},
+											security_price = #{securityPrice},
+											cleaning_price = #{cleaningPrice},
+											fumigation_price = #{fumigationPrice},
+											elevator_price = #{elevatorPrice},
+											electricity_price = #{electricityPrice},
+											water_price = #{waterPrice}
+									where unit_price_seq = #{unitPriceSeq}
+	</update>
+	
+	
+	<insert id="addMeter">
+		<selectKey keyProperty="meterSeq" order="BEFORE" resultType="int">
+ 			select meter_seq.nextval from dual
+ 		</selectKey>
+ 		insert into meter values(#{meterSeq}, #{unitPriceSeq}, #{householdSeq}, #{electricMeter}, #{waterMeter})
+<!--  		insert into meter (meter_seq, unit_price_seq, household_seq, electric_meter, water_meter)
+ 		select #{meterSeq}, #{unitPriceSeq}, #{householdSeq}, #{electricMeter}, #{waterMeter} from dual
+ 		where not exists (select household_seq from meter where household_seq = #{householdSeq}) -->
+	</insert>
+	
+	
+	<update id="updateMeter">
+		update unit_price set electric_meter = #{electricMeter},
+											water_meter = #{waterMeter},
+									where house_seq = #{houseSeq}
+	</update>
+	
+	
+<!--  	<insert id="insertFee">
  		<selectKey keyProperty="feeSeq" order="BEFORE" resultType="int">
  			select manage_fee_seq.nextval from dual
  		</selectKey>
@@ -21,7 +84,7 @@
 														 #{heatingFee},  to_date(#{payDate}, 'YYYY-MM-DD'))
 	</insert>
 	
-	<select id="listFee" parameterType="org.aptogether.domain.MemberVO" resultType="org.aptogether.domain.FeeVO">
+	<select id="listFee" parameterType="org.aptogether.domain.TenantVO" resultType="org.aptogether.domain.FeeVO">
 		select ma.* from
 									manage_fee ma left join member me
 									on ma.member_seq = me.member_seq
@@ -44,7 +107,7 @@
 			 ) 
 		where rownum <= 6
 	]]>
-	</select>
+	</select> -->
 	
 </mapper>
 

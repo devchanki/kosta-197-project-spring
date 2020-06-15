@@ -55,7 +55,7 @@
 		</init-param>
 	</filter>
 
-	<filter>
+ 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
 		</filter-class>
@@ -65,11 +65,14 @@
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-<!-- 
-	<filter-mapping>
+
+
+ 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping> 
+
+	
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>

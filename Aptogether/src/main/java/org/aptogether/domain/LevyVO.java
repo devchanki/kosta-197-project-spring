@@ -1,5 +1,7 @@
 package org.aptogether.domain;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,5 @@ public class LevyVO {
 	private String endCalDate;
 	private String deadlineDate;
 	private boolean status;
+	
 }

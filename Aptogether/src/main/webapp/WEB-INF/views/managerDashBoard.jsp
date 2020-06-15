@@ -158,7 +158,7 @@
 												<td>${user.ho }</td>
 												<td>${user.id }</td>
 												<td><button class="btn btn-danger"
-														onclick="admitUser(${user.member_seq})">승인</button></td>
+														onclick="admitUser(${user.memberSeq})">승인</button></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -449,7 +449,7 @@
 		
 		//관리비 부과기초작업 페이지 이동
 		$("#levyJob").on("click", function() {
-			self.location = "/keeper1/levyRegister/"+ 1;
+			self.location = "/keeper/levyRegister";
 		});
 		
 		
@@ -461,15 +461,16 @@
 		function admitUser(num) {
 			console.log(num);
 			$.ajax({
-				url: "/Aptogether/member/admitUser.do",
+				url: "/keeper/admitUser",
 				method: "POST",
-				dataType: "text",
-				data: {
+				dataType: "json",
+				contentType: "application/json",
+				data: JSON.stringify({
 					"seq": num
-				},
+				}),
 				success: function(data) {
 					console.log(data);
-					if(data == "success"){
+					if(data.status == "true"){
 						alert("승인에 성공하셨습니다.");
 						location.reload();
 					}else {
