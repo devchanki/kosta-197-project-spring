@@ -15,9 +15,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/tenant/upload/*")
 public class UploadController {
-	/*public void uploadAjax(){
+	@GetMapping("/uploadAjax")
+	public String uploadAjax(){
 		log.info("upload ajax");
-	}*/
+		return "uploadAjax";
+	}
 	@RequestMapping("/uploadForm")
 	public String uploadForm(){
 		log.info("upload form");
@@ -39,5 +41,45 @@ public class UploadController {
 			}
 		}
 	}
+	
+	 @PostMapping("/uploadAjaxAction")
+		 public void uploadAjaxPost(MultipartFile[] uploadFile) {
+		
+		 String uploadFolder = "C://upload";
+		
+		 // make folder --------
+//		 File uploadPath = new File(uploadFolder, getFolder());
+//		 log.info("upload path: " + uploadPath);
+//		
+//		 if (uploadPath.exists() == false) {
+//		 uploadPath.mkdirs();
+//		 }
+		 // make yyyy/MM/dd folder
+		
+		 for (MultipartFile multipartFile : uploadFile) {
+		
+		 log.info("-------------------------------------");
+		 log.info("Upload File Name: " + multipartFile.getOriginalFilename());
+		 log.info("Upload File Size: " + multipartFile.getSize());
+		
+		 String uploadFileName = multipartFile.getOriginalFilename();
+		
+		 // IE has file path
+		 uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +
+		 1);
+		 log.info("only file name: " + uploadFileName);
+		
+		 // File saveFile = new File(uploadFolder, uploadFileName);
+		 File saveFile = new File(uploadFolder, uploadFileName);
+		
+		 try {
+		 multipartFile.transferTo(saveFile);
+		 } catch (Exception e) {
+		 log.error(e.getMessage());
+		 } // end catch
+		
+		 } // end for
+		
+		 }
 	
 }
