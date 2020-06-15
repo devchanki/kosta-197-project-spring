@@ -3,7 +3,7 @@ package org.aptogether.mapper;
 import static org.junit.Assert.*;
 
 import org.aptogether.domain.FeeVO;
-import org.aptogether.domain.MemberVO;
+import org.aptogether.domain.TenantVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

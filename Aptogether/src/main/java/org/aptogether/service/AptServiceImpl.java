@@ -23,5 +23,4 @@ public class AptServiceImpl implements AptService {
 			return aptMapper.insertApt(apt);
 		}
 	}
-
 }

@@ -19,11 +19,11 @@
 		select * from apt_info where apt_name like #{keyword}
 	</select>
 	
-	<select id="getHousehold" parameterType="org.aptogether.domain.JoinVO" resultType="org.aptogether.domain.HouseholdVO">
+	<select id="getHousehold" parameterType="org.aptogether.domain.JoinTenantVO" resultType="org.aptogether.domain.HouseholdVO">
 		Select * from household where dong = #{dong} and ho = #{ho} and apt_seq = #{aptSeq} 
 	</select>
 	
-	<insert id="createHousehold" parameterType="org.aptogether.domain.JoinVO">
+	<insert id="createHousehold" parameterType="org.aptogether.domain.JoinTenantVO">
 		insert into household values(household_seq.nextval, #{dong}, #{ho}, #{aptSeq}, 0)
 	</insert>
 <!-- 	<select id="showApt" parameterType="String" resultType="AptInfo">

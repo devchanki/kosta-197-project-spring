@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
 <ul
 	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 	id="accordionSidebar">
@@ -279,7 +281,7 @@
 					class="nav-link dropdown-toggle" href="#" id="userDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <span
-						class="mr-2 d-none d-lg-inline text-gray-600 small">${member.name}
+						class="mr-2 d-none d-lg-inline text-gray-600 small">${principal.name} 님
 					</span> <img class="img-profile rounded-circle"
 						src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 				</a> <!-- Dropdown - User Information -->
@@ -295,7 +297,7 @@
 							Log
 						</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/Aptogether/member/logout.do"
+						<a class="dropdown-item" href="/logout"
 							data-toggle="modal" data-target="#logoutModal"> <i
 							class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 							Logout

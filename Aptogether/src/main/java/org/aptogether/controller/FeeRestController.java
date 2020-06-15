@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.LevyVO;
-import org.aptogether.domain.MemberVO;
+import org.aptogether.domain.TenantVO;
 import org.aptogether.service.FeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

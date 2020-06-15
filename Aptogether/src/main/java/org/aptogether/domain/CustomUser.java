@@ -10,8 +10,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class CustomUser extends User {
 
 	private static final long serialVersionUID = 1L;
@@ -27,7 +29,7 @@ public class CustomUser extends User {
 	int dong;
 	int ho;
 	
-	private static Collection<? extends GrantedAuthority> authorities(MemberVO user) {
+	private static Collection<? extends GrantedAuthority> authorities(TenantVO user) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		System.out.println("user auth" + user.getType());
 		authorities.add(new SimpleGrantedAuthority(user.getType()));
@@ -38,7 +40,7 @@ public class CustomUser extends User {
 //		super(name, password, type);
 //	}
 
-	public CustomUser(MemberVO member) {
+	public CustomUser(TenantVO member) {
 		super(member.getId(), member.getPassword(), authorities(member));
 		this.memberSeq = member.getMemberSeq();
 		this.id = member.getId();
