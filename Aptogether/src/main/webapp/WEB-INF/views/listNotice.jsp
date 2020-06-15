@@ -17,6 +17,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title></title>
+
+
 <!-- Custom fonts for this template-->
 <link href="/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -26,8 +28,7 @@
 
 <!-- Custom styles for this template-->
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
-
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="/resources/vendor/jquery.min.js"></script>
 
 </head>
 
@@ -49,7 +50,10 @@
 			<!-- start row -->
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel panel-heading">총 __개의 게시물이 있습니다.</div>
+					<div class="panel panel-heading">
+						총 ___개의 게시물이 있습니다.
+						<button type="button" class="btn btn-outline-dark btn-sm" id="regBtn">새글</button>
+					</div>
 					<div class="panel-body">
 						<table class="table table-hover">
 							<thead>
@@ -63,7 +67,10 @@
 								<tbody>
 									<tr>
 										<td><c:out value="${notice.noticeSeq }" /></td>
-										<td><c:out value="${notice.title}" /></td>
+										<td><a
+											href='/keeper/getNotice?noticeSeq=<c:out value="${notice.noticeSeq }"/>'>
+												<c:out value="${notice.title}" />
+										</a></td>
 										<td><fmt:formatDate pattern="yyyy-MM-dd"
 												value="${notice.regdate}" /></td>
 									</tr>
@@ -73,30 +80,32 @@
 						</table>
 						<!-- table 태그 끝 -->
 
-			
-			<!-- Modal  추가 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+						<!-- Modal  추가 -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+									</div>
+									<div class="modal-body">처리가 완료되었습니다.</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
 						</div>
-						<div class="modal-body">처리가 완료되었습니다.</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save
-								changes</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</div>
-			<!-- /.modal -->
-			
-			
+						<!-- /.modal -->
+
+
 					</div>
 					<!-- end  panel-body -->
 				</div>
@@ -108,26 +117,32 @@
 		<!-- Page Heading -->
 
 		<!-- End of Main Content -->
-	
-	<script type="text/javascript">
+
+		<script>
 			$(document).ready(function() {
 			
 						var result = '<c:out value="${result}"/>';
 			
 						checkModal(result);
-						
+// 						history.replaceState({},null,null);
 						function checkModal(result) {
 			
-							if (result === '') {
-								return;
-							}
-			
+// 							if (result === '' history.state) {
+// 								return;
+// 							}
+										console.log(result);
+
 							if (parseInt(result) > 0) {
 								$(".modal-body").html("게시글 " + parseInt(result)+ " 번이 등록되었습니다.");
 							}
 			
 							$("#myModal").modal("show");
+
 						}
+						
+						$("#regBtn").on("click", function(){
+							self.location = "/keeper/registerNotice";
+						});
 					});
 			
 	</script>
@@ -175,7 +190,7 @@
 
 
 	<!-- Bootstrap core JavaScript-->
- 	<script src="/resources/vendor/jquery/jquery.min.js"></script> 
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
 	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->

@@ -26,7 +26,9 @@ public class NoticeController {
 	public String list(Model model){
 		log.info("list");
 	model.addAttribute("list", service.getList());	
-	return "/notice";
+	log.info(model);
+
+	return "/listNotice";
 	}
 	
 	@GetMapping("/registerNotice")
@@ -40,14 +42,24 @@ public class NoticeController {
 		service.register(notice);
 		
 		rttr.addFlashAttribute("result", notice.getNoticeSeq());
-		return "redirect: /keeper/listNotice";
+		return "redirect:/keeper/listNotice";
 	}
+
 	
 	@GetMapping("/getNotice")
-	public void get(@RequestParam("noticeSeq")int noticeSeq, Model model){
+	public String get(@RequestParam("noticeSeq")int noticeSeq, Model model){
 		log.info("/get");
 		
 		model.addAttribute("notice", service.get(noticeSeq));	
+		return "/getNotice";
+	}
+	
+	@GetMapping("/modifyNotice")
+	public String modify(@RequestParam("noticeSeq")int noticeSeq, Model model){
+		log.info("/get");
+		
+		model.addAttribute("notice", service.get(noticeSeq));	
+		return "/modifyNotice";
 	}
 	
 	@PostMapping("/modifyNotice")
