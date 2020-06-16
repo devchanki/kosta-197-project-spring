@@ -34,8 +34,8 @@
 }
 
 .pagination {
-	margin-left: 550px;
-	margin-right: 510px;
+	margin-left: 570px;
+	margin-right: 570px;
 }
 
 .paginate_button a {
@@ -87,8 +87,7 @@ ul, li {
 #notice_default {
 	margin-left: 40px;
 	margin-right: 40px;
-	font-family: SpeedeeK, Malgun Gothic, '맑은 고딕', Dotum, '돋움', Arial,
-		sans-serif;
+	font-family: SpeedeeK, Malgun Gothic, '맑은 고딕', Dotum, '돋움', Arial, sans-serif;
 }
 
 #notice_header {
@@ -104,6 +103,17 @@ margin-left: 96%;
 li.paginate_button.active > a {
 	background-color: #6e707e26;
 }
+
+#notice-body .ico {
+    display: inline-block;
+    width: 25px;
+    height: 23px;
+    overflow: hidden;
+    text-indent: -9999px;
+    vertical-align: middle;
+    background: url(/resources/img/favorite-24px.svg) 0 0 no-repeat;
+}
+
 </style>
 
 
@@ -146,11 +156,12 @@ li.paginate_button.active > a {
 							<c:forEach items="${list }" var="notice">
 								<tbody>
 									<tr>
-										<td class="notice_Seq"><c:out
-												value="${notice.noticeSeq }" /></td>
+										<td class="notice_Seq"><c:out value="${notice.noticeSeq }" />
+											<b class="ico"><c:out value="${notice.category }" /></b>
+										</td>
 										<td class="notice_Title"><a class="move"
-											href='<c:out value="${notice.noticeSeq }"/>'> <c:out
-													value="${notice.title }" /></a></td>
+											href='<c:out value="${notice.noticeSeq }"/>'> 
+											<c:out value="${notice.title }" /></a></td>
 										<td class="notice_Date"><fmt:formatDate
 												pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
 									</tr>

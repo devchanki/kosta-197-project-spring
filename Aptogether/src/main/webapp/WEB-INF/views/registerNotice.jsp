@@ -24,7 +24,48 @@
 
 <!-- Custom styles for this template-->
 <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<style type="text/css">
+#notice_default {
+	margin-top: 80px;
+	margin-left: 250px;
+	margin-right: 250px;
+}
 
+#notice-head {
+	margin-bottom: 30px;
+}
+
+.bbsNotice > * {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.bbsNotice {
+    display: table;
+    width: 100%;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #292929;
+}
+
+.bbs.content{
+	margin-top: 10px;
+}
+
+.btnbox{
+margin-top: 12px; 
+margin-left: 78%;
+}
+.bbs.content{
+	margin-top: 10px;
+}
+
+.btnbox{
+margin-top: 12px; 
+margin-left: 83%;
+}
+
+</style>
 </head>
 
 <body id="page-top">
@@ -43,15 +84,19 @@
 		<!-- Begin Page Content -->
 		<div class="row">
 			<!-- start row -->
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel panel-heading">게시물 등록</div>
-					<div class="panel-body">
+			<div class="col-lg-12" id="bbsDetail">
+				<div class="panel panel-default" id="notice_default">
+					<div class="panel panel-heading" id="notice-head">등록</div>
+					<div class="panel-body" id="notice-body">
+
 
 						<!-- form 시작 -->
 						<form role="form" action="/keeper/registerNotice" method="post">
-							<div class="form-group">
-								<label>Title</label><input class="form-control" name="title">
+						
+							<div class="bbsNotice">
+								<label>제목</label>
+								<input class="col-lg-6"  id="bbsNotice.title"  style="margin-right: 400px;" name="title">
+								
 								<label for="category">구분</label>
 									<select class="inputForm" type="text" name="category" id="category">
 											<option value="일반">일반</option>
@@ -60,12 +105,14 @@
 
 							</div>
 
-							<div class="form-group">
-								<label>text area</label>
+							<div class="form-group" id="bbsNotice.content">
+								<label class="bbs.content">text area</label>
 								<textarea class="form-control" rows="3" name="content"></textarea>
 							</div>
-							<button type="submit" class="btn btn-success">Success</button>
-							<button type="reset" class="btn btn-danger">Danger</button>
+						<div class="btnbox"> 
+							<button type="submit" class="btn btn-outline-secondary">Success</button>
+							<button type="reset" class="btn btn-outline-dark">Danger</button>
+						</div>
 						</form>
 					</div>
 					<!-- end  panel-body -->

@@ -47,15 +47,24 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeVO> getList(NoticeCriteria cri) {
-		log.info("getList...........with criteria.........." + cri);
-		return mapper.getListWithPaging(cri);
+	public List<NoticeVO> getList(NoticeCriteria cri, int aptSeq) {
+		log.info("getList...........with criteria.........." + cri + aptSeq);
+		return mapper.getListWithPaging(cri, aptSeq);
 	}
 
 	@Override
-	public int getTotal(NoticeCriteria cri) {
+	public int getTotal(NoticeCriteria cri, int aptSeq) {
 		log.info("get total Count");
-		return mapper.getTotalCount(cri);
+		return mapper.getTotalCount(cri, aptSeq);
 	}
+
+	@Override
+	public boolean plusCnt(int noticeSeq) {
+		log.info(" count up : "+ noticeSeq);
+		
+		return mapper.plusCnt(noticeSeq);
+	}
+
+	
 
 }

@@ -116,7 +116,7 @@ margin-left: 89%;
 								</em>
 							
 								<em>
-								<c:out value="${notice.noticeSeq }"/>
+								<c:out value="${notice.hits }"/>
 								</em>
 							</span>
 						</div>

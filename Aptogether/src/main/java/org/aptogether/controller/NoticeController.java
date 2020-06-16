@@ -1,9 +1,11 @@
 package org.aptogether.controller;
 
+import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.NoticeCriteria;
 import org.aptogether.domain.NoticePageDTO;
 import org.aptogether.domain.NoticeVO;
 import org.aptogether.service.NoticeService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,18 +28,23 @@ public class NoticeController {
 	private NoticeService service;
 	
 	@GetMapping("/listNotice")
-	public String list(NoticeCriteria cri, Model model){
+	public String list(NoticeCriteria cri,Authentication auth, Model model){
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		int keeperAptSeq = user.getAptSeq();
 		log.info("list : " + cri);
+		log.info(keeperAptSeq);
 
-	model.addAttribute("list", service.getList(cri));	
+	model.addAttribute("list", service.getList(cri, keeperAptSeq));	
 //	model.addAttribute("pageMaker", new NoticePageDTO(cri, 60));
-	int total = service.getTotal(cri);
+	int total = service.getTotal(cri,keeperAptSeq);
 	log.info("total: " + total);
 	log.info(model);
 
 	model.addAttribute("pageMaker", new NoticePageDTO(cri, total));
 	return "/listNotice";
 	}
+	
+	
 	
 	@GetMapping("/registerNotice")
 	public String registerNotice(){
@@ -60,6 +67,8 @@ public class NoticeController {
 		log.info(cri);
 		
 		model.addAttribute("notice", service.get(noticeSeq));	
+		service.plusCnt(noticeSeq);
+		
 		return "/getNotice";
 	}
 	
@@ -96,7 +105,6 @@ public class NoticeController {
 		
 		return "redirect:/keeper/listNotice";
 	}
-	
-	
+
 
 }

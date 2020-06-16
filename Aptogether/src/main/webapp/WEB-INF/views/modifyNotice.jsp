@@ -103,8 +103,6 @@ margin-left: 78%;
 								</div>
 							</div>
 
-	
-
 							<div class="form-group" id="bbsNotice.content">
 								<label class="bbs.content">text area</label>
 								<textarea class="form-control" rows="3" name="content"><c:out
@@ -132,9 +130,7 @@ margin-left: 78%;
 		<script>
 			$(function() {
 				var formObj = $("form");
-				$('button').on(
-						"click",
-						function(e) {
+				$('button').on("click",function(e) {
 							e.preventDefault();
 							var operation = $(this).data("oper");
 

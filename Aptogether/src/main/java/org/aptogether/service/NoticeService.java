@@ -16,8 +16,9 @@ public interface NoticeService {
 
 	public boolean remove(int noticeSeq);
 
-	public List<NoticeVO> getList(NoticeCriteria cri);
-	
-	public int getTotal(NoticeCriteria cri);
+	public List<NoticeVO> getList(NoticeCriteria cri, int aptSeq);
+		
+	public int getTotal(NoticeCriteria cri, int aptSeq);
 
+	public boolean plusCnt(int noticeSeq);
 }

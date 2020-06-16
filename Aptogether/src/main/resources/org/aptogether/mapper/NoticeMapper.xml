@@ -10,6 +10,7 @@
 	]]>
 	</select>
 
+
 	<select id="getListWithPaging" resultType="org.aptogether.domain.NoticeVO">
 	<![CDATA[
 		select 
@@ -19,9 +20,9 @@
 			select /*+ INDEX_DESC(notice pk_notice)*/ 
 			rownum rn, notice_Seq, title, regdate 
 		from notice 
-			where rownum <= #{pageNum} * #{amount}
+			where rownum <= #{cri.pageNum} * #{cri.amount} and  apt_seq =#{aptSeq} 
 		)
-		where rn > (#{pageNum} -1) * #{amount}
+		where rn > (#{cri.pageNum} -1) * #{cri.amount} 
 	]]>
 	</select>
 
@@ -31,8 +32,8 @@
 			resultType="int">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(notice_seq, title, content, category)
-		values(#{noticeSeq}, #{title}, #{content}, #{category})
+		insert into notice(notice_seq, title, content, category, hits)
+		values(#{noticeSeq}, #{title}, #{content}, #{category}, 0)
 	</insert>
 
 	<select id="readNotice" resultType="org.aptogether.domain.NoticeVO">
@@ -53,8 +54,12 @@
 	</update>
 	
 	<select id="getTotalCount" resultType="int">
-		select count (*) from notice where notice_seq > 0
+		select count (*) from notice where apt_seq =#{aptSeq} and notice_seq > 0 
 	</select>
+	
+	<update id="plusCnt" parameterType="int">
+		update notice set hits = hits+1 where notice_seq = #{noticeSeq}
+	</update>
 
 
 </mapper>
