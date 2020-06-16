@@ -13,9 +13,9 @@ import org.aptogether.domain.UnitPriceVO;
 
 public interface FeeService {
 	
-	public List<HouseholdVO> listDong(HouseholdVO dong);
+	public List<HouseholdVO> listDong(int aptSeq);
 	
-	public List<FeeRegisterVO> listFeeReg(int dong);
+	public List<FeeRegisterVO> listFeeReg(@Param("levySeq") int levySeq, @Param("dong") int dong);
 	
 	public List<HouseholdVO> householdInfo(int aptSeq);
 	

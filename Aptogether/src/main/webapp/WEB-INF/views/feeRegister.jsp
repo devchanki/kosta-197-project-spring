@@ -1,6 +1,11 @@
+<%@page import="org.springframework.security.core.Authentication"%>
+<%@page import="org.aptogether.domain.CustomKeeper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication var="principal" property="principal" />
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -53,17 +58,16 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">[APTOGETHER 관리비 부과]</h1>
+					<div class="d-sm-flex align-items-center justify-content-between mb-4">
+						<fmt:parseDate var="date" value="${levyD}" pattern="yyyy-MM-dd" />
+						<h1 class="h3 mb-0 text-gray-800"><strong style="color: royalblue;"><fmt:formatDate value="${date}" pattern="yyyy년 MM월 관리비 부과" /></strong></h1>
+					
 					</div>
 					
 
 					<!-- Content Row -->
 					<div class="row">
 						<div class="container-fluid">
-						
-						<strong><c:out value="${levyD}"/></strong>
 							<div class="card mb-4">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">관리비 부과기초작업</h6>
@@ -171,15 +175,16 @@
 			    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 			}
 			
-		
-			
 			feeService.listDong(function(list) {
-					
+					console.log(list);
 					for(var i = 0, len = list.length||0; i <len; i++){
 						$("#selectDong").append('<option value="'+list[i].dong+'">'+list[i].dong+' 동'+'</option>');
 					} 
+				 feeService.levyInfo({levyDate : "<c:out value="${levyD}"/>", aptSeq : ${principal.aptSeq} }, function(levinfo) {
+					console.log(levinfo);
+				
 					
-					$.getJSON("/keeper/listFeeReg/"+ list[0].dong + ".json",
+					$.getJSON("/keeper/listFeeReg/"+ levinfo.levySeq +"/"+list[0].dong + ".json",
 						function(data) {
 						console.log(data);
 							$("#feeTable").append('<tr>' +'<td class="dongtd" style="vertical-align: middle;">'+  $("#selectDong option:selected").val() + '</td>' + '</tr>');
@@ -253,6 +258,7 @@
 									error();
 								}
 							});
+						}) ;
 				}); 
 			
 			
@@ -263,11 +269,16 @@
 				var selectedDong = $("#selectDong option:selected").val();
 				console.log(thisLevyDate);
 				
-			 	feeService.listFeeReg({dong : selectedDong}, function(list) {
+				feeService.levyInfo({levyDate : "<c:out value="${levyD}"/>", aptSeq : ${principal.aptSeq} }, function(levinfo) {
+					console.log(levinfo);
+				
+			 	feeService.listFeeReg({levySeq: levinfo.levySeq ,dong : selectedDong}, function(list) {
 			 		console.log(list);
 			 		$("#feeTable").html('');
 			 		$("#feeTable").append('<tr>'
 						   	+'<td class="dongtd" style="vertical-align: middle;">'+ selectedDong + '</td>' + '</tr>');
+			 		
+			 		
 			 		for(var i = 0, len = list.length||0; i <len; i++){
 							$("#feeTable").append('<tr>'
 																   	+'<td>'+ list[i].feeList[0].ho+ '</td>'
@@ -317,7 +328,8 @@
 								elevatorBill : feeItem.eq(4).val(),
 								electricityBill : feeItem.eq(5).val(),
 								waterBill : feeItem.eq(6).val(),
-								householdSeq : householdSeq
+								householdSeq : householdSeq,
+								levySeq : list[0].feeList[0].levySeq
 						};
 						
 							feeService.updateFee(fee, function() {
@@ -326,14 +338,16 @@
 						});
 						
 					});
-						}) ;
+						
 			});
 			
-			
+			});
 
 			
 		
 		
+	});
+			
 	});
 	
 	

@@ -43,19 +43,20 @@ public class FeeRestController {
 				
 				dong.setAptSeq(keeper.getAptSeq());
 				
-				return new ResponseEntity<>(service.listDong(dong), HttpStatus.OK);
+				return new ResponseEntity<>(service.listDong(keeper.getAptSeq()), HttpStatus.OK);
 				}
 	
 	
-	@GetMapping(value = "/listFeeReg/{dong}",
+	@GetMapping(value = "/listFeeReg/{levySeq}/{dong}",
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE } )
-	public ResponseEntity<List<FeeRegisterVO>> listFeeReg(@PathVariable("dong") int dong){
+	public ResponseEntity<List<FeeRegisterVO>> listFeeReg(@PathVariable("levySeq") int levySeq, @PathVariable("dong") int dong){
 		
 		FeeRegisterVO feeRegister = new FeeRegisterVO();
 
+		feeRegister.setLevySeq(levySeq);
 		feeRegister.setDong(dong);
 		
-		return new ResponseEntity<>(service.listFeeReg(dong), HttpStatus.OK);
+		return new ResponseEntity<>(service.listFeeReg(levySeq, dong), HttpStatus.OK);
 	}
 	
 	

@@ -25,7 +25,7 @@ var feeService = (function() {
 		});	
 	}
 	
-
+	
 	function listLevy(callback, error) {
 		
 		$.getJSON("/keeper/listLevy",
@@ -73,7 +73,7 @@ var feeService = (function() {
 				});
 	}
 	
-
+	
 	function addFee(fee, callback, error) {
 		
 		$.ajax({
@@ -113,10 +113,10 @@ var feeService = (function() {
 	
 	function listFeeReg(feeRef, callback, error) {
 		
-		var levyDate = feeRef.levyDate;
+		var levySeq = feeRef.levySeq;
 		var dong = feeRef.dong;
 		
-		$.getJSON("/keeper/listFeeReg/" + dong + ".json",
+		$.getJSON("/keeper/listFeeReg/" + levySeq +"/"+dong + ".json",
 				function(data) {
 					if(callback){
 						callback(data);
@@ -150,17 +150,15 @@ var feeService = (function() {
 	}
 	
 	
-
-	
 	
 	return {
 		addLevy : addLevy,
 		listLevy : listLevy,
-		listDong : listDong,
-		listFeeReg : listFeeReg,
 		householdInfo : householdInfo,
 		levyInfo : levyInfo,
 		addFee : addFee,
+		listDong : listDong,
+		listFeeReg : listFeeReg,
 		updateFee : updateFee
 	};
 })();

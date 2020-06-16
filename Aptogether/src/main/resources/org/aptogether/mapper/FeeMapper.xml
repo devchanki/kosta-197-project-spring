@@ -15,6 +15,7 @@
 	
 	<resultMap type="org.aptogether.domain.FeeRegisterVO" id="FeeRegisterMap">
 		<id property="householdSeq" column="household_seq"/>
+		<result property="levySeq" column="levy_seq"/>
 		<result property="dong" column="dong"/>
 		<collection property="feeList" resultMap="feeMap"></collection>
 	</resultMap>
@@ -36,7 +37,8 @@
   		select h.household_seq, h.dong, h.ho, h.room_size, f.levy_seq, f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill
 		from fee f full join household h
         on f.household_seq = h.household_seq
-		where  h.dong = #{dong}
+		where f.levy_seq = #{levySeq}
+		and h.dong = #{dong}
 		order by h.ho asc
 	</select>
 	
@@ -68,15 +70,7 @@
 	
 	
 	
-<!--  	<insert id="insertFee">
- 		<selectKey keyProperty="feeSeq" order="BEFORE" resultType="int">
- 			select manage_fee_seq.nextval from dual
- 		</selectKey>
- 	
-		insert into manage_fee values(#{feeSeq}, #{memberSeq}, #{generalFee}, #{securityFee}, #{cleaningFee}, 
-														 #{fumigationFee}, #{liftMaintenanceFee}, #{electricityFee}, #{waterFee},
-														 #{heatingFee},  to_date(#{payDate}, 'YYYY-MM-DD'))
-	</insert>
+<!-- 
 	
 	<select id="listFee" parameterType="org.aptogether.domain.TenantVO" resultType="org.aptogether.domain.FeeVO">
 		select ma.* from

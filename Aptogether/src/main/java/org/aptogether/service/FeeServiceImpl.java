@@ -24,19 +24,19 @@ public class FeeServiceImpl implements FeeService {
 	private FeeMapper mapper;
 	
 	@Override
-	public List<HouseholdVO> listDong(HouseholdVO dong) {
+	public List<HouseholdVO> listDong(int aptSeq) {
 		
-		log.info("listdong....." + dong);
+		log.info("listdong....." + aptSeq);
 		
-		return mapper.listDong(dong);
+		return mapper.listDong(aptSeq);
 	}
 	
 	@Override
-	public List<FeeRegisterVO>  listFeeReg(int dong) {
+	public List<FeeRegisterVO>  listFeeReg(@Param("levySeq") int levySeq, @Param("dong") int dong) {
 		
-		log.info("dong : "+ dong);
+		log.info("levySeq : " + levySeq + "dong : "+ dong);
 		
-		return mapper.listFeeReg(dong);
+		return mapper.listFeeReg(levySeq, dong);
 	}
 	
 	@Override
