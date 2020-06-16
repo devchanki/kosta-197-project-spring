@@ -91,7 +91,7 @@ margin-left: 83%;
 
 
 						<!-- form 시작 -->
-						<form role="form" action="/keeper/registerNotice" method="post">
+						<form role="form" action="/keeper/registerNoticeKeeper" method="post">
 						
 							<div class="bbsNotice">
 								<label>제목</label>
