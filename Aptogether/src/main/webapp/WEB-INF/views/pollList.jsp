@@ -56,8 +56,6 @@
 						data-toggle="modal" data-target="#poll_modal">생성조지기</button>
 				</div>
 
-
-
 				<!-- pollList 출력 -->
 				<c:forEach var="poll" items="${list}">
 					<div class="card custom-bg mb-4 margin-auto max-width-card">
@@ -95,7 +93,6 @@
 										<input class="form-control" type="text" name="question">
 									</div>
 								</div>
-
 								<button type="button" class="close off" onclick="deloption()"
 									data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
@@ -109,7 +106,6 @@
 									<textarea name="contents" class="form-control"
 										aria-label="With textarea"></textarea>
 								</div>
-
 								<div class="option_input">
 									<div class="inputs input-group margin-bottom-button">
 										<div class="input-group-prepend">
@@ -123,6 +119,19 @@
 										</button>
 									</div>
 								</div>
+								<div class="input input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">시작</span>
+									</div>
+									<input type="date" name="startDate">
+								</div>
+								<div class="input input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">마감</span>
+									</div>
+									<input type="date" name="endDate">
+								</div>
+
 
 
 								<div class="modal-footer">
@@ -152,11 +161,8 @@
 	</footer>
 	<!-- End of Footer -->
 
-	</div>
-	<!-- End of Content Wrapper -->
 
-	</div>
-	<!-- End of Page Wrapper -->
+
 
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
@@ -203,28 +209,6 @@
 	<!-- 	<script src="/resources/js/demo/chart-area-demo.js"></script>
 	<script src="/resources/js/demo/chart-pie-demo.js"></script> -->
 	<script src="/resources/js/poll.js"></script>
-	<script type="text/javascript">
-		/* var i = 1;
-
-		function add() {
-			$('.option_input')
-					.append(
-							'<div id="input' + i + '" class = "intputs input-group margin-bottom-button" ><div class="input-group-prepend"><span class="input-group-text">항목</span></div><input id="options" type="text" class="form-control" name="options"><button type="button" class="btn btn-outline-dark" onclick="del('
-									+ i
-									+ ')" id="create_form"> <span aria-hidden="true">Del</span> </button></div>');
-			i++;
-		}
-
-		function del(el) {
-			$("#input" + el).remove();
-		}
-
-		function deloption() {
-			$('#close').on('click', function() {
-				$('.intputs').remove();
-			})
-		} */
-	</script>
 
 </body>
 

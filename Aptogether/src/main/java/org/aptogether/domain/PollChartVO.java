@@ -3,11 +3,10 @@ package org.aptogether.domain;
 import lombok.Data;
 
 @Data
-public class PollOptionVO {
+public class PollChartVO {
 	
-	private int optionSeq;
 	private String optionText;
-	private int pollSeq;
+	private int optionSeq;
+	private int cnt;
 	
-
 }

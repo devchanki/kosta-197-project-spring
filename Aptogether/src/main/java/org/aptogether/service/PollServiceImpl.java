@@ -2,6 +2,7 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.aptogether.domain.PollChartVO;
 import org.aptogether.domain.PollDetailVO;
 import org.aptogether.domain.PollOptionVO;
 import org.aptogether.domain.PollSelectVO;
@@ -67,4 +68,10 @@ public class PollServiceImpl implements PollService {
 		return mapper.PollDetail(pollSeq);
 	}
 
+	@Override
+	public List<PollChartVO> PollChart(int pollSeq) {
+		log.info("PollChart");
+		return mapper.PollChart(pollSeq);
+	}
+	
 }

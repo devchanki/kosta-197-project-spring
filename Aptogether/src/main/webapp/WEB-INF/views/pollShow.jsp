@@ -45,23 +45,24 @@
 			<div
 				class="d-sm-flex align-items-center justify-content-between mb-4">
 				<h1 class="h3 mb-0 text-gray-800">투표참여</h1>
+				<div class="toggle-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-secondary active" data-action="1"> <input
+							type="radio" name="options" id="option1" value="1"
+							autocomplete="off" checked> 전체
+						</label> <label class="btn btn-secondary" data-action="2"> <input
+							type="radio" name="options" id="option2" value="2"
+							autocomplete="off"> 진행중
+						</label> <label class="btn btn-secondary" data-action="3"> <input
+							type="radio" name="options" id="option3" value="3"
+							autocomplete="off"> 종료
+						</label>
+					</div>
+				</div>
 			</div>
 
 			<!-- Content Row -->
 			<div class="flex-column">
-
-				<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					<label class="btn btn-secondary active" data-action="1"> <input
-						type="radio" name="options" id="option1" value="1"
-						autocomplete="off" checked> 전체
-					</label> <label class="btn btn-secondary" data-action="2"> <input
-						type="radio" name="options" id="option2" value="2"
-						autocomplete="off"> 진행중
-					</label> <label class="btn btn-secondary" data-action="3"> <input
-						type="radio" name="options" id="option3" value="3"
-						autocomplete="off"> 종료
-					</label>
-				</div>
 
 				<!-- pollList 출력 -->
 				<div class="pollList">
@@ -138,20 +139,23 @@
 			<!-- 전자서명 모달 끝 -->
 
 			<!-- 그래프 모달 시작 -->
-			<div class="modal fade" id="endList_modal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel1">
+			<div class="modal fade" id="pollChart_modal" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel1">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div id="signature-pad" class="m-signature-pad">
-							<div class="m-signature-pad--body">
-							</div>
+						<div class="modal-body" id="pollChart_body">
+							<canvas id="chartCanvas"></canvas>
+						</div>
+						<div class="modal-footer">
+							<button id="pollChartClose" type="button"
+								class="btn btn-outline-danger" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 그래프 모달 끝 -->
-
 		</div>
+
 		<!-- End of Main Content -->
 	</div>
 
@@ -206,8 +210,8 @@
 	<script src="/resources/js/signature_pad.min.js"></script>
 
 	<!-- Page level plugins -->
-	<!-- 		<script src="/Aptogether/vendor/chart.js/Chart.min.js"></script>
-
+	<script src="/resources/vendor/chart.js/Chart.min.js"></script>
+	<!-- 
 	Page level custom scripts
 	<script src="/Aptogether/js/demo/chart-area-demo.js"></script>
 	<script src="/Aptogether/js/demo/chart-pie-demo.js"></script> -->
@@ -227,7 +231,6 @@
 		}) 
 
 	</script>
-
 </body>
 
 </html>

@@ -2,6 +2,7 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.aptogether.domain.PollChartVO;
 import org.aptogether.domain.PollDetailVO;
 import org.aptogether.domain.PollOptionVO;
 import org.aptogether.domain.PollSelectVO;
@@ -16,6 +17,8 @@ public interface PollService {
 	public List<PollVO> PollOnList();
 	
 	public List<PollVO> PollEndList();
+	
+	public List<PollChartVO> PollChart(int pollSeq);
 	
 	public void PollOptionInsert(List<PollOptionVO> option);
 	

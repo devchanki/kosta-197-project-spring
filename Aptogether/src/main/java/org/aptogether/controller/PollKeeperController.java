@@ -85,7 +85,8 @@ public class PollKeeperController {
 	@PostMapping("/pollInsert")
 	public String keeper_insert(PollVO poll, RedirectAttributes rttr) {
 		log.info("insert:" + poll);
-
+		
+		
 		service.PollInsert(poll);
 		ArrayList<PollOptionVO> options = new ArrayList<>();
 		for (int i = 0; i < poll.getOptions().size(); i++) {
