@@ -31,19 +31,23 @@
 	<!-- Heading -->
 	<div class="sidebar-heading">관리자 메뉴</div>
 	<li class="nav-item"><a class="nav-link"
-		href="/Aptogether/poll/PollListAction.do"> <i
+		href="/keeper/scheduleKeeper"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>전자투표 등록하기</span></a></li>
 	<li class="nav-item"><a class="nav-link"
 		href="/Aptogether/poll/PollListAction.do"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>관리비 등록하기</span>
 	</a></li>
 	<li class="nav-item"><a class="nav-link"
-		href="/Aptogether/poll/PollListAction.do"> <i
+		href="/keeper/scheduleKeeper"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>일정 등록하기</span>
 	</a></li>
 	<li class="nav-item"><a class="nav-link"
 		href="/Aptogether/poll/PollListAction.do"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>민원 관리하기</span>
+	</a></li>
+		<li class="nav-item"><a class="nav-link"
+		href="/keeper/listNotice"> <i
+			class="fas fa-fw fa-chart-area"></i> <span>아파트 공지사항</span>
 	</a></li>
 	<!-- Nav Item - Pages Collapse Menu -->
 	<!-- 	<li class="nav-item"><a class="nav-link collapsed" href="#"
@@ -307,3 +311,4 @@
 			</ul>
 
 		</nav>
+		
