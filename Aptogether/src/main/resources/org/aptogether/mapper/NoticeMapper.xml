@@ -32,8 +32,8 @@
 			resultType="int">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(notice_seq, title, content, category, hits)
-		values(#{noticeSeq}, #{title}, #{content}, #{category}, 0)
+		insert into notice(notice_seq, title, content, category, hits, apt_seq)
+		values(#{noticeSeq}, #{title}, #{content}, #{category}, 0, #{aptSeq})
 	</insert>
 
 	<select id="readNotice" resultType="org.aptogether.domain.NoticeVO">

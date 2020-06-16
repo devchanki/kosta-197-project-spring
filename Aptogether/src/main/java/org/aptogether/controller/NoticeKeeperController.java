@@ -1,5 +1,6 @@
 package org.aptogether.controller;
 
+import org.aptogether.domain.CustomKeeper;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.NoticeCriteria;
 import org.aptogether.domain.NoticePageDTO;
@@ -23,14 +24,14 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/keeper/*")
 @AllArgsConstructor
-public class NoticeController {
+public class NoticeKeeperController {
 
 	private NoticeService service;
 	
 	@GetMapping("/listNotice")
 	public String list(NoticeCriteria cri,Authentication auth, Model model){
-		CustomUser user = (CustomUser) auth.getPrincipal();
-		int keeperAptSeq = user.getAptSeq();
+		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+		int keeperAptSeq = keeper.getAptSeq();
 		log.info("list : " + cri);
 		log.info(keeperAptSeq);
 
@@ -41,23 +42,27 @@ public class NoticeController {
 	log.info(model);
 
 	model.addAttribute("pageMaker", new NoticePageDTO(cri, total));
-	return "/listNotice";
+	return "/listNoticeKeeper";
 	}
 	
 	
 	
 	@GetMapping("/registerNotice")
 	public String registerNotice(){
-		return "/registerNotice";
+		return "/registerNoticeKeeper";
 	}
 	
 	@PostMapping("/registerNotice")
-	public String register(NoticeVO notice, RedirectAttributes rttr){
+	public String register(NoticeVO notice, Authentication auth, RedirectAttributes rttr){
+		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+		int keeperAptSeq = keeper.getAptSeq();
+		
+		notice.setAptSeq(keeperAptSeq);
 		log.info("register : " + notice);
 		service.register(notice);
 	
 			rttr.addFlashAttribute("result", notice.getNoticeSeq());
-		return "redirect:/keeper/listNotice";
+		return "redirect:/keeper/listNoticeKeeper";
 	}
 
 	
@@ -69,7 +74,7 @@ public class NoticeController {
 		model.addAttribute("notice", service.get(noticeSeq));	
 		service.plusCnt(noticeSeq);
 		
-		return "/getNotice";
+		return "/getNoticeKeeper";
 	}
 	
 	@GetMapping("/modifyNotice")
@@ -77,7 +82,7 @@ public class NoticeController {
 		log.info("/get");
 		
 		model.addAttribute("notice", service.get(noticeSeq));	
-		return "/modifyNotice";
+		return "/modifyNoticeKeeper";
 	}
 	
 	@PostMapping("/modifyNotice")
@@ -90,7 +95,7 @@ public class NoticeController {
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		
-		return "redirect:/keeper/listNotice";
+		return "redirect:/keeper/listNoticeKeeper";
 	}
 	
 	@PostMapping("/removeNotice")
@@ -103,7 +108,7 @@ public class NoticeController {
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		
-		return "redirect:/keeper/listNotice";
+		return "redirect:/keeper/listNoticeKeeper";
 	}
 
 

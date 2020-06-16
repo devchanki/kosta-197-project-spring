@@ -49,10 +49,6 @@
 	background: #fff;
 }
 
-.paginate_button a [aria-selected="true"] {
-	border-color: #ffbc0d;
-	background-color: #ffbc0d;
-}
 
 a {
 	text-decoration: none;
@@ -104,15 +100,15 @@ li.paginate_button.active > a {
 	background-color: #6e707e26;
 }
 
-#notice-body .ico {
-    display: inline-block;
-    width: 25px;
-    height: 23px;
-    overflow: hidden;
-    text-indent: -9999px;
-    vertical-align: middle;
-    background: url(/resources/img/favorite-24px.svg) 0 0 no-repeat;
-}
+/* #notice-body .ico { */
+/*     display: inline-block; */
+/*     width: 25px; */
+/*     height: 23px; */
+/*     overflow: hidden; */
+/*     text-indent: -9999px; */
+/*     vertical-align: middle; */
+/*     background: url(/resources/img/favorite-24px.svg) 0 0 no-repeat; */
+/* } */
 
 </style>
 

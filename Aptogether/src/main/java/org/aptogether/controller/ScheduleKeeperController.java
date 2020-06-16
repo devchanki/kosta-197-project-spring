@@ -1,5 +1,6 @@
 package org.aptogether.controller;
 
+import org.aptogether.domain.CustomKeeper;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.service.ScheduleService;
 import org.springframework.security.core.Authentication;
@@ -23,9 +24,10 @@ public class ScheduleKeeperController {
 	public String keeper_Schedule(Model model, Authentication auth){
 	
 		log.info("admit list");
-		CustomUser user = (CustomUser) auth.getPrincipal();
-		System.out.println(user.getName());
-		int aptSeq =	user.getAptSeq();
+
+		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+		System.out.println(keeper.getName());
+		int aptSeq =	keeper.getAptSeq();
 		System.out.println(aptSeq);
 		
 		model.addAttribute("list", service.listSchedule(aptSeq, "0"));

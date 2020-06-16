@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.aptogether.domain.CustomKeeper;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.ScheduleVO;
 import org.aptogether.service.ScheduleService;
@@ -44,10 +45,15 @@ public class ScheduleKeeperRestController {
 	
 	@GetMapping(value = "/listSchedule", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String keeper_ShowSchedule(Authentication auth) {
+		System.out.println(auth.getName());
+		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+		int keeperAptSeq = keeper.getAptSeq();
+		System.out.println(keeper);
+		log.info(keeperAptSeq);
 		
-		CustomUser user = (CustomUser) auth.getPrincipal();
-		int keeperAptSeq = user.getAptSeq();
+		
 		List<ScheduleVO> keeperlist = service.listSchedule(keeperAptSeq, "1"); 
+		
 		log.info("list" + keeperlist);
 
 		Gson gson = new Gson();
@@ -150,10 +156,12 @@ public class ScheduleKeeperRestController {
 	@GetMapping(value = "/admitShowSchedule/{aptSeq}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String keeper_AdmitShowSchedule(@PathVariable("aptSeq") int aptSeq, Authentication auth) {
 	
-		CustomUser user = (CustomUser) auth.getPrincipal();
-		int keeperAptSeq = user.getAptSeq();
+		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
+		int keeperAptSeq = keeper.getAptSeq();
+		log.info(keeperAptSeq);
 		
 		List<ScheduleVO> list = service.listSchedule(keeperAptSeq, "0"); 
+		
 	//	log.info("list" + list);
 		
 		Gson gson = new Gson();
@@ -174,11 +182,5 @@ public class ScheduleKeeperRestController {
 			array.add(tmp);
 		}
 		return gson.toJson(array);
-	}
-	
-
-	
-	
-	
-	
+	}	
 }

@@ -16,7 +16,7 @@
 		class="org.aptogether.security.CustomLoginSuccessHandler" />
 
 
-	<security:http pattern="/keeper/*" auto-config="true"
+	<security:http pattern="/keeper/**" auto-config="true"
 		use-expressions="true" authentication-manager-ref="customKeeperAuth">
 		<security:csrf disabled="true" />
 
@@ -29,7 +29,7 @@
 			pattern="/keeper/signup" access="permitAll" />
 		<security:intercept-url
 			pattern="/keeper/signin" access="permitAll" />
-		<security:intercept-url pattern="/keeper/*"
+		<security:intercept-url pattern="/keeper/**"
 			access="hasRole('ROLE_KEEPER')" />
 
 		<security:form-login login-page="/keeper/signin"
@@ -43,7 +43,7 @@
 			error-page="/error/401" />
 	</security:http>
 
-	<security:http pattern="/tenant/*" auto-config="true"
+	<security:http pattern="/tenant/**" auto-config="true"
 		use-expressions="true" authentication-manager-ref="customTenantAuth">
 		<security:csrf disabled="true" />
 
@@ -56,7 +56,7 @@
 			pattern="/tenant/signin" access="permitAll" />
 		<security:intercept-url
 			pattern="/tenant/signup" access="permitAll" />
-		<security:intercept-url pattern="/tenant/*"
+		<security:intercept-url pattern="/tenant/**"
 			access="hasRole('ROLE_TENANT')" />
 
 

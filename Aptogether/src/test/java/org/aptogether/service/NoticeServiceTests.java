@@ -39,10 +39,10 @@ public class NoticeServiceTests {
 //		log.info("생성된 게시물의 번호: "+ notice.getNoticeSeq());
 //	}
 	
-	@Test
-	public void testGetList(){
-		service.getList(new NoticeCriteria(2,10)).forEach(notice -> log.info(notice));
-	}
+//	@Test
+//	public void testGetList(){
+//		service.getList(new NoticeCriteria(2,10)).forEach(notice -> log.info(notice));
+//	}
 	
 //	@Test
 //	public void testGet(){

@@ -786,7 +786,7 @@
 			$('.scheduleRefresh').on('click', function() {
 				$.ajax({
 					type : "get",
-				      url: "/keeper/admitShowSchedule/"+${principal.aptSeq},
+				      url: "/keeper/admitShowSchedule/"+'${principal.aptSeq}',
 				      dataType: "json",
 				      success: function (response) {
 				    	  console.log("start.....");

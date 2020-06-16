@@ -67,17 +67,17 @@ public class NoticeMapperTests {
 //		log.info("update count : " + count);
 //	}
 	
-	@Test
-	public void testPaging(){
-		NoticeCriteria cri = new NoticeCriteria();
-		//10페이지씩
-		cri.setPageNum(3);
-		cri.setAmount(10);
-		
-		List<NoticeVO> list = mapper.getListWithPaging(cri);
-		list.forEach(notice -> log.info(notice.getNoticeSeq()));
-	}
-	
+//	@Test
+//	public void testPaging(){
+//		NoticeCriteria cri = new NoticeCriteria();
+//		//10페이지씩
+//		cri.setPageNum(3);
+//		cri.setAmount(10);
+//		
+//		List<NoticeVO> list = mapper.getListWithPaging(cri);
+//		list.forEach(notice -> log.info(notice.getNoticeSeq()));
+//	}
+//	
 	
 	
 }
