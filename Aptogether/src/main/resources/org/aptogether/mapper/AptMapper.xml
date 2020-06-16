@@ -11,6 +11,10 @@
 			values(APT_INFO_SEQ.nextval, #{kaptCode}, #{aptName}, #{location}, #{x}, #{y})
 	</insert>
 	
+	<select id="aptInfo" parameterType="int" resultType="org.aptogether.domain.AptVO"> 
+		select * from apt_info where apt_seq = #{apt_num}
+	</select>
+	
 	<select id="aptCount" parameterType="org.aptogether.domain.AptVO" resultType="int">
 		select nvl(count(*), 0) from apt_info where kapt_Code = #{kaptCode} 
 	</select>

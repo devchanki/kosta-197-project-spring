@@ -4,11 +4,14 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.aptogether.domain.AptVO;
 import org.aptogether.domain.CustomKeeper;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.JoinKeeperVO;
 import org.aptogether.domain.JoinTenantVO;
+import org.aptogether.mapper.AptMapper;
 import org.aptogether.mapper.MemberMapper;
+import org.aptogether.security.ApiKeys;
 import org.aptogether.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 public class HomeController {
 	
@@ -38,10 +39,10 @@ public class HomeController {
 	MemberService memberService;
 	@Autowired
 	MemberMapper memberMapper;
+	@Autowired
+	AptMapper aptMapper;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -50,9 +51,7 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+		model.addAttribute("serverTime", formattedDate);
 		return "index";
 	}
 	
@@ -84,7 +83,6 @@ public class HomeController {
 	public String signinGet() {
 		return "tenantSignin";
 	}
-	
 	
 	@GetMapping("/keeper/signin")
 	public String signinKeeper() {
@@ -143,5 +141,16 @@ public class HomeController {
 	public String createApt() {
 		return "createApt";
 	}	
+	
+	@GetMapping("/tenant/map")
+	public String showApt(Authentication auth, Model model) {
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		int aptSeq = user.getAptSeq();
+		AptVO aptInfo = aptMapper.aptInfo(aptSeq);
+		System.out.println(aptInfo);
+		model.addAttribute("apt", aptInfo);
+		model.addAttribute("kakaoMap", ApiKeys.getKakaoMapJsKey());
+		return "aptMap";
+	}
 	
 }

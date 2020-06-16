@@ -7,6 +7,7 @@ import org.aptogether.domain.HouseholdVO;
 import org.aptogether.domain.JoinTenantVO;
 
 public interface AptMapper {
+	public AptVO aptInfo(int aptSeq);
 	public int aptCount(AptVO apt);
 	public int insertApt(AptVO apt);
 	public List<AptVO> searchWithKeyword(String keyword);

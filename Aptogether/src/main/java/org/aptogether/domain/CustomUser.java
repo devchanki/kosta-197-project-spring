@@ -36,9 +36,6 @@ public class CustomUser extends User {
 		return authorities;
 	}
 
-//	public CustomUser(String name, String password, Collection<? extends GrantedAuthority> type) {
-//		super(name, password, type);
-//	}
 
 	public CustomUser(TenantVO member) {
 		super(member.getId(), member.getPassword(), authorities(member));
