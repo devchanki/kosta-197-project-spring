@@ -3,7 +3,7 @@ package org.aptogether.service;
 import static org.junit.Assert.assertNotNull;
 
 import org.aptogether.domain.FeeVO;
-import org.aptogether.domain.MemberVO;
+import org.aptogether.domain.TenantVO;
 import org.aptogether.mapper.FeeMapperTests;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,4 +82,5 @@ public class FeeServcieTests {
 //		
 //		service.listFeeRowNum(user).forEach(feeRowNume -> log.info(feeRowNume));
 //	}
+	
 }

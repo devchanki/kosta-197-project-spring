@@ -4,7 +4,7 @@
 	background-image: url('/resources/img/apt.jpg');
 	background-position: center;
 	background-size: cover;
-	min-height: 800px;
+	height: calc(100%);
 	padding: 200px 0;
 	box-sizing: border-box;
 }
@@ -22,4 +22,8 @@
 	font-size: 23px;
 	text-align: center;
 	padding: 20px 0
+}
+.link {
+	font-size: 22px;
+	display: block;
 }

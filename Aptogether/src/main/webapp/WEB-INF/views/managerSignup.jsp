@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -103,7 +104,7 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Aptogether - 회원가입</h1>
                 </div>
-                <form class="user" action="/signup" method="post">
+                <form:form class="user" action="/signupManager" modelAttribute="JoinVO" method="post">
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
@@ -139,14 +140,28 @@
                     아파트 찾기
                   </button>
 
-                  <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      id="email"
-                      name="id"
-                      placeholder="이메일 주소를 입력하세요"
-                    />
+                  <div class="form-group row">
+                  	<div class="col-sm-8 mb-sm-0">
+                      <input
+                      	type="email"
+                      	class="form-control form-control-user"
+                      	id="email"
+                      	name="id"
+                      	placeholder="이메일 주소를 입력하세요"
+                   	/>
+                   	</div>
+                   	<div class="col-sm-4">
+                   <button
+                   	type="button"
+                    id="checkId"
+                    onclick="validateId()"
+                    class="btn btn-facebook btn-user btn-block"
+                  	>
+                    아이디 중복확인
+                  </button>
+                   	
+                  	</div>
+
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -167,53 +182,17 @@
                       />
                     </div>
                   </div>
-                  <div class="form-group row resident">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input
-                        type="number"
-                        class="form-control form-control-user"
-                        name="dong"
-                        id="dong"
-                        placeholder="동"
-                      />
-                    </div>
-                    <div class="col-sm-6">
-                      <input
-                        type="number"
-                        class="form-control form-control-user"
-                        name="ho"
-                        id="ho"
-                        placeholder="호"
-                      />
-                    </div>
-                  </div>
 
                   <hr />
                   <div>
                     <div class="custom-control custom-radio margin-bottom">
                       <input
-                        type="radio"
-                        name="type"
-                        value="ROLE_TENANT"
-                        class="custom-control-input"
-                        id="customCheck1"
-                        checked="checked"
-                      />
-                      <label class="custom-control-label" for="customCheck1"
-                        >입주민</label
-                      >
-                    </div>
-                    <div class="custom-control custom-radio margin-bottom">
-                      <input
-                        type="radio"
+                        type="hidden"
                         name="type"
                         value="ROLE_KEEPER"
                         class="custom-control-input"
                         id="customCheck"
                       />
-                      <label class="custom-control-label" for="customCheck"
-                        >관리 사무소</label
-                      >
                     </div>
                   </div>
                   <input
@@ -222,7 +201,7 @@
                     value="회원 가입하기"
                   />
                   <div class="warning">${status } </div>
-                </form>
+                </form:form>
                 <hr />
                 <!--               <div class="text-center">
                 <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -309,12 +288,33 @@
     			$('.resident').show();
     		}
     	});
-        console.log("conssole.");
         $("#modal-toggle-button").on("click", function () {
           $(".modal-mine").toggle();
           return false;
         });
       });
+      
+      function validateId() {
+    	  var myId = $('#email').val();
+    	  $.ajax({
+    		  url: "/signUpIdValidate",
+    		  type: "POST",
+    		  data: JSON.stringify({
+    			  id: myId
+    		  }),
+    		  contentType: "application/json",
+    		  dataType: "json",
+    		  success: function (data) {
+    			  console.log(data);
+    			  alert('아이디가 사용가능합니다. ');
+    			  
+    		  },
+    		  error: function () {
+    			  alert('아이디가 이미 존재합니다. ');
+    		  }
+    	  })
+    	  return false;
+      };
     </script>
   </body>
 </html>

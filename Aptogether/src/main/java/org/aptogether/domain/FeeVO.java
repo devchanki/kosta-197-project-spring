@@ -1,12 +1,14 @@
 package org.aptogether.domain;
 
+
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class FeeVO {
 
 	private int feeSeq;
-	private int levySeq;
 	private int householdSeq;
 	private int generalBill;
 	private int securityBill;
@@ -15,6 +17,9 @@ public class FeeVO {
 	private int elevatorBill;
 	private int electricityBill;
 	private int waterBill;
+	
+	private int ho;
+	private int roomSize;
 	
 	
 	public int getTotalValue() {

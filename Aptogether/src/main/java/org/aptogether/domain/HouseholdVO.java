@@ -11,4 +11,4 @@ public class HouseholdVO implements Serializable{
 	private int ho;
 	private int aptSeq;
 	private float roomSize;
-}
+	}

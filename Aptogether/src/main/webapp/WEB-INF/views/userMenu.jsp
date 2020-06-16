@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<sec:authentication var="principal" property="principal" />
 <ul
 	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 	id="accordionSidebar">
@@ -47,7 +50,7 @@
 			class="fas fa-fw fa-chart-area"></i> <span>아파트 일정 보기</span></a></li>
 	<li class="nav-item"><a class="nav-link"
 		href="/Aptogether/poll/PollListviewAction.do"> <i
-			class="fas fa-fw fa-chart-area"></i> <span>투표하기</span></a></li> 
+			class="fas fa-fw fa-chart-area"></i> <span>투표하기</span></a></li>
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<!-- 	<li class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseUtilities"
@@ -272,7 +275,7 @@
 					class="nav-link dropdown-toggle" href="#" id="userDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <span
-						class="mr-2 d-none d-lg-inline text-gray-600 small">${member.name }님</span>
+						class="mr-2 d-none d-lg-inline text-gray-600 small">${principal.name} 님</span>
 						<img class="img-profile rounded-circle"
 						src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 				</a> <!-- Dropdown - User Information -->

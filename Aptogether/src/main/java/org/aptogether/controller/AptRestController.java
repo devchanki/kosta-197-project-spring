@@ -20,16 +20,17 @@ import javax.xml.xpath.XPathFactory;
 
 import org.aptogether.domain.AptCodeVO;
 import org.aptogether.domain.AptVO;
+import org.aptogether.domain.CustomUser;
 import org.aptogether.mapper.AptMapper;
 import org.aptogether.security.ApiKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Document;
@@ -52,7 +53,7 @@ public class AptRestController {
 	private AptMapper aptMapper;
 
 	@GetMapping(value = "/showAptList/{bjdCode}", produces = "application/json; charset=utf8")
-	public String showAptList(@PathVariable("bjdCode") String bjdCode) {
+	public String showAptList(@PathVariable("bjdCode") String bjdCode, Authentication auth) {
 		final String USER_AGENT = "Mozilla/5.0";
 		String url1 = "http://apis.data.go.kr/1611000/AptListService/getLegaldongAptList?bjdCode=";
 		String url2 = "&numOfRows=100&ServiceKey=" + ApiKeys.getAptListKey();

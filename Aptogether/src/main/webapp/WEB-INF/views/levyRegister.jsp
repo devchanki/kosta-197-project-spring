@@ -61,6 +61,7 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">[APTOGETHER 관리비 부과]</h1>
+						<p id="unitPriceSeq"></p>
 					</div>
 
 
@@ -257,34 +258,13 @@
 	<script>
 	$(function() {
 		
-		var levyDate = $("#levyDate");
-		var deadlineDate = $("#deadlineDate");		
-
-		
-		feeServcie.listLevy({aptSeq : 1}, function(list) {
-			
-			for(var i = 0, len = list.length||0; i <len; i++){
-				console.log(list[i]);
-				$("#levyTable").append('<tr>'
-														+'<td>'+ list[i].status+'</td>'
-													 	+'<td>'+ '<a href="/keeper1/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>'
-														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
-														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
-														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
-												    +'</tr>');
-				
-			} 
-			
-		}); 
-
-		
-		
-		
 		$("#addLevy").on("click", function() {
 			$(".levyModalI").val("");
 			$("#levyModal").modal('show');
 		});
 		
+ 		var levyDate = $("#levyDate");
+		var deadlineDate = $("#deadlineDate");		
 		
 		$("#levyReg").on("click", function(e) {
 			
@@ -297,17 +277,17 @@
 			if(levyDate.val() && deadlineDate.val() !=""){
 				
 					var levy = {
-						/*aptSeq : 1,*/ 
 						levyDate : levyDate.val(),
 						startCalDate : startDate,
 						endCalDate : endDate,
 						deadlineDate : deadlineDate.val()
 					};
 				
-					feeServcie.addLevy(levy, function(result) {
+					feeService.addLevy(levy, function(result) {
 						alert("관리비 부과정보 등록완료");
 						$("#levyModal").modal('hide');
 						 location.reload();
+
 				});
 			
 			}else if(levyDate.val() == "", deadlineDate.val() != ""){
@@ -321,6 +301,34 @@
 			
 			
 		});
+		
+		
+		
+		
+		feeService.listLevy(function(list) {
+			
+			for(var i = 0, len = list.length||0; i <len; i++){
+				console.log(list[i]);
+				$("#levyTable").append('<tr>'
+														+'<td>'+ list[i].status+'</td>'
+													 	+'<td>'+ '<a href="/keeper/feeRegister/'+ moment(list[i].levyDate).format('YYYYMM')+'">'+moment(list[i].levyDate).format('YYYY년 MM월')+'</a>'+'</td>' 
+														+'<td>'+ moment(list[i].startCalDate).format('YYYY년 MM월 DD일')+'</td>'
+														+'<td>'+ moment(list[i].endCalDate).format('YYYY년 MM월 DD일')+'</td>'
+														+'<td>'+ moment(list[i].deadlineDate).format('YYYY년 MM월 DD일')+'</td>'
+												    +'</tr>');
+				
+				
+			} 
+			
+			
+		}); 
+		
+		
+
+
+		
+		
+
 		
 		
 		 
@@ -356,7 +364,7 @@
 		createTable();
 		function createTable() {
 			$.ajax({
-				url : "/keeper1/listFee/"+ member_seq.val(),
+				url : "/keeper/listFee/"+ member_seq.val(),
 				type : "get",
 				dataType : "json",
 				success : function(result) {
