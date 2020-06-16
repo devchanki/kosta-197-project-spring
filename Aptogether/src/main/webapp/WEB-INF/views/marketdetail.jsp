@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -630,6 +631,7 @@ img {
 
 								<!-- <div class="card-body"> -->
 								<%-- <a href="/Aptogether/download.jsp?filename=${product.fname}">${product.fname}</a> --%>
+								<img src="<spring:url value='/resources/img/apt.jpg'/>">
 								<c:if test="${product.fname != null }">
 									<c:set var="head"
 										value="${fn:substring(product.fname, 

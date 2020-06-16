@@ -47,18 +47,20 @@ $(document).ready(function(){
 	$("#uploadBtn").on("click",function(e){
 		var formData=new FormData();
 		var inputFile=$("input[name='fname']");
+		console.log(inputFile)
 		var files=inputFile[0].files;
-		console.log(files);
-		console.log(formData);
+		console.log("1",files);
+		/* console.log(files); */
 		for(var i=0;i<files.length;i++){
-			console.log(files[i]);
+			/* console.log(files[i]); */
  			formData.append("fname",files[i]);
+ 			console.log("12",formData.get("fname"));
 		}
+		console.log("밑:"+formData.get("fname"));	
 		$.ajax({
 			url:'/tenant/uploadAjaxAction',
 			processData:false,
 			contentType:false,
-			
 			enctype:'multipart/form-data',
 			data:formData,
 			type:'POST',
@@ -66,9 +68,8 @@ $(document).ready(function(){
 				alert('upload');
 			}
 		});
-		console.log(formData.get("fname"));
+		/* console.log(formData.get("fname")); */
 	});
-	return;
 });
 </script>
 
@@ -417,7 +418,6 @@ $(document).ready(function(){
 						<!--  -->
 						<div class="card mb-4">
 									<div class="card-body">
-										<!-- enctype="multipart/form-data" -->
 										<form action="/tenant/market/register" method="post" enctype="multipart/form-data">
 											<div class="card-body">
 												작성자: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input
@@ -432,10 +432,9 @@ $(document).ready(function(){
 
 
 											<div class="card-body">
-
 												사진:
 												<p></p>
-												<input type="file" name="fname" multiple>
+												<input type="text" name="fname" >
 													<br>
 											</div>
 											

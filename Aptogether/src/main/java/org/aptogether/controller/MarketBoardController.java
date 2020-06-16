@@ -1,11 +1,14 @@
 package org.aptogether.controller;
 
 import java.io.File;
+import java.util.List;
 
 import org.aptogether.domain.Criteria;
+import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.MarketBoardVO;
 import org.aptogether.domain.PageDTO;
 import org.aptogether.service.MarketBoardService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -25,36 +29,39 @@ import lombok.extern.log4j.Log4j;
 public class MarketBoardController {
 	
 	private MarketBoardService service;
+	
+	@RequestMapping(value="/testimg",method=RequestMethod.GET)
+	public String home(){
+		return "imgtest";
+	}
 
-	 @PostMapping("/uploadAjaxAction")
-	 public void uploadAjaxPost(MultipartFile file) {
-		 System.out.println("uploadFile"+ file);
+	 @PostMapping("/uploadAjaxAction" )
+	 public void uploadAjaxPost(MultipartHttpServletRequest request) {
+		 System.out.println("file");
+		 System.out.println("12341234");
+		 String uploadFolder = "C:\\upload";
+		List<MultipartFile> fileList = request.getFiles("fname");
+	 for (MultipartFile multipartFile :	fileList) {
 	
-	 String uploadFolder = "C://upload";
+	 log.info("-------------------------------------");
+	 log.info("Upload File Name: " + multipartFile.getOriginalFilename());
+	 log.info("Upload File Size: " + multipartFile.getSize());
 	
+	 String uploadFileName = multipartFile.getOriginalFilename();
+	 
+	 uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+	 log.info("only file name: " + uploadFileName);
 	
-//	 for (MultipartFile multipartFile : uploadFile) {
-//	
-//	 log.info("-------------------------------------");
-//	 log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-//	 log.info("Upload File Size: " + multipartFile.getSize());
-//	
-//	 String uploadFileName = multipartFile.getOriginalFilename();
-//	
-//	 uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +
-//	 1);
-//	 log.info("only file name: " + uploadFileName);
-//	
-//	 File saveFile = new File(uploadFolder, uploadFileName);
-//	
-//	 try {
-//	 multipartFile.transferTo(saveFile);
-//	 } catch (Exception e) {
-//	 log.error(e.getMessage());
-//	 } // end catch
-//	
-//	 } // end for
-//	
+	 File saveFile = new File(uploadFolder, uploadFileName);
+	
+	 try {
+	 multipartFile.transferTo(saveFile);
+	 } catch (Exception e) {
+	 log.error(e.getMessage());
+	 } // end catch
+	
+	 } // end for
+	
 	 }
 	
 	@RequestMapping("/market/insertform")
@@ -81,7 +88,9 @@ public class MarketBoardController {
 	}
 	
 	@PostMapping("/market/register")
-	public String register(MarketBoardVO market,RedirectAttributes rttr) {
+	public String register(MarketBoardVO market,RedirectAttributes rttr, Authentication auth) {
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		market.setApt_seq(user.getAptSeq());
 		log.info("register½ÇÇà");
 		service.register(market);
 		rttr.addFlashAttribute("result",market.getSeq());

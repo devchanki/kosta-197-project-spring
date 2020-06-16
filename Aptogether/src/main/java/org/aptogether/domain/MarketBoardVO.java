@@ -14,6 +14,7 @@ private String fname;
 private String contents;
 private String regdate;
 private String isSale;
+private int apt_seq;
 
 
 

@@ -20,7 +20,7 @@
 
 		,#{contents},
 		sysdate,
-		#{isSale}
+		#{isSale},#{apt_seq}
 		)
 	</insert>
 
@@ -31,7 +31,7 @@
 	<select id="listMarketProduct" resultType="org.aptogether.domain.MarketBoardVO">
 		select * from
 		Market_Product
-		order by seq desc
+		order by seq desc where apt_seq=#{apt_seq}
 	</select>
 
 	<select id="detailMarketProduct" parameterType="int"
