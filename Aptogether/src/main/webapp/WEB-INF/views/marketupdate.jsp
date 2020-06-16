@@ -353,7 +353,7 @@ font-size:10px;
     <!-- Content Row -->
           <div class="row">
 					</div>
-					<div class="row">
+					<div class="row"></div>
                         <h1 class="mt-4">중고거래 </h1>
                          
 
@@ -384,7 +384,7 @@ font-size:10px;
 </form>
    </div>
    </div>
-   </div></div>
+   </div>
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
 					<div class="container my-auto">

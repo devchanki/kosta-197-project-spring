@@ -3,7 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>  
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<sec:authentication var='principal' property='principal'/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -155,8 +157,9 @@ img {
 						var modal = $(".modal");
 						var modalInputReply = modal
 								.find("input[name='replyContents']");
-						var modalInputReplyer = modal
-								.find("input[name='replyWriter']");
+						var modalInputReplyer =/* $("#principalId").val(); */
+							 modal
+								.find("input[name='replyWriter']"); 
 						var modalInputReplyDate = modal
 								.find("input[name='replyRegdate']");
 
@@ -181,7 +184,7 @@ img {
 
 						});
 						modalRegisterBtn.on("click", function(e) {
-
+							console.log("123");
 							var reply = {
 								replyContents : modalInputReply.val(),
 								replyWriter : modalInputReplyer.val(),
@@ -244,33 +247,36 @@ img {
 
 															});
 										});
-						
-						 modalModBtn.on("click", function(e){
-						      
-						      var reply = {replyNo:modal.data("replyNo"), replyContents: modalInputReply.val()};
-						      
-						      replyservice.update(reply, function(result){
-						            
-						        alert(result);
-						        modal.modal("hide");
-						        showList(1);
-						        
-						      });
-						      
-						    });
-						   modalRemoveBtn.on("click", function (e){
-						    	  
-							  	  var replyNo = modal.data("replyNo");
-							  	  
-							  	  replyservice.remove(replyNo, function(result){
-							  	        
-							  	      alert(result);
-							  	      modal.modal("hide");
-							  	      showList(1);
-							  	      
-							  	  });
-							  	  
-							  	});
+
+						modalModBtn.on("click", function(e) {
+
+							var reply = {
+								replyNo : modal.data("replyNo"),
+								replyContents : modalInputReply.val()
+							};
+
+							replyservice.update(reply, function(result) {
+
+								alert(result);
+								modal.modal("hide");
+								showList(1);
+
+							});
+
+						});
+						modalRemoveBtn.on("click", function(e) {
+
+							var replyNo = modal.data("replyNo");
+
+							replyservice.remove(replyNo, function(result) {
+
+								alert(result);
+								modal.modal("hide");
+								showList(1);
+
+							});
+
+						});
 					});
 </script>
 <title>SB Admin 2 - Dashboard</title>
@@ -611,7 +617,8 @@ img {
 					<!-- Content Row -->
 					<div class="row"></div>
 					<div class="row">
-						<h1 class="mt-4">중고거래</h1>
+						<h1 class="mt-4">중고거래  </h1>
+						<input id="principalId" value="${principal.id}" hidden>
 
 					</div>
 
@@ -672,9 +679,14 @@ img {
 								type="submit" value="등록">
 
 						</form> --%>
-
-							<a href="modify?seq=${ product.seq }">수정</a> <a
-								href="remove?seq=${ product.seq }">삭제</a>
+							<sec:authentication property="principal" var="principal" />
+							<sec:authorize access="isAuthenticated()">
+								<c:if test="${principal.username eq product.writer}">
+			
+									<a href="modify?seq=${ product.seq }">수정</a>
+									<a href="remove?seq=${ product.seq }">삭제</a>
+								</c:if>
+							</sec:authorize>
 						</div>
 
 					</div>
@@ -701,8 +713,8 @@ img {
 															name='replyContents' value='New Reply!!!!'>
 													</div>
 													<div class="form-group">
-														<label>작성자</label> <input class="form-control"
-															name='replyWriter' value='replyer'>
+														<label>작성자</label> <input type="hidden" class="form-control"
+															name='replyWriter' Value="<sec:authentication property='principal.username'/>">
 													</div>
 													<div class="form-group">
 														<label>작성날짜</label> <input class="form-control"
@@ -828,6 +840,13 @@ img {
 		</div>
 	</div>
 
+<script type="text/javascript">
+$(document).ready(function () {
+	var name= "${principal.id}";
+	console.log(name);
+})
+
+</script>
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>

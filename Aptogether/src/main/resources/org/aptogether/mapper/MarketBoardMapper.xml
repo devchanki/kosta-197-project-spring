@@ -5,7 +5,7 @@
 
 
 <mapper namespace="org.aptogether.mapper.MarketBoardMapper">
-	<cache />
+
 
 	<insert id="insertMarketProduct" parameterType="org.aptogether.domain.MarketBoardVO">
 		insert into
@@ -66,14 +66,16 @@
 		
 	<select id="getListWithPaging" resultType="org.aptogether.domain.MarketBoardVO"> 
 		<![CDATA[ select * from ( 
-		select /*+INDEX_DESC(market_product pk_market) */ rownum rn, seq, writer, product_name, 
-		price, fname, contents, regdate,issale from Market_product where rownum <= #{pageNum} * #{amount} 
-		) where rn > (#{pageNum} -1) * #{amount} ]]>
+		select /*+INDEX_DESC(market_product pk_market) */ 
+		rownum rn, seq, writer, product_name, 
+		price, fname, contents, regdate,issale 
+		from Market_product where rownum <= #{cri.pageNum} * #{cri.amount} and apt_seq = #{apt_seq}
+		) where rn > (#{cri.pageNum} -1) * #{cri.amount} 
+		]]>
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
 		select count(*) from market_product where seq > 0
-		
 	</select>
 	
 </mapper>

@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,7 +60,7 @@ $(document).ready(function(){
 		}
 		console.log("밑:"+formData.get("fname"));	
 		$.ajax({
-			url:'/tenant/uploadAjaxAction',
+			url:'/tenant/market/register',
 			processData:false,
 			contentType:false,
 			enctype:'multipart/form-data',
@@ -410,9 +412,9 @@ $(document).ready(function(){
 				<div class="container-fluid">
 					<!-- Content Row -->
 					<div class="row"></div>
-					<div class="row">
+					<div class="row"></div>
 						<h1 class="mt-4">중고거래</h1>
-
+	
 
 
 						<!--  -->
@@ -420,8 +422,10 @@ $(document).ready(function(){
 									<div class="card-body">
 										<form action="/tenant/market/register" method="post" enctype="multipart/form-data">
 											<div class="card-body">
-												작성자: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input
-													type="text" name="writer"><br>
+												작성자: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+												<sec:authentication property='principal.username'/>
+												<input
+													type="hidden" name="writer" value="<sec:authentication property='principal.username'/>"><br>
 												<br> 판매물품 :&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input
 													type="text" name="productName"><br>
 												<br>
@@ -441,16 +445,16 @@ $(document).ready(function(){
 											<div class="card-body">
 												내용 <br>
 												<textarea rows="6" cols="70" name="contents" style="width:100%;height:100;border:1;overflow:visible;text-overflow:ellipsis;"></textarea>
-												<br> 판매중:<input type="text" name="isSale"> <input
+												<br> 판매중:<input type="text" name="isSale"> <input id='uploadBtn2'
 													type="submit" value="등록">
 											</div>
 										</form>
 										<button id='uploadBtn'>upload</button>
 									</div>
 								</div>
-							
+							</div>
 							</main>
-							</div></div></div>
+							</div></div>	</div>
 							<!-- Footer -->
 							<footer class="sticky-footer bg-white">
 								<div class="container my-auto">
@@ -461,11 +465,11 @@ $(document).ready(function(){
 							</footer>
 							<!-- End of Footer -->
 
-						</div>
+					
 					</div>
 					<!-- End of Content Wrapper -->
 
-				</div>
+				
 				<!-- End of Page Wrapper -->
 
 				<!-- Scroll to Top Button-->

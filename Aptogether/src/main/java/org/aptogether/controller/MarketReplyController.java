@@ -2,14 +2,14 @@ package org.aptogether.controller;
 
 import java.util.List;
 
-import javax.print.attribute.standard.Media;
-
 import org.aptogether.domain.Criteria;
+import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.MarketReplyVO;
 import org.aptogether.service.MarketReplyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,8 +31,10 @@ public class MarketReplyController {
 	private MarketReplyService service;
 	
 	@PostMapping(value="/new",consumes="application/json",produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> marketreplycreate(@RequestBody MarketReplyVO vo){
-		log.info("replyvo:"+vo);
+	public ResponseEntity<String> marketreplycreate(@RequestBody MarketReplyVO vo, Authentication auth){
+
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		vo.setReplyWriter(user.getMemberSeq());
 		int insertCount=service.ReplyRegister(vo);
 		log.info("reply insert count:"+insertCount);
 		return insertCount==1? new ResponseEntity<>("success",HttpStatus.OK):new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

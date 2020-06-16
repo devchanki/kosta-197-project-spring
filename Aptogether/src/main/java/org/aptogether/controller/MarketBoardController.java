@@ -1,8 +1,5 @@
 package org.aptogether.controller;
 
-import java.io.File;
-import java.util.List;
-
 import org.aptogether.domain.Criteria;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.MarketBoardVO;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -35,10 +30,8 @@ public class MarketBoardController {
 		return "imgtest";
 	}
 
-	 @PostMapping("/uploadAjaxAction" )
+	/* @PostMapping("/uploadAjaxAction" )
 	 public void uploadAjaxPost(MultipartHttpServletRequest request) {
-		 System.out.println("file");
-		 System.out.println("12341234");
 		 String uploadFolder = "C:\\upload";
 		List<MultipartFile> fileList = request.getFiles("fname");
 	 for (MultipartFile multipartFile :	fileList) {
@@ -62,7 +55,7 @@ public class MarketBoardController {
 	
 	 } // end for
 	
-	 }
+	 }*/
 	
 	@RequestMapping("/market/insertform")
 	public String insert(){
@@ -78,9 +71,11 @@ public class MarketBoardController {
 //	}
 	
 	@RequestMapping("/market/list")
-	public String list(Criteria cri,Model model) {
+	public String list(Criteria cri,Model model, Authentication auth) {
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		int userseq=user.getAptSeq();
 		log.info("list실행" + cri);
-		model.addAttribute("list",service.getlist(cri));
+		model.addAttribute("list",service.getlist(cri,userseq));
 		int total=service.getTotal(cri);
 		log.info("controller의 토탈"+total);
 		model.addAttribute("pageMarker", new PageDTO(cri,total));
@@ -94,6 +89,7 @@ public class MarketBoardController {
 		log.info("register실행");
 		service.register(market);
 		rttr.addFlashAttribute("result",market.getSeq());
+	
 		return "redirect:/tenant/market/list";
 	}
 	

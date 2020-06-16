@@ -47,11 +47,11 @@ public class MarketServiceImpl implements MarketBoardService{
 	}
 
 	@Override
-	public List<MarketBoardVO> getlist(Criteria cri) {
+	public List<MarketBoardVO> getlist(Criteria cri,int apt_seq) {
 		// TODO Auto-generated method stub
 		log.info("목록가져오기");
 		//return mapper.listMarketProduct();
-		return mapper.getListWithPaging(cri);
+		return mapper.getListWithPaging(cri,apt_seq);
 	}
 
 	@Override

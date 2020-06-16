@@ -400,7 +400,7 @@ img {
 				<div class="container-fluid">
 					<!-- Content Row -->
 					<div class="row"></div>
-					<div class="row">
+					<div class="row"></div>
 						<h1 class="mt-4">중고거래${pageMaker.total}</h1>
 
 
@@ -412,116 +412,12 @@ img {
 								<div id="columns">
 									<c:forEach var="board" items="${list}">
 										<figure>
-											<%-- 	<c:if test="${board.fname != null }">
-												<c:set var="head"
-													value="${fn:substring(board.fname, 
-												0, fn:length(board.fname)-4) }"></c:set>
-												<c:set var="pattern"
-													value="${fn:substring(board.fname, 
-						fn:length(head) +1, fn:length(board.fname)) }"></c:set>
-												<img src="/MVC/WebContent/upload/${head}_small.${pattern}">
-												<c:choose>
-													<c:when test="${pattern == 'jpg' || pattern == 'gif' }">
-														<img src="/Aptogether/upload/${head}_small.${pattern}">
-
-													</c:when>
-													<c:otherwise>
-														<c:out value="NO IMAGE"></c:out>
-													</c:otherwise>
-												</c:choose>
-											</c:if> --%>
 											<a href="get?seq=${board.seq}">
 												<figcaption>물품명:${board.productName}</figcaption>
 											</a>
 										</figure>
 									</c:forEach>
 
-									<%-- <div class="card-body" id="paginglist">
-										<c:if test="${listModel.startPage>5}">
-											<a href="listaction.do?pageNum=${listModel.startPage-1}">[이전]</a>
-										</c:if>
-										<c:forEach var="pageNo" begin="${listModel.startPage }"
-											end="${listModel.endPage }">
-											<c:choose>
-												<c:when test="${listModel.requestPage== pageNo}">
-													<a href="listaction.do?pageNum=${pageNo}">[<b>${pageNo}</b>]
-													</a>
-												</c:when>
-												<c:otherwise>
-													<a href="listaction.do?pageNum=${pageNo}">[${pageNo}]</a>
-												</c:otherwise>
-											</c:choose>
-
-										</c:forEach>
-
-										<c:if test="${listModel.endPage<listModel.totalPageCount }">
-											<a href="listaction.do?pageNum=${listModel.endPage+1}">[이후]</a>
-										</c:if>
-
-									</div> --%>
-
-									<%-- 						   <c:forEach var="board" items="${listModel.list}">
-      ${board.seq}
-      	<c:if test="${board.fname != null }">
-						<c:set var="head" value="${fn:substring(board.fname, 
-												0, fn:length(board.fname)-4) }"></c:set>
-						<c:set var="pattern" value="${fn:substring(board.fname, 
-						fn:length(head) +1, fn:length(board.fname)) }"></c:set>
-					<img src="/MVC/WebContent/upload/${head}_small.${pattern}">
-						<c:choose>
-							<c:when test="${pattern == 'jpg' || pattern == 'gif' }">
-								<img src="/Aptogether/upload/${head}_small.${pattern}">
-								
-							</c:when>
-							<c:otherwise>
-								<c:out value="NO IMAGE"></c:out>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-      ${board.writer}
-         <fmt:parseDate var="dt" value="${board.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-         <fmt:formatDate value="${dt}" pattern="yyyy/MM/dd"/>
-       </c:forEach>
-       --%>
-
-
-								 <%-- 	<div class='pull-right'>
-										<ul class="pagination">
-											<c:if test="${pageMarker.startPage>5}">
-												<a
-													href="/tenant/market/list?pageNum=${pageMarker.startPage-1}">[이전]</a>
-											</c:if>
-											<c:forEach var="pageNo" begin="${pageMarker.startPage }"
-												end="${pageMarker.endPage }">
-												<a href="/tenant/market/list??pageNum=${pageNo}">[${pageNo}]</a>
-											</c:forEach>
-
-											<c:if test="${pageMarker.endPage<pageMarker.total }">
-												<a
-													href="/tenant/market/list??pageNum=${pageMarker.endPage+1}">[이후]</a>
-											</c:if>
-										</ul>
-									</div> --%>
-
-								
-
-									<%-- 
-   <div class='pull-right'>
-					<ul class="pagination">
-					 <c:if test="${pageMarker.prev}">
-              <li class="paginate_button previous"><a href="#">Previous</a>
-              </li>
-            </c:if>
-
-            <c:forEach var="num" begin="${pageMarker.startPage}"
-              end="${pageMarker.endPage}">
-              <li class="paginate_button"><a href="#">${num}</a></li>
-            </c:forEach>
-
-            <c:if test="${pageMarker.next}">
-              <li class="paginate_button next"><a href="#">Next</a></li>
-            </c:if> 
-					</ul></div> --%>
 								</div>
 									<form id='actionForm' action="/tenant/market/list" method='get'>
 										<input type='hidden' name='pageNum'
@@ -552,6 +448,8 @@ img {
 							</div>
 						</div>
 					</div>
+					</div>
+					
 					<!-- Footer -->
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
@@ -562,7 +460,7 @@ img {
 					</footer>
 					<!-- End of Footer -->
 
-				</div>
+				
 			</div>
 			<!-- End of Content Wrapper -->
 
@@ -614,7 +512,7 @@ img {
 		<!-- Page level custom scripts -->
 		<script src="/resources/js/demo/chart-area-demo.js"></script>
 		<script src="/resources/js/demo/chart-pie-demo.js"></script>
-	</div>
+	
 	<style>
 #wannacenter {
 	text-align: center;

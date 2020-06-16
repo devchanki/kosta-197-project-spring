@@ -15,7 +15,7 @@ public interface MarketBoardService {
 	
 	public boolean remove(int seq);
 	
-	public List<MarketBoardVO> getlist(Criteria cri);
+	public List<MarketBoardVO> getlist(Criteria cri, int apt_seq);
 	
 	public int getTotal(Criteria cri);
 	
