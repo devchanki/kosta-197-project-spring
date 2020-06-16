@@ -3,11 +3,8 @@ package org.aptogether.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.aptogether.domain.NoticeCriteria;
 import org.aptogether.domain.NoticeVO;
-import org.springframework.security.access.method.P;
-
 public interface NoticeMapper {
 
 	// @Select("select * from notice where notice_seq > 0")
