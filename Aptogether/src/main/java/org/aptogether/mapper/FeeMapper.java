@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.aptogether.domain.FeeRegisterVO;
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
+import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MeterVO;
 import org.aptogether.domain.UnitPriceVO;
 import org.aptogether.domain.TenantVO;
@@ -15,18 +16,17 @@ public interface FeeMapper {
 	
 	public List<FeeRegisterVO> listFeeReg(int dong);
 	
-	public UnitPriceVO getUnitPrice(int unitPriceSeq); 
+	public List<HouseholdVO> householdInfo(int aptSeq);
 	
-	public int updateUnitPrice(UnitPriceVO unitPrice);
+	public LevyVO levyInfo(@Param("aptSeq") int aptSeq, @Param("levyDate") String levyDate);
 	
-	public int addMeter(MeterVO meter);
+	public int addFee(FeeVO fee);
 	
-	public int updateMeter(MeterVO meter);
+	public int updateFee(FeeVO fee);
 	
 	
 //	public TenantVO findMember(TenantVO user);
 	
-	public int insertFee(FeeVO fee);
 	
 	public List<FeeVO> listFee(TenantVO user);
 	

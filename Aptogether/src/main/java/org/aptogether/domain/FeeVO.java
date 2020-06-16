@@ -10,6 +10,7 @@ public class FeeVO {
 
 	private int feeSeq;
 	private int householdSeq;
+	private int levySeq;
 	private int generalBill;
 	private int securityBill;
 	private int cleaningBill;

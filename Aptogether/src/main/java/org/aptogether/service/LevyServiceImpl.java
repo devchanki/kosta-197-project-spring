@@ -34,11 +34,6 @@ public class LevyServiceImpl implements LevyService {
 		return mapper.listLevy(levy);
 	}
 	
-	@Override
-	public UnitPriceVO findUnitPriceSeq(String levyDate) {
-		
-		
-		return mapper.findUnitPriceSeq(levyDate);
-	}
+
 
 }

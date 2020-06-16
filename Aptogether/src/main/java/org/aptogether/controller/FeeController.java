@@ -23,10 +23,6 @@ public class FeeController {
 	
 	private FeeService service;
 
-	@GetMapping("/manager")
-	public String managerDashBoard(){
-		return "managerDashBoard";
-	}
 	
 	@GetMapping("/levyRegister")
 	public String levyRegister(Authentication auth){

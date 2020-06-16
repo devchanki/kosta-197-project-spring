@@ -92,72 +92,6 @@
 									  <tbody id="levyTable">
 									  </tbody>
 									</table>
-									<%--  <form action="" commandName="feeVO" method="post">
-										<div class="form-group row">
-											<label for="member_seq" class="col-sm-2 col-form-label">세대번호</label>
-											<div class="col-sm-10">
-												<input type="text" readonly class="form-control-plaintext"
-													id="member_seq" value="${memberSeq}">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="pay_date" class="col-sm-2 col-form-label">청구일자</label>
-											<div class="col-sm-10">
-												<input type="date" class="form-control" id="pay_date">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="general_fee" class="col-sm-2 col-form-label">일반관리비</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="general_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="security_fee" class="col-sm-2 col-form-label">경비비</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="security_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="cleaning_fee" class="col-sm-2 col-form-label">청소비</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="cleaning_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="fumigation_fee" class="col-sm-2 col-form-label">소독비</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="fumigation_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="lift_maintenance_fee"
-												class="col-sm-2 col-form-label">승강기유지비</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control"
-													id="lift_maintenance_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="electricity_fee" class="col-sm-2 col-form-label">전기세</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="electricity_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="water_fee" class="col-sm-2 col-form-label">수도세</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="water_fee">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label for="heating_fee" class="col-sm-2 col-form-label">난방비</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="heating_fee">
-											</div>
-										</div>
-									 </form> 
-									<button class="btn btn-primary" id="manage_fee_register">관리비 등록</button> --%>
 									
 								</div>
 							</div>
@@ -283,12 +217,47 @@
 						deadlineDate : deadlineDate.val()
 					};
 				
-					feeService.addLevy(levy, function(result) {
+   						feeService.addLevy(levy, function(result) {
 						alert("관리비 부과정보 등록완료");
 						$("#levyModal").modal('hide');
 						 location.reload();
+					});    
+					
+					
+ 					feeService.householdInfo(function(info) {
+ 						console.log(info);
+ 						
+ 						var findLevySeq = {
+ 								levyDate : levy.startCalDate,
+ 								aptSeq : info[0].aptSeq
+ 						};
+ 						
+  						feeService.levyInfo(findLevySeq, function(findLevy) {
+  							console.log(findLevy.levySeq);
+  							console.log(info);
+  							
+   							for(var i = 0, len = info.length||0; i <len; i++){
+								
+								var fee = {
+										householdSeq : info[i].householdSeq,
+										levySeq : findLevy.levySeq,
+										generalBill : 0,
+										securityBill : 0,
+										cleaningBill : 0,
+										fumigationBill : 0,
+										elevatorBill : 0,
+										electricityBill : 0,
+										waterBill : 0
+								}
+							console.log(fee); 
+								feeService.addFee(fee, function(result) {
+									console.log(result);
+								});   
+								
+							}  
+						});
 
-				});
+						}); 
 			
 			}else if(levyDate.val() == "", deadlineDate.val() != ""){
 				alert("부과년월을 선택해주세요.");
@@ -304,6 +273,7 @@
 		
 		
 		
+
 		
 		feeService.listLevy(function(list) {
 			

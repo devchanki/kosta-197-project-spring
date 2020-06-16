@@ -59,11 +59,5 @@ public class LevyRestController {
 		return new ResponseEntity<>(service.listLevy(levy), HttpStatus.OK);
 		}
 	
-	@GetMapping(value = "/findUnitPriceSeq/{levyDate}",
-			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE } )
-	public ResponseEntity<UnitPriceVO> findUnitPriceSeq(@PathVariable("levyDate") String levyDate ){
-		
-		return new ResponseEntity<>(service.findUnitPriceSeq(levyDate), HttpStatus.OK);
-	}
 	
 }

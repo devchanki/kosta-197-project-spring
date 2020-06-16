@@ -2,9 +2,11 @@ package org.aptogether.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.aptogether.domain.FeeRegisterVO;
 import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
+import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MeterVO;
 import org.aptogether.domain.TenantVO;
 import org.aptogether.domain.UnitPriceVO;
@@ -38,47 +40,37 @@ public class FeeServiceImpl implements FeeService {
 	}
 	
 	@Override
-	public UnitPriceVO getUnitPrice(int unitPriceSeq){
+	public LevyVO levyInfo(@Param("aptSeq") int aptSeq, @Param("levyDate") String levyDate) {
 		
-		log.info("unitPriceSeq" + unitPriceSeq);
 		
-		return mapper.getUnitPrice(unitPriceSeq);
-	}
-	
-	@Override
-	public int updateUnitPrice(UnitPriceVO unitPrice) {
-		
-		log.info("updateUnitPrice" + unitPrice);
-		
-		return mapper.updateUnitPrice(unitPrice);
+		return mapper.levyInfo(aptSeq, levyDate);
 	}
 	
 	
-	@Override
-	public int addMeter(MeterVO meter) {
-		
-		log.info(meter);
-		
-		return mapper.addMeter(meter);
-	}
 	
 	
 	@Override
-	public int updateMeter(MeterVO meter) {
+	public List<HouseholdVO> householdInfo(int aptSeq) {
 		
-		log.info(meter);
+		return mapper.householdInfo(aptSeq);
+	}	
+	
+
+	@Override
+	public int addFee(FeeVO fee) {
 		
-		return mapper.updateMeter(meter);
+		return mapper.addFee(fee);
 	}
 	
 
 	@Override
-	public int insertFee(FeeVO fee) {
+	public int updateFee(FeeVO fee) {
 		
-		log.info("insertFee....." + fee);
 		
-		return mapper.insertFee(fee);
+		return mapper.updateFee(fee);
 	}
+	
+	
 
 	@Override
 	public List<FeeVO> listFee(TenantVO user) {
