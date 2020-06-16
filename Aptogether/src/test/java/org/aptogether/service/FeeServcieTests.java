@@ -3,6 +3,7 @@ package org.aptogether.service;
 import static org.junit.Assert.assertNotNull;
 
 import org.aptogether.domain.FeeVO;
+import org.aptogether.domain.TenantFeeInfoVO;
 import org.aptogether.domain.TenantVO;
 import org.aptogether.mapper.FeeMapperTests;
 import org.junit.Test;
@@ -82,5 +83,14 @@ public class FeeServcieTests {
 //		
 //		service.listFeeRowNum(user).forEach(feeRowNume -> log.info(feeRowNume));
 //	}
+	
+	@Test
+	public void test(){
+		
+		TenantFeeInfoVO vo = new TenantFeeInfoVO();
+		
+		
+		service.tenantFeeInfo(15, 6).forEach(fee -> log.info(fee));
+	}
 	
 }

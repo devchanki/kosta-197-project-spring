@@ -1,7 +1,5 @@
 console.log("$Fee module$");
 
-
-
 var feeService = (function() {
 	
 	

@@ -8,6 +8,7 @@ import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
 import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MeterVO;
+import org.aptogether.domain.TenantFeeInfoVO;
 import org.aptogether.domain.UnitPriceVO;
 import org.aptogether.domain.TenantVO;
 public interface FeeMapper {
@@ -24,11 +25,7 @@ public interface FeeMapper {
 	
 	public int updateFee(FeeVO fee);
 	
+	public List<TenantFeeInfoVO> tenantFeeInfo(@Param("memberSeq") int memberSeq, @Param("rownum") int rownum);
 	
-//	public TenantVO findMember(TenantVO user);
 	
-	
-	public List<FeeVO> listFee(TenantVO user);
-	
-	public List<FeeVO>	listFeeRowNum(TenantVO user);
 }

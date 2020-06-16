@@ -70,6 +70,35 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="tenantFeeInfo" resultType="org.aptogether.domain.TenantFeeInfoVO">
+	<![CDATA[
+		select * from(
+
+					        select h.apt_seq, m.member_seq, h.household_seq, h.dong, h.ho, m.name, f.fee_seq, l.levy_seq, l.levy_date, l.deadline_date,
+					        		   f.general_bill, f.security_bill, f.cleaning_bill, f.fumigation_bill, f.elevator_bill, f.electricity_bill, f.water_bill  
+					        
+					        from member m, household h, levy l, fee f
+					        
+					        where m.household_seq = h.household_seq
+					        and h.household_seq = f.household_seq
+					        and f.levy_seq = l.levy_Seq
+					        and m.member_seq = #{memberSeq}
+					        order by levy_date desc
+							)
+	 where rownum <= #{rownum}
+	]]>
+	</select>
+	
+	
+	
 <!-- 
 	
 	<select id="listFee" parameterType="org.aptogether.domain.TenantVO" resultType="org.aptogether.domain.FeeVO">

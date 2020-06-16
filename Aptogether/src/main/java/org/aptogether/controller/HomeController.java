@@ -2,12 +2,16 @@ package org.aptogether.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.aptogether.domain.CustomKeeper;
+import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.JoinKeeperVO;
 import org.aptogether.domain.JoinTenantVO;
+import org.aptogether.domain.TenantFeeInfoVO;
 import org.aptogether.mapper.MemberMapper;
+import org.aptogether.service.FeeService;
 import org.aptogether.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +40,10 @@ public class HomeController {
 	@Autowired
 	MemberService memberService;
 	@Autowired
+	FeeService feeService;
+	@Autowired
 	MemberMapper memberMapper;
-
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -62,6 +68,62 @@ public class HomeController {
 		System.out.println(memberMapper.showNotAdmitUser(keeper.getAptSeq()));
 		model.addAttribute("waiting", memberMapper.showNotAdmitUser(keeper.getAptSeq()));
 		return "managerDashBoard";
+	}
+	@GetMapping("/tenant/dashboard")
+	public String tenantHome(Authentication auth, Model model) {
+		CustomUser user = (CustomUser) auth.getPrincipal();
+		System.out.println(user.getAptSeq());
+		List<TenantFeeInfoVO> tenantFeeInfoVO =  feeService.tenantFeeInfo(user.getMemberSeq(), 6);
+		model.addAttribute("tenantFeeInfo", tenantFeeInfoVO);
+		System.out.println(tenantFeeInfoVO.size());
+		
+		TenantFeeInfoVO last = null;
+		TenantFeeInfoVO beforeLast = null;
+		TenantFeeInfoVO thirdLast = null;
+		TenantFeeInfoVO fourthLast = null;
+		TenantFeeInfoVO fifthLast = null;
+		TenantFeeInfoVO sixthLast = null;
+
+		if (tenantFeeInfoVO != null && tenantFeeInfoVO.size() >= 6) {
+			last = tenantFeeInfoVO.get(0);
+			beforeLast = tenantFeeInfoVO.get(1);
+			thirdLast = tenantFeeInfoVO.get(2);
+			fourthLast = tenantFeeInfoVO.get(3);
+			fifthLast = tenantFeeInfoVO.get(4);
+			sixthLast = tenantFeeInfoVO.get(5);
+		} else if (tenantFeeInfoVO != null && tenantFeeInfoVO.size() == 5) {
+			last = tenantFeeInfoVO.get(0);
+			beforeLast = tenantFeeInfoVO.get(1);
+			thirdLast = tenantFeeInfoVO.get(2);
+			fourthLast = tenantFeeInfoVO.get(3);
+			fifthLast = tenantFeeInfoVO.get(4);
+		} else if (tenantFeeInfoVO != null && tenantFeeInfoVO.size() == 4) {
+			last = tenantFeeInfoVO.get(0);
+			beforeLast = tenantFeeInfoVO.get(1);
+			thirdLast = tenantFeeInfoVO.get(2);
+			fourthLast = tenantFeeInfoVO.get(3);
+		} else if (tenantFeeInfoVO != null && tenantFeeInfoVO.size() == 3) {
+			last = tenantFeeInfoVO.get(0);
+			beforeLast = tenantFeeInfoVO.get(1);
+			thirdLast = tenantFeeInfoVO.get(2);
+		} else if (tenantFeeInfoVO != null && tenantFeeInfoVO.size() == 2) {
+			last = tenantFeeInfoVO.get(0);
+			beforeLast = tenantFeeInfoVO.get(1);
+			System.out.println(last);
+			
+		} else if (tenantFeeInfoVO != null && tenantFeeInfoVO.size() == 1) {
+			last = tenantFeeInfoVO.get(0);
+			System.out.println(last);
+		}
+		
+		model.addAttribute("last", last);
+		model.addAttribute("beforeLast", beforeLast);
+		model.addAttribute("thirdLast", thirdLast);
+		model.addAttribute("fourthLast", fourthLast);
+		model.addAttribute("fifthLast", fifthLast);
+		model.addAttribute("sixthLast", sixthLast);
+		
+		return "userDashBoard";
 	}
 	@GetMapping("/tenant/a")
 	public String test() {

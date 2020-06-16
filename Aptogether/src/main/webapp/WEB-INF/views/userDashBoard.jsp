@@ -1,18 +1,19 @@
+<%@page import="org.aptogether.domain.TenantFeeInfoVO"%>
 <%@page import="org.aptogether.domain.FeeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <%
-   List<FeeVO> list = (List<FeeVO>) request.getAttribute("list");
-   List<FeeVO> listReverse = new ArrayList<FeeVO>();
+<%
+   List<TenantFeeInfoVO> list = (List<TenantFeeInfoVO>) request.getAttribute("tenantFeeInfo");
+   List<TenantFeeInfoVO> listReverse = new ArrayList<TenantFeeInfoVO>();
    if (list != null) {
    	for (int i = list.size() - 1; i >= 0; i--) {
    		listReverse.add(list.get(i));
    	}
    	request.setAttribute("reverseFee", listReverse);
    }
-   %> --%>
+   %>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -24,47 +25,45 @@
       <meta name="author" content="">
       <title>안녕하세요. 아파투게더입니다.</title>
       <!-- Custom fonts for this template-->
-      <link href="/resources/vendor/fontawesome-free/css/all.min.css"
-         rel="stylesheet" type="text/css">
-      <link
-         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-         rel="stylesheet">
+      <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <link  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"  rel="stylesheet">
       <!-- Custom styles for this template-->
       <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
       <script type="text/javascript">
-         var data = [];
-         var label = [];
-         <c:forEach items="${reverseFee}" var="fee">
-         	console.log("${fee}");
-         	data.push(${fee.getTotalValue()});
-         	console.log("${fee.pay_date}");
-         	var tmpDate = new Date("${fee.pay_date}");
+			var data = [];
+			var label = [];
+			
+			<c:forEach items="${reverseFee}" var = "feeInfo">
+			console.log("${feeInfo}");
+			data.push(${feeInfo.getTotalFee()});
+			console.log("${feeInfo.deadlineDate}");
+			var tmpDate = new Date("${feeInfo.deadlineDate}");
          	console.log(tmpDate);
          	console.log(tmpDate.getFullYear());
          	label.push(tmpDate.getFullYear() + "-" + (tmpDate.getMonth()+1));
-         </c:forEach>
-         
-         var pieData1 = [${last.getGeneral_fee()}, ${last.getSecurity_fee()}, ${last.getCleaning_fee()}, ${last.getFumigation_fee()},
-         	${last.getLift_maintenance_fee()}, ${last.getElectricity_fee()}, ${last.getWater_fee()}, ${last.getHeating_fee()} ];
-         var pieData2 = [${beforeLast.getGeneral_fee()}, ${beforeLast.getSecurity_fee()}, ${beforeLast.getCleaning_fee()}, ${beforeLast.getFumigation_fee()},
-         	${beforeLast.getLift_maintenance_fee()}, ${beforeLast.getElectricity_fee()}, ${beforeLast.getWater_fee()}, ${beforeLast.getHeating_fee()} ];
-         var pieData3= [${thirdLast.getGeneral_fee()}, ${thirdLast.getSecurity_fee()}, ${thirdLast.getCleaning_fee()}, ${thirdLast.getFumigation_fee()},
-         	${thirdLast.getLift_maintenance_fee()}, ${thirdLast.getElectricity_fee()}, ${thirdLast.getWater_fee()}, ${thirdLast.getHeating_fee()} ];
-         var pieData4 = [${fourthLast.getGeneral_fee()}, ${fourthLast.getSecurity_fee()}, ${fourthLast.getCleaning_fee()}, ${fourthLast.getFumigation_fee()},
-         	${fourthLast.getLift_maintenance_fee()}, ${fourthLast.getElectricity_fee()}, ${fourthLast.getWater_fee()}, ${fourthLast.getHeating_fee()} ];
-         var pieData5 = [${fifthLast.getGeneral_fee()}, ${fifthLast.getSecurity_fee()}, ${fifthLast.getCleaning_fee()}, ${fifthLast.getFumigation_fee()},
-         	${fifthLast.getLift_maintenance_fee()}, ${fifthLast.getElectricity_fee()}, ${fifthLast.getWater_fee()}, ${fifthLast.getHeating_fee()} ];
-         var pieData6 = [${sixthLast.getGeneral_fee()}, ${sixthLast.getSecurity_fee()}, ${sixthLast.getCleaning_fee()}, ${sixthLast.getFumigation_fee()},
-         	${sixthLast.getLift_maintenance_fee()}, ${sixthLast.getElectricity_fee()}, ${sixthLast.getWater_fee()}, ${sixthLast.getHeating_fee()} ];
-         
-         
-         pieData1.push;
-         pieData2.push;
-         pieData3.push;
-         pieData4.push;
-         pieData5.push;
-         pieData6.push;
-      </script>
+			</c:forEach>
+			
+	          var pieData1 = [${last.getGeneralBill()}, ${last.getSecurityBill()}, ${last.getCleaningBill()}, ${last.getFumigationBill()},
+	          							${last.getElevatorBill()}, ${last.getElectricityBill()}, ${last.getWaterBill()} ];
+	          var pieData2 = [${beforeLast.getGeneralBill()}, ${beforeLast.getSecurityBill()}, ${beforeLast.getCleaningBill()}, ${beforeLast.getFumigationBill()},
+	          							${beforeLast.getElevatorBill()}, ${beforeLast.getElectricityBill()}, ${beforeLast.getWaterBill()} ];
+	          var pieData3= [${thirdLast.getGeneralBill()}, ${thirdLast.getSecurityBill()}, ${thirdLast.getCleaningBill()}, ${thirdLast.getFumigationBill()},
+	          							${thirdLast.getElevatorBill()}, ${thirdLast.getElectricityBill()}, ${thirdLast.getWaterBill()} ];
+	          var pieData4 = [${fourthLast.getGeneralBill()}, ${fourthLast.getSecurityBill()}, ${fourthLast.getCleaningBill()}, ${fourthLast.getFumigationBill()},
+	          							${fourthLast.getElevatorBill()}, ${fourthLast.getElectricityBill()}, ${fourthLast.getWaterBill()} ];
+	          var pieData5 = [${fifthLast.getGeneralBill()}, ${fifthLast.getSecurityBill()}, ${fifthLast.getCleaningBill()}, ${fifthLast.getFumigationBill()},
+	          							${fifthLast.getElevatorBill()}, ${fifthLast.getElectricityBill()}, ${fifthLast.getWaterBill()} ];
+	          var pieData6 = [${sixthLast.getGeneralBill()}, ${sixthLast.getSecurityBill()}, ${sixthLast.getCleaningBill()}, ${sixthLast.getFumigationBill()},
+	          							${sixthLast.getElevatorBill()}, ${sixthLast.getElectricityBill()}, ${sixthLast.getWaterBill()} ];
+	          
+	          
+	          pieData1.push;
+	          pieData2.push;
+	          pieData3.push;
+	          pieData4.push;
+	          pieData5.push;
+	          pieData6.push;
+    </script>
    </head>
    <body id="page-top">
       <!-- Page Wrapper -->
@@ -76,7 +75,7 @@
             <!-- Page Heading -->
             <div
                class="d-sm-flex align-items-center justify-content-between mb-4">
-               <h1 class="h3 mb-0 text-gray-800">${member.name }님환영합니다</h1>
+               <h1 class="h3 mb-0 text-gray-800"><c:out value="${last.getName()}"/>님환영합니다</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -92,7 +91,7 @@
                      <div class="card" style="margin: 30px 115px 20px 115px;"
                         align="center">
                         <div class="card-body">
-                           <img src="/Aptogether/css/image/receipt.png" alt="관리비"
+                           <img src="/resources/img/receipt.png" alt="관리비"
                               style="width: 100px; height: 100px; float: left;">
                            <c:choose>
                               <c:when test="${last eq null}">
@@ -103,38 +102,47 @@
                               </c:when>
                               <c:otherwise>
                                  <h5 class="card-title">
-                                    <fmt:parseDate var="date" value="${last.pay_date}"
+                                    <fmt:parseDate var="date" value="${last.levyDate}"
                                        pattern="yyyy-MM-dd HH:mm:ss" />
-                                    <fmt:formatDate value="${date }" pattern="yyyy년 MM월 관리비 " />
+                                    <fmt:formatDate value="${date}" pattern="yyyy년 MM월 관리비 " />
                                  </h5>
                                  <h3 class="card-text">
-                                    <b> ${ last.getTotalValue()}원</b>
+                                    <b> ${ last.getTotalFee()}원</b>
                                  </h3>
                                  <p class="card-text">
                                     <small class="text-muted">
                                        전월대비 
                                        <c:choose>
                                           <c:when
-                                             test="${last.getTotalValue() gt beforeLast.getTotalValue()}">
-                                             <img src="/Aptogether/css/image/up.png" alt="up"
+                                             test="${last.getTotalFee() gt beforeLast.getTotalFee()}">
+                                             <img src="/resources/img/up.png" alt="up"
                                                 style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                             ${last.getTotalValue() - beforeLast.getTotalValue()}원 증가
+                                             ${last.getTotalFee() - beforeLast.getTotalFee()}원 증가
                                           </c:when>
                                           <c:when
-                                             test="${last.getTotalValue() lt beforeLast.getTotalValue()}">
-                                             <img src="/Aptogether/css/image/down.png" alt="down"
+                                             test="${last.getTotalFee() lt beforeLast.getTotalFee()}">
+                                             <img src="/resources/img/down.png" alt="down"
                                                 style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                             ${beforeLast.getTotalValue() - last.getTotalValue()}원 감소
+                                             ${beforeLast.getTotalFee() - last.getTotalFee()}원 감소
                                           </c:when>
                                           <c:when
-                                             test="${last.getTotalValue() eq beforeLast.getTotalValue()}">
-                                             <img src="/Aptogether/css/image/equal.png" alt="down"
+                                             test="${last.getTotalFee() eq beforeLast.getTotalFee()}">
+                                             <img src="/resources/img/equal.png" alt="down"
                                                 style="width: 20px; height: 20px; padding-bottom: 3px;">
                                              관리비 부과액이 같습니다(증감액 0원)
                                           </c:when>
                                        </c:choose>
                                     </small>
                                  </p>
+                                 <p class="card-text">
+                                          <small class="text-muted">
+                                             <fmt:parseDate
+                                                var="date" value="${last.deadlineDate}"
+                                                pattern="yyyy-MM-dd HH:mm:ss" />
+                                             <fmt:formatDate
+                                                value="${date }" pattern="납부기한 : yyyy년 MM월 dd일 까지 " />
+                                          </small>
+                                  </p>
                               </c:otherwise>
                            </c:choose>
                         </div>
@@ -156,7 +164,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">관리비 상세내역</h6>
                      </div>
                      <div class="accordion" id="accordionExample">
-                        <div class="card">
+<%--                         <div class="card">
                            <div class="card-header" id="headingOne">
                               <h2 class="mb-0">
                                  <button class="btn btn-link" type="button"
@@ -176,7 +184,7 @@
                                        <table class="table">
                                           <tr>
                                              <td>당월부과액</td>
-                                             <td>${ last.getTotalValue() }원</td>
+                                             <td>${ last.getTotalFee() }원</td>
                                           </tr>
                                           <tr>
                                              <td>미납액</td>
@@ -198,7 +206,7 @@
                                        <p class="card-text">
                                           <small class="text-muted">
                                              <fmt:parseDate
-                                                var="date" value="${last.pay_date}"
+                                                var="date" value="${last.deadlineDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="납부기한 : yyyy년 MM월 dd일 까지 " />
@@ -208,7 +216,7 @@
                                  </c:choose>
                               </div>
                            </div>
-                        </div>
+                        </div> --%>
                         <div class="card">
                            <div class="card-header" id="headingTwo">
                               <h2 class="mb-0">
@@ -234,194 +242,170 @@
                                           <tbody>
                                              <tr>
                                                 <td>일반관리비</td>
-                                                <td>${ beforeLast.getGeneral_fee() }원</td>
+                                                <td>${ beforeLast.getGeneralBill() }원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getGeneral_fee() gt beforeLast.getGeneral_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getGeneralBill() gt beforeLast.getGeneralBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getGeneral_fee() lt beforeLast.getGeneral_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getGeneralBill() lt beforeLast.getGeneralBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getGeneral_fee() eq beforeLast.getGeneral_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getGeneralBill() eq beforeLast.getGeneralBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${ last.getGeneral_fee() }원
+                                                   ${ last.getGeneralBill() }원
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td>경비비</td>
-                                                <td>${ beforeLast.getSecurity_fee()}원</td>
+                                                <td>${ beforeLast.getSecurityBill()}원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getSecurity_fee() gt beforeLast.getSecurity_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getSecurityBill() gt beforeLast.getSecurityBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getSecurity_fee() lt beforeLast.getSecurity_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getSecurityBill() lt beforeLast.getSecurityBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getSecurity_fee() eq beforeLast.getSecurity_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getSecurityBill() eq beforeLast.getSecurityBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${ last.getSecurity_fee()}원
+                                                   ${ last.getSecurityBill()}원
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td>청소비</td>
-                                                <td>${ beforeLast.getCleaning_fee() }원</td>
+                                                <td>${ beforeLast.getCleaningBill() }원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getCleaning_fee() gt beforeLast.getCleaning_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getCleaningBill() gt beforeLast.getCleaningBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getCleaning_fee() lt beforeLast.getCleaning_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getCleaningBill() lt beforeLast.getCleaningBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getCleaning_fee() eq beforeLast.getCleaning_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getCleaningBill() eq beforeLast.getCleaningBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${ last.getCleaning_fee() }원
+                                                   ${ last.getCleaningBill() }원
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td>소독비</td>
-                                                <td>${beforeLast.getFumigation_fee()}원</td>
+                                                <td>${beforeLast.getFumigationBill()}원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getFumigation_fee() gt beforeLast.getFumigation_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getFumigationBill() gt beforeLast.getFumigationBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getFumigation_fee() lt beforeLast.getFumigation_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getFumigationBill() lt beforeLast.getFumigationBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getFumigation_fee() eq beforeLast.getFumigation_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getFumigationBill() eq beforeLast.getFumigationBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${last.getFumigation_fee()}원
+                                                   ${last.getFumigationBill()}원
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td>승강비유지비</td>
-                                                <td>${beforeLast.getLift_maintenance_fee()}원</td>
+                                                <td>${beforeLast.getElevatorBill()}원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getLift_maintenance_fee() gt beforeLast.getLift_maintenance_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getElevatorBill() gt beforeLast.getElevatorBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getLift_maintenance_fee() lt beforeLast.getLift_maintenance_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getElevatorBill() lt beforeLast.getElevatorBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getLift_maintenance_fee() eq beforeLast.getLift_maintenance_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getElevatorBill() eq beforeLast.getElevatorBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${last.getLift_maintenance_fee()}원
+                                                   ${last.getElevatorBill()}원
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td>전기세</td>
-                                                <td>${beforeLast.getElectricity_fee()}원</td>
+                                                <td>${beforeLast.getElectricityBill()}원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getElectricity_fee() gt beforeLast.getElectricity_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getElectricityBill() gt beforeLast.getElectricityBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getElectricity_fee() lt beforeLast.getElectricity_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getElectricityBill() lt beforeLast.getElectricityBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getElectricity_fee() eq beforeLast.getElectricity_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getElectricityBill() eq beforeLast.getElectricityBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${last.getElectricity_fee()}원
+                                                   ${last.getElectricityBill()}원
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td>수도세</td>
-                                                <td>${beforeLast.getWater_fee()}원</td>
+                                                <td>${beforeLast.getWaterBill()}원</td>
                                                 <td>
                                                    <c:choose>
                                                       <c:when
-                                                         test="${last.getWater_fee() gt beforeLast.getWater_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
+                                                         test="${last.getWaterBill() gt beforeLast.getWaterBill()}">
+                                                         <img src="/resources/img/up.png" alt="up"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getWater_fee() lt beforeLast.getWater_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
+                                                         test="${last.getWaterBill() lt beforeLast.getWaterBill()}">
+                                                         <img src="/resources/img/down.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                       <c:when
-                                                         test="${last.getWater_fee() eq beforeLast.getWater_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
+                                                         test="${last.getWaterBill() eq beforeLast.getWaterBill()}">
+                                                         <img src="/resources/img/equal.png" alt="down"
                                                             style="width: 20px; height: 20px; padding-bottom: 3px;">
                                                       </c:when>
                                                    </c:choose>
-                                                   ${last.getWater_fee()}원
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td>난방비</td>
-                                                <td>${beforeLast.getHeating_fee()}원</td>
-                                                <td>
-                                                   <c:choose>
-                                                      <c:when
-                                                         test="${last.getHeating_fee() gt beforeLast.getHeating_fee()}">
-                                                         <img src="/Aptogether/css/image/up.png" alt="up"
-                                                            style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                                      </c:when>
-                                                      <c:when
-                                                         test="${last.getHeating_fee() lt beforeLast.getHeating_fee()}">
-                                                         <img src="/Aptogether/css/image/down.png" alt="down"
-                                                            style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                                      </c:when>
-                                                      <c:when
-                                                         test="${last.getHeating_fee() eq beforeLast.getHeating_fee()}">
-                                                         <img src="/Aptogether/css/image/equal.png" alt="down"
-                                                            style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                                      </c:when>
-                                                   </c:choose>
-                                                   ${last.getHeating_fee()}원
+                                                   ${last.getWaterBill()}원
                                                 </td>
                                              </tr>
                                           </tbody>
@@ -436,35 +420,31 @@
                                           <tbody>
                                              <tr>
                                                 <td>일반관리비</td>
-                                                <td>${last.getGeneral_fee()}원</td>
+                                                <td>${last.getGeneralBill()}원</td>
                                              </tr>
                                              <tr>
                                                 <td>경비비</td>
-                                                <td>${last.getSecurity_fee()}원</td>
+                                                <td>${last.getSecurityBill()}원</td>
                                              </tr>
                                              <tr>
                                                 <td>청소비</td>
-                                                <td>${last.getCleaning_fee()}원</td>
+                                                <td>${last.getCleaningBill()}원</td>
                                              </tr>
                                              <tr>
                                                 <td>소독비</td>
-                                                <td>${last.getFumigation_fee()}원</td>
+                                                <td>${last.getFumigationBill()}원</td>
                                              </tr>
                                              <tr>
                                                 <td>승강비유지비</td>
-                                                <td>${last.getLift_maintenance_fee()}원</td>
+                                                <td>${last.getElevatorBill()}원</td>
                                              </tr>
                                              <tr>
                                                 <td>전기세</td>
-                                                <td>${last.getElectricity_fee()}원</td>
+                                                <td>${last.getElectricityBill()}원</td>
                                              </tr>
                                              <tr>
                                                 <td>수도세</td>
-                                                <td>${last.getWater_fee()}원</td>
-                                             </tr>
-                                             <tr>
-                                                <td>난방비</td>
-                                                <td>${last.getHeating_fee()}원</td>
+                                                <td>${last.getWaterBill()}원</td>
                                              </tr>
                                           </tbody>
                                        </c:when>
@@ -497,12 +477,12 @@
                                     <tbody>
                                        <tr>
                                           <td>
-                                             <fmt:parseDate var="date" value="${last.pay_date}"
+                                             <fmt:parseDate var="date" value="${last.levyDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="yyyy년 MM월" />
                                           </td>
-                                          <td>${last.getTotalValue()}원</td>
+                                          <td>${last.getTotalFee()}원</td>
                                           <td>
                                              <!-- Button trigger modal -->
                                              <button type="button" class="btn btn-primary"
@@ -541,9 +521,7 @@
                                                                class="fas fa-circle text-warning"></i>전기세
                                                             </span> <span class="mr-2"> <i
                                                                class="fas fa-circle text-info"></i>수도세
-                                                            </span> <span class="mr-2"> <i
-                                                               class="fas fa-circle text-danger"></i>난방비
-                                                            </span>
+                                                            </span> 
                                                          </div>
                                                       </div>
                                                       <div class="modal-footer">
@@ -558,12 +536,12 @@
                                        <tr>
                                           <td>
                                              <fmt:parseDate var="date"
-                                                value="${beforeLast.pay_date}"
+                                                value="${beforeLast.levyDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="yyyy년 MM월" />
                                           </td>
-                                          <td>${beforeLast.getTotalValue()}원</td>
+                                          <td>${beforeLast.getTotalFee()}원</td>
                                           <td>
                                              <!-- Button trigger modal -->
                                              <button type="button" class="btn btn-primary"
@@ -602,8 +580,6 @@
                                                                class="fas fa-circle text-warning"></i>전기세
                                                             </span> <span class="mr-2"> <i
                                                                class="fas fa-circle text-info"></i>수도세
-                                                            </span> <span class="mr-2"> <i
-                                                               class="fas fa-circle text-danger"></i>난방비
                                                             </span>
                                                          </div>
                                                       </div>
@@ -619,12 +595,12 @@
                                        <tr>
                                           <td>
                                              <fmt:parseDate var="date"
-                                                value="${thirdLast.pay_date}"
+                                                value="${thirdLast.levyDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="yyyy년 MM월" />
                                           </td>
-                                          <td>${thirdLast.getTotalValue()}원</td>
+                                          <td>${thirdLast.getTotalFee()}원</td>
                                           <td>
                                              <!-- Button trigger modal -->
                                              <button type="button" class="btn btn-primary"
@@ -663,8 +639,6 @@
                                                                class="fas fa-circle text-warning"></i>전기세
                                                             </span> <span class="mr-2"> <i
                                                                class="fas fa-circle text-info"></i>수도세
-                                                            </span> <span class="mr-2"> <i
-                                                               class="fas fa-circle text-danger"></i>난방비
                                                             </span>
                                                          </div>
                                                       </div>
@@ -680,12 +654,12 @@
                                        <tr>
                                           <td>
                                              <fmt:parseDate var="date"
-                                                value="${fourthLast.pay_date}"
+                                                value="${fourthLast.levyDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="yyyy년 MM월" />
                                           </td>
-                                          <td>${fourthLast.getTotalValue()}원</td>
+                                          <td>${fourthLast.getTotalFee()}원</td>
                                           <td>
                                              <!-- Button trigger modal -->
                                              <button type="button" class="btn btn-primary"
@@ -724,8 +698,6 @@
                                                                class="fas fa-circle text-warning"></i>전기세
                                                             </span> <span class="mr-2"> <i
                                                                class="fas fa-circle text-info"></i>수도세
-                                                            </span> <span class="mr-2"> <i
-                                                               class="fas fa-circle text-danger"></i>난방비
                                                             </span>
                                                          </div>
                                                       </div>
@@ -741,12 +713,12 @@
                                        <tr>
                                           <td>
                                              <fmt:parseDate var="date"
-                                                value="${fifthLast.pay_date}"
+                                                value="${fifthLast.levyDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="yyyy년 MM월" />
                                           </td>
-                                          <td>${fifthLast.getTotalValue()}원</td>
+                                          <td>${fifthLast.getTotalFee()}원</td>
                                           <td>
                                              <!-- Button trigger modal -->
                                              <button type="button" class="btn btn-primary"
@@ -785,8 +757,6 @@
                                                                class="fas fa-circle text-warning"></i>전기세
                                                             </span> <span class="mr-2"> <i
                                                                class="fas fa-circle text-info"></i>수도세
-                                                            </span> <span class="mr-2"> <i
-                                                               class="fas fa-circle text-danger"></i>난방비
                                                             </span>
                                                          </div>
                                                       </div>
@@ -802,12 +772,12 @@
                                        <tr>
                                           <td>
                                              <fmt:parseDate var="date"
-                                                value="${sixthLast.pay_date}"
+                                                value="${sixthLast.levyDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
                                                 value="${date }" pattern="yyyy년 MM월" />
                                           </td>
-                                          <td>${sixthLast.getTotalValue()}원</td>
+                                          <td>${sixthLast.getTotalFee()}원</td>
                                           <td>
                                              <!-- Button trigger modal -->
                                              <button type="button" class="btn btn-primary"
@@ -846,8 +816,6 @@
                                                                class="fas fa-circle text-warning"></i>전기세
                                                             </span> <span class="mr-2"> <i
                                                                class="fas fa-circle text-info"></i>수도세
-                                                            </span> <span class="mr-2"> <i
-                                                               class="fas fa-circle text-danger"></i>난방비
                                                             </span>
                                                          </div>
                                                       </div>
@@ -900,6 +868,8 @@
       <script
          src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
       <script src="/resources/js/demo/datatables-demo.js"></script>
+
+
    </body>
 </html>
 

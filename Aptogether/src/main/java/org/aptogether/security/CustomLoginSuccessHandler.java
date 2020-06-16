@@ -25,9 +25,11 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		CustomUser user = (CustomUser) authentication.getPrincipal();
 		System.out.println(user);
 		if (user.getType().equals("ROLE_TENANT")) {
-			response.sendRedirect("/tenant/main");
+			response.sendRedirect("/tenant/dashboard");
+			return;
 		} else if (user.getType().equals("ROLE_KEEPER")) {
-			response.sendRedirect("/keeper/main");
+			response.sendRedirect("/keeper/dashboard");
+			return;
 		} else {
 			
 		}

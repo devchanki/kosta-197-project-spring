@@ -8,6 +8,7 @@ import org.aptogether.domain.FeeVO;
 import org.aptogether.domain.HouseholdVO;
 import org.aptogether.domain.LevyVO;
 import org.aptogether.domain.MeterVO;
+import org.aptogether.domain.TenantFeeInfoVO;
 import org.aptogether.domain.TenantVO;
 import org.aptogether.domain.UnitPriceVO;
 import org.aptogether.mapper.FeeMapper;
@@ -73,19 +74,11 @@ public class FeeServiceImpl implements FeeService {
 	
 
 	@Override
-	public List<FeeVO> listFee(TenantVO user) {
+	public List<TenantFeeInfoVO> tenantFeeInfo(@Param("memberSeq") int memberSeq, @Param("rownum") int rownum) {
 		
-		log.info("listFee.....");
+		log.info("memberSeq  : " + memberSeq + ", rownum : " + rownum);
 		
-		return mapper.listFee(user);
-	}
-
-	@Override
-	public List<FeeVO> listFeeRowNum(TenantVO user) {
-		
-		log.info("list fee up to 6 order by paydate desc");
-		
-		return mapper.listFeeRowNum(user);
+		return mapper.tenantFeeInfo(memberSeq, rownum);
 	}
 
 }
