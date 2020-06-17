@@ -639,7 +639,7 @@ img {
 								<!-- <div class="card-body"> -->
 								<%-- <a href="/Aptogether/download.jsp?filename=${product.fname}">${product.fname}</a> --%>
 							<%-- 	<img src="<spring:url value='/resources/img/apt.jpg'/>"> --%>
-								<img src="<spring:url value='/resources/img/${product.fname}'/>">
+								<img src="<spring:url value='/tenant/download?fileName=${product.fname}'/>">
 								<%-- <c:if test="${product.fname != null }">
 									<c:set var="head"
 										value="${fn:substring(product.fname, 

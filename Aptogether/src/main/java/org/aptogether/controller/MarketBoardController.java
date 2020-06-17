@@ -1,20 +1,30 @@
 package org.aptogether.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.aptogether.domain.Criteria;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.MarketBoardVO;
 import org.aptogether.domain.PageDTO;
 import org.aptogether.service.MarketBoardService;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,7 +48,7 @@ public class MarketBoardController {
 	@PostMapping("/uploadAjaxAction" )
 	 public void uploadAjaxPost(MultipartHttpServletRequest request) {
 		 String uploadFolder = "C:\\upload";
-		List<MultipartFile> fileList = request.getFiles("fname");
+		List<MultipartFile> fileList = request.getFiles("fnames");
 	 for (MultipartFile multipartFile :	fileList) {
 	
 	 log.info("-------------------------------------");
@@ -61,6 +71,30 @@ public class MarketBoardController {
 	 } // end for
 	
 	 }
+	
+	 @GetMapping(value = "/download", produces =
+		 MediaType.APPLICATION_OCTET_STREAM_VALUE)
+		 @ResponseBody
+		 public ResponseEntity<org.springframework.core.io.Resource> downloadFile(String fileName) {
+		
+		 log.info("download file: " + fileName);
+		
+		 org.springframework.core.io.Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
+		
+		 log.info("resource: " + resource);
+		
+		 String resourceName = resource.getFilename();
+		
+		 HttpHeaders headers = new HttpHeaders();
+		 try {
+		 headers.add("Content-Disposition",
+		 "attachment; filename=" + new String(resourceName.getBytes("UTF-8"),
+		 "ISO-8859-1"));
+		 } catch (UnsupportedEncodingException e) {
+		 e.printStackTrace();
+		 }
+		 return new ResponseEntity<org.springframework.core.io.Resource>(resource,headers, HttpStatus.OK);
+		 }
 	
 	@RequestMapping("/market/insertform")
 	public String insert(){

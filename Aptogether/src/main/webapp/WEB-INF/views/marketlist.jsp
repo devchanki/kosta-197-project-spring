@@ -429,7 +429,7 @@ img {
 								<div id="columns">
 									<c:forEach var="board" items="${list}">
 										<figure>
-										<img src="<spring:url value='/resources/img/${board.fname}'/>">
+										<img src="<spring:url value='/tenant/download?fileName=${board.fname}'/>">
 											<a href="get?seq=${board.seq}">
 												<figcaption>물품명:${board.productName}</figcaption>
 											</a>
