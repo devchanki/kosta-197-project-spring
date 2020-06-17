@@ -13,7 +13,7 @@
    	}
    	request.setAttribute("reverseFee", listReverse);
    }
-   %>
+%>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -29,6 +29,41 @@
       <link  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"  rel="stylesheet">
       <!-- Custom styles for this template-->
       <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+      <style type="text/css">
+      .card-body .table{
+          	color: black;
+    	  	font-weight: bolder;
+    	}
+		.card-body .table thead tr{
+			height: 60px;
+		} 
+		.card-body .table thead tr th{
+			vertical-align: middle;
+		} 		
+		.card-body .table tbody tr {
+			height: 60px;
+		}
+		.card-body .table tbody tr td{
+			vertical-align: middle;
+		}		
+		.pieCharts canvas{
+			display: inline;
+		}
+		.pieCharts{
+			float: left;
+			width: 300px;
+			margin: 15px 15px 0 10px;
+		}
+		.pieDate{
+			position: relative;
+			left: 95px;
+		}
+		.pieFee{
+			    position: relative;
+			    left: 115px;
+			    top: 15px;
+		}
+      </style>
       <script type="text/javascript">
 			var data = [];
 			var label = [];
@@ -71,82 +106,78 @@
          <!-- Sidebar -->
          <%@ include file="userMenu.jsp"%>
          <!-- Begin Page Content -->
-         <div class="container-fluid">
+          <div class="container-fluid">
             <!-- Page Heading -->
-            <div
-               class="d-sm-flex align-items-center justify-content-between mb-4">
-               <h1 class="h3 mb-0 text-gray-800"><c:out value="${last.getName()}"/>님환영합니다</h1>
+            <div  class="d-sm-flex align-items-center justify-content-between mb-4">
+               <h1 class="h3 mb-0 text-gray-800"><c:out value="${last.getName()}"/>님 환영합니다</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
                <!-- 관리비조회 -->
-               <div class="col-xl-7 col-lg-7">
+               <div class="col-xl-8 col-lg-8">
                   <div class="card shadow mb-4">
                      <!-- Card Header - Dropdown -->
-                     <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">관리비 추이</h6>
+                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="font-weight: bolder;color: #4e73df!important;">
+              	        <fmt:parseDate var="date" value="${last.levyDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                        <fmt:formatDate value="${date}" pattern="yyyy년 MM월 관리비 " />
                      </div>
                      <!-- Card Body1 -->
-                     <div class="card" style="margin: 30px 115px 20px 115px;"
-                        align="center">
                         <div class="card-body">
-                           <img src="/resources/img/receipt.png" alt="관리비"
-                              style="width: 100px; height: 100px; float: left;">
-                           <c:choose>
-                              <c:when test="${last eq null}">
-                                 <h5 class="card-title">고지된 관리비가 없습니다.</h5>
-                                 <h3 class="card-text">
-                                    <b id="thisMonthFee"> 현재 관리비가 존재하지 않습니다. </b>
-                                 </h3>
-                              </c:when>
-                              <c:otherwise>
-                                 <h5 class="card-title">
-                                    <fmt:parseDate var="date" value="${last.levyDate}"
-                                       pattern="yyyy-MM-dd HH:mm:ss" />
-                                    <fmt:formatDate value="${date}" pattern="yyyy년 MM월 관리비 " />
-                                 </h5>
-                                 <h3 class="card-text">
-                                    <b> ${ last.getTotalFee()}원</b>
-                                 </h3>
+                        	<div class="cardContent1" style="float: left;">
+                           		<img src="/resources/img/receipt.png" alt="관리비" style="width: 100px; height: 100px;">
+                        	</div>
+                        	<div class="cardContent2" style="float: left;height: 100px;margin: 10px 0 5px 15px;">
+                                 <c:choose>
+	                               <c:when test="${last eq null}">
+	                                 <h5 class="card-title">고지된 관리비가 없습니다.</h5>
+	                                 <h3 class="card-text">
+	                                    <b id="thisMonthFee"> 현재 관리비가 존재하지 않습니다. </b>
+	                                 </h3>
+	                               </c:when>
+	                               <c:otherwise>
+	                                 <h1 class="card-text">
+	                                    <b>${last.getTotalFee()}원</b>
+	                                 </h1>
+		                              <p class="card-text">
+	                                    
+	                                       전월대비 
+	                                       <c:choose>
+	                                          <c:when
+	                                             test="${last.getTotalFee() gt beforeLast.getTotalFee()}">
+	                                             <img src="/resources/img/up.png" alt="up"
+	                                                style="width: 20px; height: 20px; padding-bottom: 3px;">
+	                                             ${last.getTotalFee() - beforeLast.getTotalFee()}원
+	                                          </c:when>
+	                                          <c:when
+	                                             test="${last.getTotalFee() lt beforeLast.getTotalFee()}">
+	                                             <img src="/resources/img/down.png" alt="down"
+	                                                style="width: 20px; height: 20px; padding-bottom: 3px;">
+	                                             ${beforeLast.getTotalFee() - last.getTotalFee()}원
+	                                          </c:when>
+	                                          <c:when
+	                                             test="${last.getTotalFee() eq beforeLast.getTotalFee()}">
+	                                             <img src="/resources/img/equal.png" alt="down"
+	                                                style="width: 20px; height: 20px; padding-bottom: 3px;">
+	                                             관리비 부과액이 같습니다(증감액 0원)
+	                                          </c:when>
+	                                       </c:choose>
+	                                    
+	                                 </p>
+                                 	</c:otherwise>
+                                 </c:choose>
+                       		</div>
+							<div class="cardContent3" style="float: left;height: 100px;margin-left: 50px;">
                                  <p class="card-text">
-                                    <small class="text-muted">
-                                       전월대비 
-                                       <c:choose>
-                                          <c:when
-                                             test="${last.getTotalFee() gt beforeLast.getTotalFee()}">
-                                             <img src="/resources/img/up.png" alt="up"
-                                                style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                             ${last.getTotalFee() - beforeLast.getTotalFee()}원 증가
-                                          </c:when>
-                                          <c:when
-                                             test="${last.getTotalFee() lt beforeLast.getTotalFee()}">
-                                             <img src="/resources/img/down.png" alt="down"
-                                                style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                             ${beforeLast.getTotalFee() - last.getTotalFee()}원 감소
-                                          </c:when>
-                                          <c:when
-                                             test="${last.getTotalFee() eq beforeLast.getTotalFee()}">
-                                             <img src="/resources/img/equal.png" alt="down"
-                                                style="width: 20px; height: 20px; padding-bottom: 3px;">
-                                             관리비 부과액이 같습니다(증감액 0원)
-                                          </c:when>
-                                       </c:choose>
-                                    </small>
-                                 </p>
-                                 <p class="card-text">
-                                          <small class="text-muted">
+                                          <small class="text-muted" style="position: relative; top: 63px;">
                                              <fmt:parseDate
                                                 var="date" value="${last.deadlineDate}"
                                                 pattern="yyyy-MM-dd HH:mm:ss" />
                                              <fmt:formatDate
-                                                value="${date }" pattern="납부기한 : yyyy년 MM월 dd일 까지 " />
+                                                value="${date }" pattern="납부기한은 yyyy년 MM월 dd일 입니다 " />
                                           </small>
                                   </p>
-                              </c:otherwise>
-                           </c:choose>
+                           </div>
                         </div>
-                     </div>
                      <!-- Card Body2 -->
                      <div class="card-body">
                         <div class="chart-area">
@@ -156,79 +187,24 @@
                   </div>
                </div>
                <!-- 관리비 상세내역 -->
-               <div class="col-xl-5 col-lg-5">
+               <div class="col-xl-4 col-lg-4">
                   <div class="card shadow mb-4">
                      <!-- Card Header - Dropdown -->
                      <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style=" height: 56.53px;">
                         <h6 class="m-0 font-weight-bold text-primary">관리비 상세내역</h6>
                      </div>
-                     <div class="accordion" id="accordionExample">
-<%--                         <div class="card">
-                           <div class="card-header" id="headingOne">
-                              <h2 class="mb-0">
-                                 <button class="btn btn-link" type="button"
-                                    data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                 청구내역요약</button>
-                              </h2>
-                           </div>
-                           <div id="collapseOne" class="collapse show"
-                              aria-labelledby="headingOne" data-parent="#accordionExample">
-                              <div class="card-body">
-                                 <c:choose>
-                                    <c:when test="${empty last }">
-                                       현재 부과된 관리비가 존재하지 않습니다. 
-                                    </c:when>
-                                    <c:otherwise>
-                                       <table class="table">
-                                          <tr>
-                                             <td>당월부과액</td>
-                                             <td>${ last.getTotalFee() }원</td>
-                                          </tr>
-                                          <tr>
-                                             <td>미납액</td>
-                                             <td></td>
-                                          </tr>
-                                          <tr>
-                                             <td>미납연체료</td>
-                                             <td></td>
-                                          </tr>
-                                          <tr>
-                                             <td>납기내금액</td>
-                                             <td></td>
-                                          </tr>
-                                          <tr>
-                                             <td>납기후연체료</td>
-                                             <td></td>
-                                          </tr>
-                                       </table>
-                                       <p class="card-text">
-                                          <small class="text-muted">
-                                             <fmt:parseDate
-                                                var="date" value="${last.deadlineDate}"
-                                                pattern="yyyy-MM-dd HH:mm:ss" />
-                                             <fmt:formatDate
-                                                value="${date }" pattern="납부기한 : yyyy년 MM월 dd일 까지 " />
-                                          </small>
-                                       </p>
-                                    </c:otherwise>
-                                 </c:choose>
-                              </div>
-                           </div>
-                        </div> --%>
-                        <div class="card">
-                           <div class="card-header" id="headingTwo">
+                   <!--   <div class="accordion" id="accordionExample"> -->
+<!--                            <div class="card-header" id="headingOne">
                               <h2 class="mb-0">
                                  <button class="btn btn-link collapsed" type="button"
-                                    data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
+                                    data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
                                  상세내역조회</button>
                               </h2>
-                           </div>
-                           <div id="collapseTwo" class="collapse"
-                              aria-labelledby="headingTwo" data-parent="#accordionExample">
-                              <div class="card-body">
+                           </div> -->
+                          <!--  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
+                              <div class="card-body" style="height: 515px;">
                                  <table class="table">
                                     <c:choose>
                                        <c:when test="${not empty beforeLast}">
@@ -454,18 +430,18 @@
                                     </c:choose>
                                  </table>
                               </div>
-                           </div>
-                        </div>
-                        <div class="card">
-                           <div class="card-header" id="headingThree">
+                         <!--   </div> -->
+                       <!--  </div> -->
+<%--                         <div class="card">
+                           <div class="card-header" id="headingTwo">
                               <h2 class="mb-0">
                                  <button class="btn btn-link collapsed" type="button"
-                                    data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
+                                    data-toggle="collapse" data-target="#collapseTwo"
+                                    aria-expanded="false" aria-controls="collapseTwo">
                                  월별청구내역</button>
                               </h2>
                            </div>
-                           <div id="collapseThree" class="collapse"
+                           <div id="collapseTwo" class="collapse"
                               aria-labelledby="headingThree" data-parent="#accordionExample">
                               <div class="card-body">
                                  <table class="table">
@@ -832,11 +808,89 @@
                                  </table>
                               </div>
                            </div>
-                        </div>
-                     </div>
-                  </div>
+                        </div> --%>
+<!--                      </div> -->
                </div>
             </div>
+            
+            	<div class="col-xl-12 col-lg-12">
+            		<div class="card shadow mb-12" >
+            			<div class="card-body" style="height: 630px;">
+            			
+                         <div class="mt-4 text-left ">
+                              <span class="mr-2"> <i class="fas fa-circle text-primary"></i> 일반관리비</span>
+                              <span class="mr-2"> <i class="fas fa-circle text-success"></i> 경비비</span> 
+                              <span class="mr-2"> <i class="fas fa-circle"  style="color: #ccce26"></i>청소비</span>
+                              <span class="mr-2"> <i class="fas fa-circle"  style="color: #d2b9e3"></i>소독비</span>
+                              <span class="mr-2"> <i class="fas fa-circle" style="color: #ff9232"></i>승강기유지비</span>
+                              <span class="mr-2"> <i class="fas fa-circle text-warning"></i>전기세</span>
+                              <span class="mr-2"> <i class="fas fa-circle text-info"></i>수도세</span>
+                           </div>
+            				
+            				
+		                    <div class="chart-pie pt-4 pb-2 pieCharts" >
+		                    	<span class="pieDate">
+		                    	<fmt:parseDate  var="date" value="${sixthLast.levyDate }" pattern="yyyy-MM-dd HH:mm:ss" />
+                                <fmt:formatDate value="${date }" pattern="yyyy년 MM월 "/>
+                                </span>
+		                       <canvas id="sixthLastPieChart"></canvas>
+		                       <span class="pieFee">${sixthLast.getTotalFee()}원</span>
+		                    </div>  
+		                    
+							<div class="chart-pie pt-4 pb-2 pieCharts" >
+		                    	<span class="pieDate">
+		                    	<fmt:parseDate  var="date" value="${fifthLast.levyDate }" pattern="yyyy-MM-dd HH:mm:ss" />
+                                <fmt:formatDate value="${date }" pattern="yyyy년 MM월 "/>
+                                </span>							
+		                        <canvas id="fifthLastPieChart"></canvas>
+		                        <span class="pieFee">${fifthLast.getTotalFee()}원</span>
+		                    </div>
+		                    
+		                    <div class="chart-pie pt-4 pb-2 pieCharts" >
+		                    	<span class="pieDate">
+		                    	<fmt:parseDate  var="date" value="${fourthLast.levyDate }" pattern="yyyy-MM-dd HH:mm:ss" />
+                                <fmt:formatDate value="${date }" pattern="yyyy년 MM월 "/>
+                                </span>		                    
+		                       <canvas id="fourthLastPieChart"></canvas>
+		                       <span class="pieFee">${fourthLast.getTotalFee()}원</span>
+		                    </div> 		                    
+
+ 							<div class="chart-pie pt-4 pb-2 pieCharts" >
+		                    	<span class="pieDate">
+		                    	<fmt:parseDate  var="date" value="${thirdLast.levyDate }" pattern="yyyy-MM-dd HH:mm:ss" />
+                                <fmt:formatDate value="${date }" pattern="yyyy년 MM월 "/>
+                                </span>							
+		                        <canvas id="thirdLastPieChart"></canvas>
+		                        <span class="pieFee">${thirdLast.getTotalFee()}원</span>
+		                    </div>
+		                                     
+		                    <div class="chart-pie pt-4 pb-2 pieCharts" >
+		                    	<span class="pieDate">
+		                    	<fmt:parseDate  var="date" value="${beforeLast.levyDate }" pattern="yyyy-MM-dd HH:mm:ss" />
+                                <fmt:formatDate value="${date }" pattern="yyyy년 MM월 "/>
+                                </span>		                    
+		                       <canvas id="beforeLastPieChart"></canvas>
+		                       <span class="pieFee">${beforeLast.getTotalFee()}원</span>
+		                    </div> 
+            			
+            				<div class="chart-pie pt-4 pb-2 pieCharts" >
+		                    	<span class="pieDate">
+		                    	<fmt:parseDate  var="date" value="${last.levyDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                <fmt:formatDate value="${date }" pattern="yyyy년 MM월 "/>
+                                </span>            				
+		                        <canvas id="lastPieChart"></canvas>
+		                        <span class="pieFee">${last.getTotalFee()}원</span> 
+		                    </div>		                                     
+            				
+            				
+            			
+
+            				
+            				
+            			</div>
+            		</div>
+            	</div>
+            
       <!-- End of Main Content -->
       <!-- Footer -->
       <!-- End of Footer -->

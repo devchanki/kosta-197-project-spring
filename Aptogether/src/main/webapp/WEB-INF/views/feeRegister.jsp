@@ -109,6 +109,29 @@
 
 				</div>
 				<!-- /.container-fluid -->
+				
+				<!-- 업데이트 확인모달 -->
+				<div class="modal fade" id="UpdateCheck" tabindex="-1" role="dialog" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">관리비 부과 업데이트</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body" id="feeUpdateContent">
+				        
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-primary" id="save">확인</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- 업데이트 확인모달 끝-->
+				
 					<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -198,10 +221,10 @@
  																			   	+'<td>'+ '<input type="text" class="form-control fee'+data[i].householdSeq+'" value="'+Commas(data[i].feeList[0].electricityBill)+'"readonly>'+ '</td>'
  																			   	+'<td>'+ '<input type="text" class="form-control fee'+data[i].householdSeq+'" value="'+Commas(data[i].feeList[0].waterBill)+'"readonly>'+ '</td>'
  																			   	+'<td>'+ '<input type="text" class="form-control fee'+data[i].householdSeq+'" value="'+Commas(data[i].feeList[0].electricityBill)+'"readonly>'+ '</td>'
-																			   	+'<td id="modFeeTd'+data[i].householdSeq+'">'+ '<button id="modFee'+data[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm modFeeBtn">'
+																			   	+'<td id="modFeeTd'+data[i].householdSeq+'">'+ '<button name="living'+data[i].feeList[0].ho+'" id="modFee'+data[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm modFeeBtn">'
 																			   	+'관리비조정'+ '</button>'
 																			   	+ '</td>' 
-																			   	+'<td  id="modFeeSaveTd'+data[i].householdSeq+'" hidden>'+ '<button id="modFeeSave'+data[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm modFeeBtnSave">'
+																			   	+'<td  id="modFeeSaveTd'+data[i].householdSeq+'" hidden>'+ '<button  id="modFeeSave'+data[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm modFeeBtnSave" data-toggle="modal" data-target="#UpdateCheck">'
 																			   	+'저장'+ '</button>'
 																			   	+ '</td>' 
 																			  +'</tr>');
@@ -219,6 +242,7 @@
 						 		 
 						 		
 									$(".modFeeBtn").on("click", function() {
+										var ho = $(this).attr("name").replace(/[^0-9]/g,'');
 										var householdSeq = $(this).attr("id").replace(/[^0-9]/g,'');
 										$(".fee"+householdSeq).attr("readonly", false);
 										$("#modFeeTd"+householdSeq).attr("hidden", true);
@@ -226,27 +250,33 @@
 										
 										
 									$("#modFeeSave"+householdSeq).on("click", function() {
-										$(".fee"+householdSeq).attr("readonly", true);
-										$("#modFeeTd"+householdSeq).attr("hidden", false);
-										$("#modFeeSaveTd"+householdSeq).attr("hidden", true);	
+										$("#feeUpdateContent").html($("#selectDong option:selected").val() +"동 " + ho + "호의 관리비 내역을 수정합니다.");
+										$("#save").on("click", function () {
+											
+											$(".fee"+householdSeq).attr("readonly", true);
+											$("#modFeeTd"+householdSeq).attr("hidden", false);
+											$("#modFeeSaveTd"+householdSeq).attr("hidden", true);	
+											
 										
-									
-										
-										var feeItem = $(".fee"+householdSeq);
- 										var fee = {
-												generalBill : feeItem.eq(0).val(),
-												securityBill : feeItem.eq(1).val(),
-												cleaningBill : feeItem.eq(2).val(),
-												fumigationBill : feeItem.eq(3).val(),
-												elevatorBill : feeItem.eq(4).val(),
-												electricityBill : feeItem.eq(5).val(),
-												waterBill : feeItem.eq(6).val(),
-												householdSeq : householdSeq,
-												levySeq : data[0].feeList[0].levySeq
-										};
-										
-											feeService.updateFee(fee, function() {
-											}); 
+											
+											var feeItem = $(".fee"+householdSeq);
+	 										var fee = {
+													generalBill : feeItem.eq(0).val(),
+													securityBill : feeItem.eq(1).val(),
+													cleaningBill : feeItem.eq(2).val(),
+													fumigationBill : feeItem.eq(3).val(),
+													elevatorBill : feeItem.eq(4).val(),
+													electricityBill : feeItem.eq(5).val(),
+													waterBill : feeItem.eq(6).val(),
+													householdSeq : householdSeq,
+													levySeq : data[0].feeList[0].levySeq
+											};
+											
+												feeService.updateFee(fee, function() {
+												}); 
+												$("#UpdateCheck").modal("hide");
+												$("#feeUpdateContent").html('');
+										});
 										
 										});
 										
@@ -289,10 +319,10 @@
 																   	+'<td>'+ '<input type="text" class="form-control fee'+list[i].householdSeq+'" value="'+Commas(list[i].feeList[0].electricityBill)+'"readonly>'+ '</td>'
 																   	+'<td>'+ '<input type="text" class="form-control fee'+list[i].householdSeq+'" value="'+Commas(list[i].feeList[0].waterBill)+'"readonly>'+ '</td>'
 																   	+'<td>'+ '<input type="text" class="form-control fee'+list[i].householdSeq+'" value="'+Commas(list[i].feeList[0].electricityBill)+'"readonly>'+ '</td>'
-																   	+'<td id="modFeeTd'+list[i].householdSeq+'">'+ '<button id="modFee'+list[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm modFeeBtn">'
+																   	+'<td id="modFeeTd'+list[i].householdSeq+'">'+ '<button name="living'+list[i].feeList[0].ho+'" id="modFee'+list[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm modFeeBtn">'
 																   	+'관리비조정'+ '</button>'
 																   	+ '</td>' 
-																   	+'<td  id="modFeeSaveTd'+list[i].householdSeq+'" hidden>'+ '<button id="modFeeSave'+list[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm modFeeBtnSave">'
+																   	+'<td  id="modFeeSaveTd'+list[i].householdSeq+'" hidden>'+ '<button id="modFeeSave'+list[i].householdSeq+'" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm modFeeBtnSave" data-toggle="modal" data-target="#UpdateCheck">'
 																   	+'저장'+ '</button>'
 																   	+ '</td>' 
 																 +'</tr>');
@@ -308,6 +338,7 @@
 			 		
 			 		
 					$(".modFeeBtn").on("click", function() {
+						var ho = $(this).attr("name").replace(/[^0-9]/g,'');
 						var householdSeq = $(this).attr("id").replace(/[^0-9]/g,'');
 						$(".fee"+householdSeq).attr("readonly", false);
 						$("#modFeeTd"+householdSeq).attr("hidden", true);
@@ -315,25 +346,33 @@
 						
 						
 					$("#modFeeSave"+householdSeq).on("click", function() {
+						$("#feeUpdateContent").html($("#selectDong option:selected").val() +"동 " + ho + "호의 관리비 내역을 수정합니다.");
+						$("#save").on("click", function () {
+							
 						$(".fee"+householdSeq).attr("readonly", true);
 						$("#modFeeTd"+householdSeq).attr("hidden", false);
 						$("#modFeeSaveTd"+householdSeq).attr("hidden", true);	
+							
 						
-						var feeItem = $(".fee"+householdSeq);
-							var fee = {
-								generalBill : feeItem.eq(0).val(),
-								securityBill : feeItem.eq(1).val(),
-								cleaningBill : feeItem.eq(2).val(),
-								fumigationBill : feeItem.eq(3).val(),
-								elevatorBill : feeItem.eq(4).val(),
-								electricityBill : feeItem.eq(5).val(),
-								waterBill : feeItem.eq(6).val(),
-								householdSeq : householdSeq,
-								levySeq : list[0].feeList[0].levySeq
-						};
-						
-							feeService.updateFee(fee, function() {
-							}); 
+							
+							var feeItem = $(".fee"+householdSeq);
+								var fee = {
+									generalBill : feeItem.eq(0).val(),
+									securityBill : feeItem.eq(1).val(),
+									cleaningBill : feeItem.eq(2).val(),
+									fumigationBill : feeItem.eq(3).val(),
+									elevatorBill : feeItem.eq(4).val(),
+									electricityBill : feeItem.eq(5).val(),
+									waterBill : feeItem.eq(6).val(),
+									householdSeq : householdSeq,
+									levySeq : list[0].feeList[0].levySeq
+							};
+							
+								feeService.updateFee(fee, function() {
+								}); 
+								$("#UpdateCheck").modal("hide");
+								$("#feeUpdateContent").html('');
+						});
 						
 						});
 						
