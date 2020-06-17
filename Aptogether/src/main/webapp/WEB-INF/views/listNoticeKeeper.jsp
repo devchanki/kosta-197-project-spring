@@ -94,7 +94,8 @@ ul, li {
 }
 
 #regBtn{
-margin-left: 96%;
+	float: right;
+	margin: 10px 0 10px 0;
 }
 li.paginate_button.active > a {
 	background-color: #6e707e26;
@@ -137,7 +138,7 @@ li.paginate_button.active > a {
 						총 <strong>${pageMaker.total }개</strong>의 게시물이 있습니다.
 					</div>
 
-					<button type="button" class="btn btn-outline-secondary btn-sm" id="regBtn">notice</button>
+					<button type="button" class="btn btn-outline-secondary btn-sm" id="regBtn">글 쓰기</button>
 						
 						
 					<div class="panel-body" id="notice-body">
@@ -190,7 +191,7 @@ li.paginate_button.active > a {
 						</div>
 						<!--  end Pagination -->
 
-						<form id='actionForm' action="/keeper/listNotice" method='get'>
+						<form id='actionForm' action="/keeper/listNoticeKeeper" method='get'>
 							<input type='hidden' name='pageNum'
 								value='${pageMaker.cri.pageNum}'> <input type='hidden'
 								name='amount' value='${pageMaker.cri.amount}'>

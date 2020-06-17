@@ -21,7 +21,7 @@
 
 	<!-- Nav Item - Dashboard -->
 	<li class="nav-item active"><a class="nav-link"
-		href="/Aptogether/member/signinAdmin.do"> <i
+		href="/keeper/dashboard"> <i
 			class="fas fa-fw fa-tachometer-alt"></i> <span>메인화면</span>
 	</a></li>
 
@@ -46,7 +46,7 @@
 			class="fas fa-fw fa-chart-area"></i> <span>민원 관리하기</span>
 	</a></li>
 		<li class="nav-item"><a class="nav-link"
-		href="/keeper/listNotice"> <i
+		href="/keeper/listNoticeKeeper"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>아파트 공지사항</span>
 	</a></li>
 	<!-- Nav Item - Pages Collapse Menu -->

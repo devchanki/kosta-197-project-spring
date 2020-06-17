@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Aptogether - Login</title>
+  <title>Aptogether - 입주민 로그인</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -50,7 +50,7 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <input type="submit" value="로그인" class="btn btn-primary btn-user btn-block" />
                     <hr>
-                    <a href="/Aptogether/" class="btn btn-facebook btn-user btn-block">
+                    <a href="/" class="btn btn-facebook btn-user btn-block">
                       메인으로 가기
                     </a>
                   </form>
@@ -59,7 +59,7 @@
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div> -->
                   <div class="text-center">
-                    <a class="small" href="/signup">회원가입</a>
+                    <a class="small" href="/tenant/signup">회원가입</a>
                   </div>
                 </div>
               </div>

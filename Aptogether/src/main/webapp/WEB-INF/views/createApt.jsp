@@ -18,7 +18,7 @@
 </head>
 <main>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="/Aptogether/">Aptogether</a>
+	<a class="navbar-brand" href="/">Aptogether</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -67,7 +67,6 @@
 					<i class="fas fa-chart-bar mr-1"></i>법정동 코드를 기준으로 검색한 아파트 목록
 				</div>
 				<div class="apt-list"></div>
-
 			</div>
 		</div>
 

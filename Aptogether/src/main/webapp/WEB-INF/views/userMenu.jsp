@@ -51,6 +51,9 @@
 	<li class="nav-item"><a class="nav-link"
 		href="/tenant/pollShow"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>투표하기</span></a></li>
+	<li class="nav-item"><a class="nav-link"
+		href="/tenant/listNotice"> <i
+			class="fas fa-fw fa-chart-area"></i> <span>공지사항 보기</span></a></li>
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<!-- 	<li class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseUtilities"
