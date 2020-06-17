@@ -78,7 +78,7 @@ margin-left: 78%;
 					<div class="panel-body" id="notice-body">
 
 						<!-- form 시작 -->
-						<form role="form" action="/keeper/modifyNotice" method="post">
+						<form role="form" action="/keeper/modifyNoticeKeeper" method="post">
 
 							<input type='hidden' name='pageNum'
 								value='<c:out value="${cri.pageNum }"/>'> <input
@@ -137,16 +137,13 @@ margin-left: 78%;
 							console.log(operation);
 
 							if (operation === 'remove') {
-								formObj.attr("action", "/keeper/removeNotice");
+								formObj.attr("action", "/keeper/removeNoticeKeeper");
 							} else if (operation === 'list') {
 								//move to list
 								// 						self.location = "/keeper/listNotice";
-								formObj.attr("action", "/keeper/listNotice")
-										.attr("method", "get");
-								var pageNumTag = $("input[name='pageNum']")
-										.clone();
-								var amountTag = $("input[name='amount']")
-										.clone();
+								formObj.attr("action", "/keeper/listNoticeKeeper").attr("method", "get");
+								var pageNumTag = $("input[name='pageNum']").clone();
+								var amountTag = $("input[name='amount']").clone();
 
 								formObj.empty();
 								formObj.append(pageNumTag);

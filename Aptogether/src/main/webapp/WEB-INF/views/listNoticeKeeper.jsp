@@ -260,7 +260,7 @@ li.paginate_button.active > a {
 								}
 
 								$("#regBtn").on("click", function() {
-									self.location = "/keeper/registerNotice";
+									self.location = "/keeper/registerNoticeKeeper";
 								});
 
 								var actionForm = $("#actionForm");
@@ -290,7 +290,7 @@ li.paginate_button.active > a {
 																	+ "'> ");
 													actionForm
 															.attr("action",
-																	"/keeper/getNotice");
+																	"/keeper/getNoticeKeeper");
 													actionForm.submit();
 												});
 

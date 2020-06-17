@@ -28,7 +28,7 @@ public class NoticeKeeperController {
 
 	private NoticeService service;
 	
-	@GetMapping("/listNotice")
+	@GetMapping("/listNoticeKeeper")
 	public String list(NoticeCriteria cri,Authentication auth, Model model){
 		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
 		int keeperAptSeq = keeper.getAptSeq();
@@ -47,12 +47,12 @@ public class NoticeKeeperController {
 	
 	
 	
-	@GetMapping("/registerNotice")
+	@GetMapping("/registerNoticeKeeper")
 	public String registerNotice(){
 		return "/registerNoticeKeeper";
 	}
 	
-	@PostMapping("/registerNotice")
+	@PostMapping("/registerNoticeKeeper")
 	public String register(NoticeVO notice, Authentication auth, RedirectAttributes rttr){
 		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
 		int keeperAptSeq = keeper.getAptSeq();
@@ -66,7 +66,7 @@ public class NoticeKeeperController {
 	}
 
 	
-	@GetMapping("/getNotice")
+	@GetMapping("/getNoticeKeeper")
 	public String get(@RequestParam("noticeSeq")int noticeSeq, @ModelAttribute("cri") NoticeCriteria cri, Model model){
 		log.info("/get");
 		log.info(cri);
@@ -77,7 +77,7 @@ public class NoticeKeeperController {
 		return "/getNoticeKeeper";
 	}
 	
-	@GetMapping("/modifyNotice")
+	@GetMapping("/modifyNoticeKeeper")
 	public String modify(@RequestParam("noticeSeq")int noticeSeq, @ModelAttribute("cri") NoticeCriteria cri, Model model){
 		log.info("/get");
 		
@@ -85,7 +85,7 @@ public class NoticeKeeperController {
 		return "/modifyNoticeKeeper";
 	}
 	
-	@PostMapping("/modifyNotice")
+	@PostMapping("/modifyNoticeKeeper")
 	public String modify(NoticeVO notice, @ModelAttribute("cri") NoticeCriteria cri, RedirectAttributes rttr){
 		log.info("modify: " + notice);
 	
@@ -98,7 +98,7 @@ public class NoticeKeeperController {
 		return "redirect:/keeper/listNoticeKeeper";
 	}
 	
-	@PostMapping("/removeNotice")
+	@PostMapping("/removeNoticeKeeper")
 	public String remove(@RequestParam("noticeSeq")int noticeSeq, @ModelAttribute("cri") NoticeCriteria cri, RedirectAttributes rttr){
 		log.info("remove....." + noticeSeq);
 		
