@@ -4,6 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<sec:authentication var='principal' property='principal'/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,6 +17,26 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <script src="http://code.jquery.com/jquery.min.js"></script>
+<style type="text/css">
+#mybutton{
+float:right;
+}
+a {
+   text-decoration: none;
+   color: inherit;
+}
+.paginate_button a {
+	text-align:center;
+   display: inline-block;
+   width: 30px;
+   height: 30px;
+   margin: 0 3px;
+   vertical-align: top;
+   border: 1px solid #d1d1d1;
+   border-radius: 5px;
+   background: #fff;
+}
+</style>
 <style type="text/css">
 .market-list {
 	width: 180px;
@@ -394,24 +417,19 @@ img {
 
 				</nav>
 				<!-- End of Topbar -->
-
-
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<!-- Content Row -->
 					<div class="row"></div>
 					<div class="row"></div>
-						<h1 class="mt-4">중고거래${pageMaker.total}</h1>
-
-
-
-
+						<h1 class="mt-4">중고거래${pageMaker.total} <button id="mybutton" class="btn btn-primary" onClick="location.href='/tenant/market/insertform'">글쓰기</button></h1>
 						<!--  -->
 						<div class="card mb-4">
 							<div class="card-body">
 								<div id="columns">
 									<c:forEach var="board" items="${list}">
 										<figure>
+										<img src="<spring:url value='/resources/img/${board.fname}'/>">
 											<a href="get?seq=${board.seq}">
 												<figcaption>물품명:${board.productName}</figcaption>
 											</a>
@@ -435,7 +453,7 @@ img {
 												end="${pageMarker.endPage }">
 												<li
 													class="paginate_button  ${pageMarker.cri.pageNum == num ? "active":""} ">
-													<a href="${pageNo}">[${pageNo}]</a>
+													<a href="${pageNo}">${pageNo}</a>
 													<!-- /tenant/market/list?pageNum= -->
 											</c:forEach>
 
@@ -520,13 +538,14 @@ img {
 
 #columns {
 	column-width: 200px;
-	column-gap: 15px;
+	column-gap: 80px;
+	
 }
 
 #columns figure {
 	display: inline-block;
 	border: 1px solid rgba(0, 0, 0, 0.2);
-	margin: 0;
+	margin-right: 10px;
 	margin-bottom: 15px;
 	padding: 10px;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);;
@@ -545,7 +564,7 @@ img {
 
 #paginglist {
 	text-align: center;
-	margin: 0 auto;
+	margin: 10px auto;
 }
 </style>
 

@@ -46,21 +46,22 @@ img {
 
 <script type="text/javascript">
 $(document).ready(function(){
+	var filename='';
 	$("#uploadBtn").on("click",function(e){
 		var formData=new FormData();
-		var inputFile=$("input[name='fname']");
+		var inputFile=$("input[name='fnames']");
 		console.log(inputFile)
 		var files=inputFile[0].files;
 		console.log("1",files);
 		/* console.log(files); */
 		for(var i=0;i<files.length;i++){
 			/* console.log(files[i]); */
- 			formData.append("fname",files[i]);
- 			console.log("12",formData.get("fname"));
+ 			formData.append("fnames",files[i]);
+ 			console.log("12",formData.get("fnames"));
 		}
-		console.log("밑:"+formData.get("fname"));	
+		console.log("밑:"+formData.get("fnames"));	
 		$.ajax({
-			url:'/tenant/market/register',
+			url:'/tenant/uploadAjaxAction',
 			processData:false,
 			contentType:false,
 			enctype:'multipart/form-data',
@@ -70,6 +71,9 @@ $(document).ready(function(){
 				alert('upload');
 			}
 		});
+		filename=formData.get("fnames");
+		console.log((files[0].name))
+		$("input[name='fname']").val((files[0].name));
 		/* console.log(formData.get("fname")); */
 	});
 });
@@ -438,8 +442,9 @@ $(document).ready(function(){
 											<div class="card-body">
 												사진:
 												<p></p>
-												<input type="text" name="fname" >
+												<input type="file" name="fnames" multiple>
 													<br>
+													<input id="here" type="hidden" name="fname" >
 											</div>
 											
 											<div class="card-body">

@@ -638,8 +638,9 @@ img {
 
 								<!-- <div class="card-body"> -->
 								<%-- <a href="/Aptogether/download.jsp?filename=${product.fname}">${product.fname}</a> --%>
-								<img src="<spring:url value='/resources/img/apt.jpg'/>">
-								<c:if test="${product.fname != null }">
+							<%-- 	<img src="<spring:url value='/resources/img/apt.jpg'/>"> --%>
+								<img src="<spring:url value='/resources/img/${product.fname}'/>">
+								<%-- <c:if test="${product.fname != null }">
 									<c:set var="head"
 										value="${fn:substring(product.fname, 
 												0, fn:length(product.fname)-4) }"></c:set>
@@ -654,10 +655,10 @@ img {
 											</div>
 										</c:when>
 										<c:otherwise>
-											<%-- <c:out value="NO IMAGE"></c:out> --%>
+											<c:out value="NO IMAGE"></c:out>
 										</c:otherwise>
 									</c:choose>
-								</c:if>
+								</c:if> --%>
 
 
 								<div>${ product.contents }</div>

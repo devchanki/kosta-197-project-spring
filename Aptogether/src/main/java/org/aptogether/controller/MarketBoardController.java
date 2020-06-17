@@ -1,5 +1,8 @@
 package org.aptogether.controller;
 
+import java.io.File;
+import java.util.List;
+
 import org.aptogether.domain.Criteria;
 import org.aptogether.domain.CustomUser;
 import org.aptogether.domain.MarketBoardVO;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +35,7 @@ public class MarketBoardController {
 		return "imgtest";
 	}
 
-	/* @PostMapping("/uploadAjaxAction" )
+	@PostMapping("/uploadAjaxAction" )
 	 public void uploadAjaxPost(MultipartHttpServletRequest request) {
 		 String uploadFolder = "C:\\upload";
 		List<MultipartFile> fileList = request.getFiles("fname");
@@ -55,7 +60,7 @@ public class MarketBoardController {
 	
 	 } // end for
 	
-	 }*/
+	 }
 	
 	@RequestMapping("/market/insertform")
 	public String insert(){
