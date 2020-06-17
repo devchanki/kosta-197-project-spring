@@ -20,7 +20,7 @@
 
 	<insert id="joinTenant"
 		parameterType="org.aptogether.domain.JoinTenantVO">
-		insert into member values(member_seq.nextval, #{id}, #{password}, 0,
+		insert into member(member_seq, id, password, admit ,type, name, household_seq) values(member_seq.nextval, #{id}, #{password}, 0,
 		#{type}, #{name}, (select household_seq from household where dong = #{dong} and ho
 			= #{ho} and apt_seq = #{aptSeq}) )
 	</insert>

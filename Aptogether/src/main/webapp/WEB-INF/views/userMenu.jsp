@@ -22,7 +22,7 @@
 
 	<!-- Nav Item - Dashboard -->
 	<li class="nav-item active"><a class="nav-link"
-		href="/Aptogether/member/userLogin.do"> <i
+		href="/tenant/dashboard"> <i
 			class="fas fa-fw fa-tachometer-alt"></i> <span>메인</span></a></li>
 
 	<!-- Divider -->
@@ -49,7 +49,7 @@
 		href="/tenant/scheduleTenant"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>아파트 일정 보기</span></a></li>
 	<li class="nav-item"><a class="nav-link"
-		href="/Aptogether/poll/PollListviewAction.do"> <i
+		href="/tenant/pollShow"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>투표하기</span></a></li>
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<!-- 	<li class="nav-item"><a class="nav-link collapsed" href="#"

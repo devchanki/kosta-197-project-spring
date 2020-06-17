@@ -29,7 +29,21 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+
+
+
+		<multipart-config>
+			<location>C:\\</location>
+			<max-file-size>20971520</max-file-size>
+			<max-request-size>41943040</max-request-size>
+			<file-size-threshold>20971520</file-size-threshold>
+		</multipart-config>
 	</servlet>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/404.jsp</location>
+	</error-page>
 
 	<filter>
 		<filter-name>encoding</filter-name>
@@ -47,20 +61,17 @@
 		</filter-class>
 	</filter>
 
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/views/404.jsp</location>
-	</error-page>
-	
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+
  	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> 
+
 	
 
 	<servlet-mapping>
