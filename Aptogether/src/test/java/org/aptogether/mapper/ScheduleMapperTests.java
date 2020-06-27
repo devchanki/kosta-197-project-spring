@@ -30,24 +30,25 @@ public class ScheduleMapperTests {
 		mapper.listSchedule(targetSeq, "1").forEach(schedule -> log.info(schedule));
 	}
 	
-//	@Test
-//	public void testInsertSchedule(){
-//	
-//		IntStream.range(1,5).forEach(i->{
-//			ScheduleVO vo = new ScheduleVO();
-//
-//			vo.setContents("test"+i);
-//			vo.setStartDate("2020/02/01 12:12");
-//			vo.setEndDate("2020/03/03 12:16");
-//			vo.setAptSeq(1);
-//			vo.setTitle("test title" + i);
-//			vo.setBackgroundColor("#wqe21");
-//			vo.setDong("201");
-//			
-//			mapper.insertSchedule(vo);
-//		});
-//			
-//	}
+	@Test
+	public void testInsertSchedule(){
+	
+		IntStream.range(1,5).forEach(i->{
+			ScheduleVO vo = new ScheduleVO();
+
+			vo.setContents("test"+i);
+			vo.setStartDate("2020/02/01 12:12");
+			vo.setEndDate("2020/03/03 12:16");
+			vo.setAptSeq(1);
+			vo.setTitle("test title" + i);
+			vo.setBackgroundColor("#wqe21");
+			vo.setDong("201");
+			vo.setAuthority("1");
+			vo.setStates("공지");
+			mapper.insertSchedule(vo);
+		});
+			
+	}
 //
 //	@Test
 //	public void testDelete(){

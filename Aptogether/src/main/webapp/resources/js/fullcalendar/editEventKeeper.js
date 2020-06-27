@@ -1,5 +1,5 @@
-/* ****************
- *  일정 편집
+/* ***************
+ *  일정 편집            *
  * ************** */
 
 var editEvent = function(event, element, view) {
@@ -20,8 +20,7 @@ var editEvent = function(event, element, view) {
 	}
 
 	if (event.allDay === true && event.end !== event.start) {
-		editEnd.val(moment(event.end).subtract(1, 'days').format(
-				'YYYY-MM-DD HH:mm'))
+		editEnd.val(moment(event.end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'))
 	} else {
 		editEnd.val(event.end.format('YYYY-MM-DD HH:mm'));
 	}
@@ -108,6 +107,7 @@ var editEvent = function(event, element, view) {
 										contentType : "application/json; charset=utf-8",
 										data : JSON.stringify(updateData),
 										success : function(response) {
+											console.log(response);
 											alert('수정되었습니다.');
 											location.reload();
 										}

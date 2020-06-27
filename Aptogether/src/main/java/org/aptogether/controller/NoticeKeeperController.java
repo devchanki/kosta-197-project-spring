@@ -28,6 +28,7 @@ public class NoticeKeeperController {
 
 	private NoticeService service;
 	
+	//Keeper의 공지 목록을 불러오는 Controller
 	@GetMapping("/listNoticeKeeper")
 	public String list(NoticeCriteria cri,Authentication auth, Model model){
 		CustomKeeper keeper = (CustomKeeper) auth.getPrincipal();
@@ -36,7 +37,7 @@ public class NoticeKeeperController {
 		log.info(keeperAptSeq);
 
 	model.addAttribute("list", service.getList(cri, keeperAptSeq));	
-//	model.addAttribute("pageMaker", new NoticePageDTO(cri, 60));
+	//model.addAttribute("pageMaker", new NoticePageDTO(cri, 60));
 	int total = service.getTotal(cri,keeperAptSeq);
 	log.info("total: " + total);
 	log.info(model);

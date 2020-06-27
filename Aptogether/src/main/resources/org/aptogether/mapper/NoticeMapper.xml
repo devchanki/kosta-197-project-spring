@@ -6,7 +6,7 @@
 
 	<select id="getList" resultType="org.aptogether.domain.NoticeVO">
 	<![CDATA[
-		select * from notice where notice_seq > 0
+		select * from notice where notice_seq > 0 
 	]]>
 	</select>
 
@@ -32,8 +32,8 @@
 			resultType="int">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(notice_seq, title, content, category, hits, apt_seq)
-		values(#{noticeSeq}, #{title}, #{content}, #{category}, 0, #{aptSeq})
+		insert into notice(notice_seq, title, content, category, hits, apt_seq, regdate)
+		values(#{noticeSeq}, #{title}, #{content}, #{category}, 0, #{aptSeq}, SYSDATE)
 	</insert>
 
 	<select id="readNotice" resultType="org.aptogether.domain.NoticeVO">

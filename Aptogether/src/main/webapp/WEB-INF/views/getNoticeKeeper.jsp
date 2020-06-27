@@ -143,7 +143,7 @@ margin-left: 89%;
 		<!-- End of Main Content -->
 
 
-		<form id='operForm' action="/keeper/modifyNotice" method="get">
+		<form id='operForm' action="/keeper/modifyNoticeKeeper" method="get">
 			<input type='hidden' id='noticeSeq' name='noticeSeq'
 				value='<c:out value="${notice.noticeSeq}"/>'> <input
 				type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
@@ -184,14 +184,14 @@ margin-left: 89%;
 
 		$("button[data-oper='modify']").on("click", function(e) {
 
-			operForm.attr("action", "/keeper/modifyNotice").submit();
+			operForm.attr("action", "/keeper/modifyNoticeKeeper").submit();
 
 		});
 
 		$("button[data-oper='list']").on("click", function(e) {
 
 			operForm.find("#noticeSeq").remove();
-			operForm.attr("action", "/keeper/listNotice")
+			operForm.attr("action", "/keeper/listNoticeKeeper")
 			operForm.submit();
 
 		});

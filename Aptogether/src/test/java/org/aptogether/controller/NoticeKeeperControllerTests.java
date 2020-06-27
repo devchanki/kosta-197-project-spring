@@ -33,29 +33,31 @@ public class NoticeKeeperControllerTests {
 	}
 	
 	
-//	@Test
-//	public void testList()throws Exception {
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/keeper/list"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());		
-//	}
+	@Test
+	public void testList()throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/keeper/listNoticeKeeper"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());		
+	}
 
 	
-//	@Test
-//	public void testRegister()throws Exception{
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/register")
-//				.param("title", "테스트 새로운 글 제목")
-//				.param("content","새로운 내용임당")
-//				.param("category", "일반")
-//				).andReturn().getModelAndView().getViewName();
-//		log.info(resultPage);
-//	}
+	@Test
+	public void testRegister()throws Exception{
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/registerNoticeKeeper")
+				.param("title", "테스트 새로운 글 제목")
+				.param("content","새로운 내용입니다")
+				.param("category", "일반")
+				.param("aptSeq", "2")
+				.param("hits", "0")
+				).andReturn().getModelAndView().getViewName();
+		log.info(resultPage);
+	}
 	
 //	@Test
 //	public void testGet() throws Exception{
 //		log.info(mockMvc.perform(MockMvcRequestBuilders
-//				.get("/keeper/get")
+//				.get("/keeper/getNoticeKeeper")
 //				.param("noticeSeq", "7"))
 //				.andReturn()
 //				.getModelAndView().getModelMap());
@@ -63,7 +65,7 @@ public class NoticeKeeperControllerTests {
 	
 //	@Test
 //	public void testModify()throws Exception{
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/modify")
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/modifyNoticeKeeper")
 //				.param("noticeSeq", "7")
 //				.param("title", "수정의 수정을 거듭한다")
 //				.param("content", "수정된 내용")
@@ -75,20 +77,20 @@ public class NoticeKeeperControllerTests {
 	
 //	@Test
 //	public void testRemove()throws Exception{
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/removeNotice")
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/keeper/removeNoticeKeeper")
 //				.param("noticeSeq", "10"))
 //				.andReturn().getModelAndView().getViewName();
 //				log.info(resultPage);
 //	}
 
-
-	@Test
-	public void testListPaging()throws Exception{
-		log.info(mockMvc.perform(
-				MockMvcRequestBuilders.get("/keeper/listNotice")
-				.param("pageNum","2")
-				.param("amount", "30")
-				)
-				.andReturn().getModelAndView().getModelMap());
-	}
+//
+//	@Test
+//	public void testListPaging()throws Exception{
+//		log.info(mockMvc.perform(
+//				MockMvcRequestBuilders.get("/keeper/listNotice")
+//				.param("pageNum","2")
+//				.param("amount", "30")
+//				)
+//				.andReturn().getModelAndView().getModelMap());
+//	}
 }

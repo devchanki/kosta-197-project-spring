@@ -75,12 +75,6 @@ margin-left: 83%;
 		<jsp:include page="managerMenu.jsp"></jsp:include>
 		<!-- End of Topbar -->
 
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">게시물 등록</h1>
-			</div>
-		</div>
-
 		<!-- Begin Page Content -->
 		<div class="row">
 			<!-- start row -->

@@ -11,9 +11,7 @@ var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 var editAptSeq = $('#edit-Apt-Seq');
-
 var editType = $('#edit-type');
-
 var editAuth = $('#edit-auth');
 var realAuth = $('#edit-Autho');
 
@@ -48,12 +46,11 @@ var newEvent = function (start, end, eventType) {
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-    	console.log(editDong.val());
-    	console.log(editAptSeq.val());
-    	console.log(realAuth.val());
-    	console.log(editType.val());
+//    	console.log(editDong.val());
+//    	console.log(editAptSeq.val());
+//    	console.log(realAuth.val());
+//    	console.log(editType.val());
 
-    	
         var eventData = {
                 title : editTitle.val(),
             	contents : editDesc.val(),
@@ -64,10 +61,7 @@ var newEvent = function (start, end, eventType) {
             	states: editType.val(),
                 backgroundColor: editColor.val(),
         };
-        
-        
-        //console.log(eventData);
-        
+                
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
@@ -82,9 +76,7 @@ var newEvent = function (start, end, eventType) {
 
         if (editAllDay.is(':checked')) {
             eventData.start = moment(eventData.start).format('YYYY-MM-DD HH:mm');
-            //render시 날짜표기수정
             eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD HH:mm');
-            //DB에 넣을때(선택)
             realEndDay = moment(eventData.end).format('YYYY-MM-DD HH:mm');
 
             eventData.allDay = true;

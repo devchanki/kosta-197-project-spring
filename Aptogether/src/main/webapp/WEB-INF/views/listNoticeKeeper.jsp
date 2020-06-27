@@ -190,7 +190,7 @@ li.paginate_button.active > a {
 						</div>
 						<!--  end Pagination -->
 
-						<form id='actionForm' action="/keeper/listNotice" method='get'>
+						<form id='actionForm' action="/keeper/listNoticeKeeper" method='get'>
 							<input type='hidden' name='pageNum'
 								value='${pageMaker.cri.pageNum}'> <input type='hidden'
 								name='amount' value='${pageMaker.cri.amount}'>

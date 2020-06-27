@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="principal" property="principal" />
 
 <!DOCTYPE html>
@@ -449,15 +450,6 @@
 								</ul>
 							</div>
 
-<!-- 							<div id="wrapper"> -->
-<!-- 								<div id="toggle_dong"> -->
-<!-- 									<input type="checkbox" class="filter" id="dong_toggle"  -->
-<!-- 										data-toggle="toggle" data-on="우리 동" data-off="전체 일정" -->
-<!-- 										data-height="30" data-onstyle="dark"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-
-
 							<div id="wrapper">
 								<div id="loading"></div>
 								<div id="calendar"></div>
@@ -476,8 +468,11 @@
 												<span aria-hidden="true">x</span>
 											</button>
 										</div>
-
+										
+							<div class="alert alert-danger" role="alert" >구분 선택은 필수입니다.</div>
+							
 										<div class="modal-body">
+		
 
 											<div class="container-fluid">
 												<div class="col-12">
@@ -487,7 +482,8 @@
 
 											<div class="container-fluid">
 												<div class="col-12">
-													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden" value="${principal.aptSeq}">
+													<input class="SeqNewEvent" id="edit-Apt-Seq" type="hidden"
+														value="${principal.aptSeq}">
 												</div>
 											</div>
 
@@ -496,8 +492,6 @@
 													<input class="AuthNewEvent" id="edit-auth" type="hidden">
 												</div>
 											</div>
-
-
 
 											<div class="container-fluid">
 												<div class="col-12">
@@ -531,10 +525,10 @@
 												</div>
 											</div>
 
-											<div class="container-fluid">
+											<div class="container-fluid">											
 												<div class="col-12">
-													<label class="col-4" for="edit-type">구분</label> 
-													<select class="inputModal" type="text" name="edit-type" id="edit-type">
+													<label class="col-4" for="edit-type">구분</label> <select class="inputModal" type="text" name="edit-type"
+														id="edit-type">
 														<option value="등록">등록</option>
 														<option value="수정">수정</option>
 													</select>
@@ -560,6 +554,8 @@
 												</div>
 											</div>
 										</div>
+										
+											
 										<div class="modal-footer modalBtnContainer-addEvent">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">취소</button>
@@ -612,7 +608,7 @@
 										<td><c:out value="${schedule.endDate }" /></td>
 										<td><c:out value="${schedule.states }" /></td>
 										<td>
-										
+
 											<button type="button" class="scheduleAccept"
 												value="${schedule.scheduleSeq }"></button>
 											<button type="button" class="scheduleReject"
@@ -723,9 +719,12 @@
 
 	<!-- 캘린더 크기 조정 -->
 	<script>
-		$(document).ready(function() {
+		$(document).ready(
+				function() {
 					$(window).resize(
-							function() {$('#calendar').fullCalendar('option', 'height', get_calendar_height());
+							function() {
+								$('#calendar').fullCalendar('option', 'height',
+										get_calendar_height());
 							});
 
 					//set fullcalendar height property
@@ -766,7 +765,7 @@
 				});
 
 			});
-			
+
 			//.. 요청 삭제
 			$('.scheduleReject').on('click', function() {
 				$.ajax({
@@ -781,22 +780,21 @@
 				});
 
 			});
-			
- 			//.. 새로고침
+
+			//.. 새로고침
 			$('.scheduleRefresh').on('click', function() {
 				$.ajax({
 					type : "get",
-				      url: "/keeper/admitShowSchedule/"+'${principal.aptSeq}',
-				      dataType: "json",
-				      success: function (response) {
-				    	  console.log("start.....");
-				    	  console.log(response);
-				      }
-				    });
-				}); //ajax 끝
-			
-			});
-		
+					url : "/keeper/admitShowSchedule/" + '${principal.aptSeq}',
+					dataType : "json",
+					success : function(response) {
+						console.log("start.....");
+						console.log(response);
+					}
+				});
+			}); //ajax 끝
+
+		});
 	</script>
 
 	<link

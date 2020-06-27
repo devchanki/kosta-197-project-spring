@@ -443,6 +443,7 @@
 												<span aria-hidden="true">x</span>
 											</button>
 										</div>
+							<div class="alert alert-danger" role="alert"  style="margin: 0;"><h6>요청에 알맞은 구분을 선택하세요.</h6></div>
 
 										<div class="modal-body">
 
