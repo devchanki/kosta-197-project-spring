@@ -44,7 +44,7 @@
 			<!-- Page Heading -->
 			<div
 				class="d-sm-flex align-items-center justify-content-between mb-4">
-				<h1 class="h3 mb-0 text-gray-800">투표상세</h1>
+				<h1 class="h3 mb-0 text-gray-800">투표참여목록</h1>
 			</div>
 			<!-- Content Row -->
 			<div class="flex-column">
@@ -53,7 +53,7 @@
 					<thead>
 						<tr class="table-primary">
 							<th scope="col">동</th>
-							<th scope="col">호수</th>
+							<th scope="col">호</th>
 							<th scope="col">이름</th>
 							<th scope="col">선택</th>
 							<th scope="col">서명</th>
@@ -65,7 +65,7 @@
 								<td>${dt.dong}</td>
 								<td>${dt.ho}</td>
 								<td>${dt.name}</td>
-								<td>${dt.optionSeq}</td>
+								<td>${dt.optionText}</td>
 								<td><img
 									src="/keeper/pollSignThumnail?fileName=${dt.fileName}"
 									onclick="imgName('${dt.fileName}')"

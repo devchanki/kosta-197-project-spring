@@ -26,8 +26,13 @@
 }
 
 .custom-bg{
-	background-color: #45464e;
+	background-color: #4C74B9;
 }
+.custom-header-bg{
+	background-color: #7492C8;
+}
+
+
 
 .alert{
 	display: none;
@@ -39,5 +44,22 @@
 
 .pollList{
 	margin-top: 1em;
+}
+
+.header-group{
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.list-btn{
+	float: left;
+}
+
+.list-footer{
+	text-align: right;
+}
+
+.text-end{
+	text-align: end;
 }
 

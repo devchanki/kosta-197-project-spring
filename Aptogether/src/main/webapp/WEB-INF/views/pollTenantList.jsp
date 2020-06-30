@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fmt2" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -45,16 +46,13 @@
 			<div
 				class="d-sm-flex align-items-center justify-content-between mb-4">
 				<h1 class="h3 mb-0 text-gray-800">투표참여</h1>
-				<div class="toggle-group">
+				<div class="toggle-group header-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 						<label class="btn btn-secondary active" data-action="1"> <input
 							type="radio" name="options" id="option1" value="1"
-							autocomplete="off" checked> 전체
+							autocomplete="off" checked> 진행중
 						</label> <label class="btn btn-secondary" data-action="2"> <input
 							type="radio" name="options" id="option2" value="2"
-							autocomplete="off"> 진행중
-						</label> <label class="btn btn-secondary" data-action="3"> <input
-							type="radio" name="options" id="option3" value="3"
 							autocomplete="off"> 종료
 						</label>
 					</div>
@@ -69,16 +67,16 @@
 					<c:forEach var="poll" items="${list}">
 						<div class="card custom-bg mb-4 margin-auto max-width-card"
 							data-toggle="modal" data-target="#option_modal"
-							onclick="showData(${poll.pollSeq} , '${poll.question}', '${poll.contents }'  )">
-							<div class="card-body text-white">
+							onclick="showData(${poll.pollSeq} , '${poll.question}', '${poll.contents}')">
+							<div class="card-header custom-header-bg text-white">
 								<h5 class="card-title">${poll.question }</h5>
-								<p class="small text-white">${poll.contents }</p>
 							</div>
-							<div class="card-footer custom-bg small text-white">
-								<img id="poll_hitcount" src="/resources/img/eye.png"> 조회수
-								: ${poll.hitcount} <span class="margin-left-span"><fmt:parseDate
-										var="date" value="${poll.endDate}"
-										pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+							<div class="card-body bg-white">
+								<p class="small text-dark">${poll.contents }</p>
+							</div>
+							<div class="card-footer custom-bg small text-white text-end">
+								<span class="margin-left-span"><fmt:parseDate var="date"
+										value="${poll.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 										value="${date }" pattern="yyyy년 M월 dd일 마감" /> </span>
 							</div>
 						</div>
@@ -128,9 +126,9 @@
 							</div>
 							<div class="m-signature-pad--footer">
 								<button type="button"
-									class="btn btn-outline-danger button clear" data-action="clear">지우기</button>
+									class="btn btn-outline-danger button clear" data-action="clear">재서명</button>
 								<button type="button" class="btn btn-outline-info button save"
-									data-action="save" data-dismiss="modal">저장</button>
+									data-action="save" data-dismiss="modal">서명(투표완료)</button>
 							</div>
 						</div>
 					</div>

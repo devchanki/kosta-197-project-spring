@@ -7,8 +7,9 @@ public class PollSelectVO {
 	
 	private int pollSelectSeq;
 	private int memberSeq;
-	private String selectDate;
+	private String selectDate;	
 	private int optionSeq;
+	private String optionText;
 	private String fileName;
 
 }

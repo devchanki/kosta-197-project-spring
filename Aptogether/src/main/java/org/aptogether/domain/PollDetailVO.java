@@ -9,5 +9,6 @@ public class PollDetailVO {
 	private String ho;
 	private String name;
 	private int optionSeq;
+	private String optionText;
 	private String fileName;
 }

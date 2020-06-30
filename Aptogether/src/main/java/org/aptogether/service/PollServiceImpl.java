@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aptogether.domain.PollChartVO;
 import org.aptogether.domain.PollDetailVO;
+import org.aptogether.domain.PollLookupVO;
 import org.aptogether.domain.PollOptionVO;
 import org.aptogether.domain.PollSelectVO;
 import org.aptogether.domain.PollVO;
@@ -27,21 +28,21 @@ public class PollServiceImpl implements PollService {
 	}
 
 	@Override
-	public List<PollVO> PollList() {
+	public List<PollVO> PollList(int aptSeq) {
 		log.info("PollList......");
-		return mapper.PollList();
+		return mapper.PollList(aptSeq);
 	}
 
 	@Override
-	public List<PollVO> PollOnList() {
+	public List<PollVO> PollOnList(int aptSeq) {
 		log.info("PollOnList....");
-		return mapper.PollOnList();
+		return mapper.PollOnList(aptSeq);
 	}
 
 	@Override
-	public List<PollVO> PollEndList() {
+	public List<PollVO> PollEndList(int aptSeq) {
 		log.info("PollEndList....");
-		return mapper.PollEndList();
+		return mapper.PollEndList(aptSeq);
 	}
 
 	@Override
@@ -57,10 +58,16 @@ public class PollServiceImpl implements PollService {
 	}
 
 	@Override
-	public void PollSelectInsert(PollSelectVO select) {
-		log.info("PollSelectInsert......");
-		mapper.PollSelectInsert(select);
-	}
+	public void PollSelectInsert(PollSelectVO select, PollLookupVO lookup) {
+//		int result = mapper.PollSelectLookup(lookup);
+//		System.out.println("result : "+ result);
+//		if(result == 0){
+//			return -1;
+//		}else {
+//			System.out.println("select: "+select);
+			mapper.PollSelectInsert(select);
+		}
+//	}
 
 	@Override
 	public List<PollDetailVO> PollDetail(int pollSeq) {
@@ -73,5 +80,11 @@ public class PollServiceImpl implements PollService {
 		log.info("PollChart");
 		return mapper.PollChart(pollSeq);
 	}
-	
+
+	@Override
+	public int PollSelectLookup(PollLookupVO lookup) {
+		log.info("PollSelectLookup");
+		return mapper.PollSelectLookup(lookup);
+	}
+
 }

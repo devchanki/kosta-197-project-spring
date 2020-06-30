@@ -12,16 +12,11 @@
 	
 	$("[data-action]").on("click", function(){
 		 if($(this).data("action")=="1"){
-			 listUrl = "/tenant/pollAllList";
-			 template = "option_modal";
-			 fn = "showData";
-			 console.log(listUrl);
-		 }else if($(this).data("action")=="2"){
 			 listUrl = "/tenant/pollOnList";
 			 template = "option_modal";
 			 fn = "showData";
 			 console.log(listUrl);
-		 }else if($(this).data("action")=="3"){
+		 }else if($(this).data("action")=="2"){
 			 listUrl = "/tenant/pollEndList";
 			 template = "pollChart_modal";
 			 fn = "showData2";
@@ -49,15 +44,13 @@
 									 + '&quot;, &quot;'
 									 + data[i].contents
 									 + '&quot;)">'
-									 +	'<div class="card-body text-white"><h5 class="card-title">'
+									 +'<div class="card-header custom-header-bg text-white"><h5 class="card-title">'
 									 + data[i].question
-									 + '</h5><p class="small text-white">'
+									 +	'</h5></div><div class="card-body bg-white"><p class="small text-dark">'
 									 + data[i].contents
 									 +	'</p></div>'
-									 +	'<div class="card-footer custom-bg small text-white">'
-									 +	'<img id="poll_hitcount" src="/resources/img/eye.png">'
-									 +	' 조회수 :  '
-									 + data[i].hitcount
+									 +	'<div class="card-footer custom-bg small text-white text-end">'
+									 +	'<img id="poll_hitcount">'
 									 +'<span class="margin-left-span"> ' 
 									 +  time
 									 +' 마감 </span></div></div>'
@@ -103,13 +96,6 @@
 		$('#myModalContents').html(contents);
 		$('.option_modal_body').html("");
 		
-		 if($('.btn-secondary').data("action")=="1" || $('.btn-secondary').data("action")=="2"){
-			 dd = "/tenant/pollOptionList";
-			 console.log(dd);
-		 }else if($('.btn-secondary').data("action")=="3"){
-			 dd = "/tenant/pollEndList";
-			 console.log(dd);
-		 }
 		$.ajax({
 			url: "/tenant/pollOptionList",
 			type: "POST",
@@ -122,9 +108,11 @@
 				for(let i =0; i < data.length; i++){
 					console.log(data[i]);
 					$('.option_modal_body').append(
-					
-					'<div class="input-group"><div class="input-group-prepend">'
+					 '<div class="input-group"><div class="input-group-prepend">'
 					 +'<div class="input-group-text">'
+					 +'<input type="hidden" class="pollSeq" value="'
+					 + pollSeq
+					 +'">'
 					 +'<input type="radio" name="seq" value="'
 					 + data[i].optionSeq
 					 +'" aria-label="Radio button for following text input">'
@@ -195,6 +183,12 @@
 						    options: {
 						        maintainAspectRatio: true,
 						        scales: {
+						        	xAxes: [{
+						        		ticks:{
+						        			min:0,
+						        			stepSize:1
+						        		}
+						        	}],
 						            yAxes: [{
 						                ticks: {
 						                    beginAtZero:true
@@ -211,8 +205,9 @@
 	
 	function selectOption() {
 			selected = $('.input-group input:radio[name=seq]:checked').val();
+			pollSeq = $('.pollSeq').attr('value');
 			console.log(selected);
-			
+			console.log(pollSeq);
 				if(!selected){
 					$('.alert').show();
 				}else{
@@ -222,7 +217,6 @@
 					resizeCanvas();
 					$('#sign_modal').modal('show');
 				}
-	
 	}
 
 	

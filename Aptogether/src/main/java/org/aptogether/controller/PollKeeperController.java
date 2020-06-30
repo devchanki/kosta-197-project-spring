@@ -2,6 +2,7 @@ package org.aptogether.controller;
 
 import java.util.ArrayList;
 
+import org.aptogether.domain.CustomKeeper;
 import org.aptogether.domain.PollOptionVO;
 import org.aptogether.domain.PollVO;
 import org.aptogether.service.PollService;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +34,11 @@ public class PollKeeperController {
 	private PollService service;
 
 	@GetMapping("/pollList")
-	public String keeper_list(Model model) {
+	public String keeper_list(Model model, Authentication auth) {
+		CustomKeeper keeper = (CustomKeeper)auth.getPrincipal();
+		int aptseq = keeper.getAptSeq();
 		log.info("list");
-		model.addAttribute("list", service.PollList());
+		model.addAttribute("list", service.PollList(aptseq));
 		
 		return "pollList";
 	}
@@ -83,9 +87,11 @@ public class PollKeeperController {
 	}
 
 	@PostMapping("/pollInsert")
-	public String keeper_insert(PollVO poll, RedirectAttributes rttr) {
+	public String keeper_insert(PollVO poll, RedirectAttributes rttr, Authentication auth) {
+		CustomKeeper keeper = (CustomKeeper)auth.getPrincipal();
+		int aptseq = keeper.getAptSeq();
 		log.info("insert:" + poll);
-		
+		poll.setAptSeq(aptseq);
 		
 		service.PollInsert(poll);
 		ArrayList<PollOptionVO> options = new ArrayList<>();
@@ -103,17 +109,5 @@ public class PollKeeperController {
 		return "redirect:/keeper/pollList";
 
 	}
-
-	// @GetMapping("/pollSelectInsert")
-	// public String selectInsert(PollSelectVO select, RedirectAttributes rttr,
-	// @RequestParam("seq") int seq) {
-	// log.info("seq :" + seq);
-	//
-	// select.setOptionSeq(seq);
-	// log.info("select:" + select);
-	//
-	// service.PollSelectInsert(select);
-	// return "redirect:/poll/pollListview";
-	// }
 
 }

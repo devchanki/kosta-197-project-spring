@@ -17,12 +17,13 @@
                 } else {
                 	var formData = new FormData();
                 	formData.append("optionSeq",selected);
+                	formData.append("pollSeq",pollSeq);
                 	var blobBin = atob(sign.toDataURL().split(',')[1]);	// base64 데이터 디코딩
                     var array = [];
                     for (var i = 0; i < blobBin.length; i++) {
                         array.push(blobBin.charCodeAt(i));
                     }
-                    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});	// Blob 생성
+                    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});
                     formData.append("file", file);	// file data 추가
                 	
                 	console.log(sign.toDataURL());
@@ -34,11 +35,20 @@
                         enctype: 'multipart/form-data',
                         data : formData,
                         success : function(result){
-                            alert("저장완료 : " + result.filename);
                             sign.clear();
+                            console.log(result);
+                            if(result.status == "false") {
+                            	alert("이미 참여한 투표입니다.");
+                            }else {
+                            	alert("투표 완료!");
+                            }
+                            
                         },
-                        error : function(res){
-                            console.log(res);
+//                        error : function(res){
+//                            console.log(res);
+//                        }
+                        error:function(request,status,error){
+                            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                         }
                     });
                 }
@@ -62,5 +72,5 @@
         
         $('#sign_modal').on('shown.bs.modal', function (e) {
         	resizeCanvas()
-        	drawSignature()
+        	//drawSignature()
         	})

@@ -45,37 +45,41 @@
 			<div
 				class="d-sm-flex align-items-center justify-content-between mb-4">
 				<h1 class="h3 mb-0 text-gray-800">투표생성</h1>
+				<div class="header-group">
+					<div class="mb-4 margin-auto max-width-card">
+						<button type="button"
+							class="text-white margin-auto btn custom-bg btn-lg"
+							data-toggle="modal" data-target="#poll_modal">투표생성</button>
+					</div>
+				</div>
 			</div>
 
 			<!-- Content Row -->
 			<div class="flex-column">
 				<!-- 투표생성 모달 열기 -->
-				<div class="mb-4 margin-auto max-width-card">
-					<button type="button"
-						class="text-white margin-auto btn custom-bg btn-lg"
-						data-toggle="modal" data-target="#poll_modal">생성조지기</button>
-				</div>
+
 
 				<!-- pollList 출력 -->
-				<c:forEach var="poll" items="${list}">
-					<div class="card custom-bg mb-4 margin-auto max-width-card">
-
-						<div class="card-body text-white">
-							<h5 class="card-title">${poll.question }</h5>
-							<p class="small text-white">${poll.contents }</p>
+				<div class="pollList">
+					<c:forEach var="poll" items="${list}">
+						<div class="card custom-bg mb-4 margin-auto max-width-card">
+							<div class="card-header custom-header-bg text-white">
+								<h5 class="card-title">${poll.question }</h5>
+							</div>
+							<div class="card-body bg-white">
+								<p class="small text-dark">${poll.contents }</p>
+							</div>
+							<div class="card-footer small text-white custom-bg list-footer">
+								<img id="poll_hitcount"> <span class="margin-left-span"><button
+										class="custom-bg text-white btn btn-outline-light list-btn"
+										onclick="location.href='/keeper/pollDetail?seq=${poll.pollSeq }'">
+										참여목록</button> <fmt:parseDate var="date" value="${poll.endDate}"
+										pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+										value="${date }" pattern="yyyy년 M월 dd일 마감" /> </span>
+							</div>
 						</div>
-						<div class="card-footer small text-white custom-bg">
-							<img id="poll_hitcount" src="/resources/img/eye.png"> 조회수 :
-							${poll.hitcount} <span class="margin-left-span"> <fmt:parseDate
-									var="date" value="${poll.endDate}"
-									pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-									value="${date }" pattern="yyyy년 M월 dd일 마감" />
-								<button class="custom-bg text-white btn btn-outline-light"
-									onclick="location.href='/keeper/pollDetail?seq=${poll.pollSeq }'">
-									참여목록</button></span>
-						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
 
 			<!-- 투표생성 모달 -->

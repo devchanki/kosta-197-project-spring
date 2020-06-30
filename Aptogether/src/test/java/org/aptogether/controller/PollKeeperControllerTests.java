@@ -19,7 +19,8 @@ import lombok.extern.log4j.Log4j;
 @WebAppConfiguration
 @ContextConfiguration({
 	"file:src/main/webapp/WEB-INF/spring/root-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+	"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class PollKeeperControllerTests {
 	
@@ -33,16 +34,14 @@ public class PollKeeperControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
-//	@Test
-//	public void testList() throws Exception{
-//		
-//		log.info(
-//				mockMvc.perform(MockMvcRequestBuilders.get("/poll/list"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());
-//		
-//	}
+	@Test
+	public void testList() throws Exception{
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/keeper/pollList"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 	
 //	@Test
 //	public void testInsert() throws Exception{
